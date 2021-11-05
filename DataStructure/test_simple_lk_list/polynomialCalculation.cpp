@@ -41,6 +41,7 @@ int main()
                 la.Insert(la.Length() + 1, coe, exp);
                 cin >> coe >> exp;
             }
+            la.Sort();
             break;
         case '2':
             lb = la;
@@ -48,12 +49,12 @@ int main()
             break;
         case '3':
             cout << endl
-                 << "输入元素位置:";
+                 << "输入项的位置:";
             cin >> position;
             if (la.GetElem(position, coe, exp) == NOT_PRESENT)
-                cout << "元素不存在." << endl;
+                cout << "项不存在." << endl;
             else
-                cout << "元素:" << coe << "x^" << exp << endl;
+                cout << "该项:" << coe << "x^" << exp << endl;
             break;
         case '4':
             cout << endl << "输入位置:";
@@ -71,19 +72,19 @@ int main()
             if (la.Delete(position, coe, exp) == RANGE_ERROR)
                 cout << "位置范围错." << endl;
             else
-                cout << "被删除元素:" << coe << "x^" << exp << endl;
+                cout << "被删除项:" << coe << "x^" << exp << endl;
             break;
         case '6':
             cout << endl
                  << "输入位置:";
             cin >> position;
             cout << endl
-                 << "依次输入元素系数与指数:";
+                 << "依次输入项的系数与指数:";
             cin >> coe >> exp;
             if (la.Insert(position, coe, exp) == RANGE_ERROR)
                 cout << "位置范围错." << endl;
             else
-                cout << "插入元素成功:" << coe << "x^" << exp << endl;
+                cout << "插入项成功:" << coe << "x^" << exp << endl;
             break;
         case '7':
             la.Clear();
