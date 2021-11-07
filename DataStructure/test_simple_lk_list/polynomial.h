@@ -1,8 +1,8 @@
 #ifndef __POLYNOMIAL_H__
 #define __POLYNOMIAL_H__
 
+#include "items.h"   // 项类模板
 #include "utility.h" // 实用程序软件包
-#include "items.h" // 项类模板
 
 // 简单线性链表类模板
 template <class ElemType>
@@ -18,13 +18,13 @@ protected:
 
 public:
     //  抽象数据类型方法声明及重载编译系统默认方法声明:
-    SimpleLinkList();                                                          // 无参数的构造函数模板
-    virtual ~SimpleLinkList();                                                 // 析构函数模板
-    int Length() const;                                                        // 求线性表长度
-    bool Empty() const;                                                        // 判断线性表是否为空
-    void Clear();                                                              // 将线性表清空
-    void Show();                                                               // 显示线性表项
-    void Sort();                                                               // 将多项式按照升序排列
+    SimpleLinkList();          // 无参数的构造函数模板
+    virtual ~SimpleLinkList(); // 析构函数模板
+    int Length() const;        // 求线性表长度
+    bool Empty() const;        // 判断线性表是否为空
+    void Clear();              // 将线性表清空
+    void Show();               // 显示线性表项
+    void Sort();               // 将多项式按照升序排列
     // void Traverse(void (*visit)(const ElemType &)) const;                   // 遍历线性表
     StatusCode GetElem(ElemType Exp, ElemType &coe);                           // 求指定指数的项的系数
     StatusCode SetElem(ElemType Exp, ElemType &coe);                           // 设置指定指数的项的系数
@@ -48,8 +48,8 @@ template <class ElemType>
 Item<ElemType> *SimpleLinkList<ElemType>::GetElemPtr(ElemType exp)
 // 操作结果：返回指向指数为exp的指针
 {
-    Item<ElemType> *tmpPtr = head;      // 用tmpPtr遍历线性表
-    ElemType curExp = exp;           // tmpPtr所指结点的指数
+    Item<ElemType> *tmpPtr = head; // 用tmpPtr遍历线性表
+    ElemType curExp = exp;         // tmpPtr所指结点的指数
 
     while (tmpPtr != NULL && exp != tmpPtr->exp)
     // 顺指针向后查找，直到tmpPtr指向指数为exp的结点
@@ -124,7 +124,7 @@ void SimpleLinkList<ElemType>::Show()
 // 操作结果：显示线性表中项
 {
     for (Item<ElemType> *tmpPtr = head->next; tmpPtr != NULL; tmpPtr = tmpPtr->next)
-    {                     // 用tmpPtr依次指向每个项
+    { // 用tmpPtr依次指向每个项
         cout << tmpPtr->coe << "x^" << tmpPtr->exp;
         if (tmpPtr->next != NULL)
             cout << " + ";
@@ -154,11 +154,11 @@ StatusCode SimpleLinkList<ElemType>::GetElem(ElemType Exp, ElemType &coe)
     Item<ElemType> *tmpPtr;
     if (tmpPtr = GetElemPtr(Exp) != NULL) // 如果取出指向指数为Exp的项指针成功
     {
-        coe = tmpPtr->coe;                // 返回系数
+        coe = tmpPtr->coe; // 返回系数
         return ENTRY_FOUND;
     }
     else
-        return 
+        return NOT_PRESENT;
 }
 
 template <class ElemType>
@@ -175,14 +175,14 @@ StatusCode SimpleLinkList<ElemType>::SetElem(int position, ElemType &coe, ElemTy
     { // position合法
         Item<ElemType> *tmpPtr;
         tmpPtr = GetElemPtr(position); // 取出指向第position个结点的指针
-        tmpPtr->exp = exp;              // 设置第position个项的系数与指数
+        tmpPtr->exp = exp;             // 设置第position个项的系数与指数
         tmpPtr->coe = coe;
         return SUCCESS;
     }
 }
 
 template <class ElemType>
-StatusCode SimpleLinkList<ElemType>::Delete(int position, ElemType &coe, ElemType &exp)
+StatusCode SimpleLinkList<ElemType>::Delete(ElemType Exp, ElemType &coe)
 // 操作结果：删除线性表的第position个位置的项, 并用e返回其值,
 //	position的取值范围为1≤position≤Length(),
 //	position合法时返回SUCCESS,否则返回RANGE_ERROR
@@ -220,7 +220,7 @@ StatusCode SimpleLinkList<ElemType>::Insert(int position, const ElemType &coe, c
         tmpPtr = GetElemPtr(position - 1); // 取出指向第position-1个结点的指针
         Item<ElemType> *newPtr;
         newPtr = new Item<ElemType>(coe, exp, tmpPtr->next); // 生成新结点
-        tmpPtr->next = newPtr;                        // 将tmpPtr插入到链表中
+        tmpPtr->next = newPtr;                               // 将tmpPtr插入到链表中
         return SUCCESS;
     }
 }
@@ -234,7 +234,7 @@ SimpleLinkList<ElemType>::SimpleLinkList(const SimpleLinkList<ElemType> &copy)
     Init(); // 初始化线性表
 
     for (int curPosition = 1; curPosition <= copyLength; curPosition++)
-    {                                 // 复制数据项
+    {                                          // 复制数据项
         copy.GetElem(curPosition, coe0, exp0); // 取出第curPosition个项
         Insert(Length() + 1, coe0, exp0);      // 将e插入到当前线性表
     }
@@ -251,7 +251,7 @@ SimpleLinkList<ElemType> &SimpleLinkList<ElemType>::operator=(const SimpleLinkLi
         Clear(); // 清空当前线性表
 
         for (int curPosition = 1; curPosition <= copyLength; curPosition++)
-        {                                 // 复制数据项
+        {                                        // 复制数据项
             copy.GetElem(curPosition, coe, exp); // 取出第curPosition个项
             Insert(Length() + 1, coe, exp);      // 将e插入到当前线性表
         }
@@ -264,18 +264,23 @@ void SimpleLinkList<ElemType>::Sort()
 // 将多项式按照升序排列
 {
     Item<ElemType> *tmpItem1 = head->next;
-    while(tmpItem1->next != NULL)
+    while (tmpItem1->next != NULL)
     {
         Item<ElemType> tmpItem2 = tmpItem1;
-        while (tmpItem2->next->exp < tmpItem2->exp)
+        while (tmpItem2->next->exp < tmpItem2->exp && tmpItem2 != NULL)
         {
             Item<ElemType> tmpa;
-            GetElem()
+            tmpa.exp = tmpItem2.exp;
+            tmpa.coe = tmpItem2.coe;
+            tmpItem2.exp = tmpItem2.next->exp;
+            tmpItem2.coe = tmpItem2.next->coe;
+            tmpItem2.exp = tmpa.exp;
+            tmpItem2.coe = tmpa.coe;
+            tmpItem2 = tmpItem2.next
         }
-        
+
         tmpItem1 = tmpItem1->next;
     }
-    
 }
 
 /* template <class ElemType>
