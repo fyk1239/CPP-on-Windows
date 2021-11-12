@@ -1,57 +1,66 @@
-#include "utility.h"	// ÊµÓÃ³ÌĞòÈí¼ş°ü
-#include "lk_queue.h"	// Á´¶ÓÁĞÀà
+#include "lk_queue.h" // é“¾é˜Ÿåˆ—ç±»
+#include "utility.h"  // å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
 
 int main(void)
 {
 	char c = '0';
-    LinkQueue<double> qa,qb;
-    double x;
+	LinkQueue<double> qa, qb;
+	double x;
 
-    while (c != '6')
+	while (c != '6')
 	{
-        cout << endl << "1. Éú³É¶ÓÁĞ.";
-        cout << endl << "2. ÏÔÊ¾¶ÓÁĞ.";
-        cout << endl << "3. Èë¶ÓÁĞ.";
-        cout << endl << "4. ³ö¶ÓÁĞ.";
-        cout << endl << "5. È¡¶ÓÁĞÍ·.";
-		cout << endl << "6. ÍË³ö";
-		cout << endl << "Ñ¡Ôñ¹¦ÄÜ(1~6):";
+		cout << endl
+			 << "1. ç”Ÿæˆé˜Ÿåˆ—.";
+		cout << endl
+			 << "2. æ˜¾ç¤ºé˜Ÿåˆ—.";
+		cout << endl
+			 << "3. å…¥é˜Ÿåˆ—.";
+		cout << endl
+			 << "4. å‡ºé˜Ÿåˆ—.";
+		cout << endl
+			 << "5. å–é˜Ÿåˆ—å¤´.";
+		cout << endl
+			 << "6. é€€å‡º";
+		cout << endl
+			 << "é€‰æ‹©åŠŸèƒ½(1~6):";
 		cin >> c;
-		switch (c) 
+		switch (c)
 		{
-			case '1':
-				cout << endl << "ÊäÈëe(e = 0Ê±ÍË³ö)";
-				while (x != 0)
-				{
-					cin >> x;
-					if (x != 0)
-						qa.InQueue(x);
-				}
-				break;
-	       case '2':
-			    qb = qa;
-				cout << endl;
-			    qb.Traverse(Write<double>);
-				break;
-		   case '3':
-			    cout << endl << "ÊäÈëÔªËØÖµ:";
-			    cin >> x;
-			    qa.InQueue(x);
-			    break;
-           case '4':
-			    qa.OutQueue(x);
-			    cout << endl << "¶ÓÍ·ÔªËØÖµÎª " << x << " ." << endl;
-			    break;
-           case '5':
-			    qa.GetHead(x);
-			    cout << endl << "¶ÓÍ·ÔªËØÖµÎª " << x << " ." << endl;
-			    break;
-		   case '6':;
+		case '1':
+			cout << endl
+				 << "è¾“å…¥e(e = 0æ—¶é€€å‡º)";
+			while (x != 0)
+			{
+				cin >> x;
+				if (x != 0)
+					qa.InQueue(x);
+			}
+			break;
+		case '2':
+			qb = qa;
+			cout << endl;
+			qb.Traverse(Write<double>);
+			break;
+		case '3':
+			cout << endl
+				 << "è¾“å…¥å…ƒç´ å€¼:";
+			cin >> x;
+			qa.InQueue(x);
+			break;
+		case '4':
+			qa.OutQueue(x);
+			cout << endl
+				 << "é˜Ÿå¤´å…ƒç´ å€¼ä¸º " << x << " ." << endl;
+			break;
+		case '5':
+			qa.GetHead(x);
+			cout << endl
+				 << "é˜Ÿå¤´å…ƒç´ å€¼ä¸º " << x << " ." << endl;
+			break;
+		case '6':;
 		}
 	}
 
-	system("PAUSE");        // µ÷ÓÃ¿âº¯Êısystem()
-	return 0;               // ·µ»ØÖµ0, ·µ»Ø²Ù×÷ÏµÍ³
+	system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
+	return 0;		 // è¿”å›å€¼0, è¿”å›æ“ä½œç³»ç»Ÿ
 }
-
-

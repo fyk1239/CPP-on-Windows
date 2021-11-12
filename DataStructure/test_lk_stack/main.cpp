@@ -1,56 +1,65 @@
-#include "utility.h"	// ÊµÓÃ³ÌĞòÈí¼ş°ü
-#include "lk_stack.h"	// Á´Õ»Àà
+#include "lk_stack.h" // é“¾æ ˆç±»
+#include "utility.h"  // å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
 
 int main(void)
 {
 	char c = '0';
-    LinkStack<double> sa,sb;
-    double x;
-    while (c != '6')
+	LinkStack<double> sa, sb;
+	double x;
+	while (c != '6')
 	{
-        cout << endl << "1. Éú³ÉÕ».";
-        cout << endl << "2. ÏÔÊ¾Õ».";
-        cout << endl << "3. ÈëÕ».";
-        cout << endl << "4. ³öÕ».";
-        cout << endl << "5. È¡Õ»¶¥.";
-		cout << endl << "6. ÍË³ö";
-		cout << endl << "Ñ¡Ôñ¹¦ÄÜ(1~6):";
+		cout << endl
+			 << "1. ç”Ÿæˆæ ˆ.";
+		cout << endl
+			 << "2. æ˜¾ç¤ºæ ˆ.";
+		cout << endl
+			 << "3. å…¥æ ˆ.";
+		cout << endl
+			 << "4. å‡ºæ ˆ.";
+		cout << endl
+			 << "5. å–æ ˆé¡¶.";
+		cout << endl
+			 << "6. é€€å‡º";
+		cout << endl
+			 << "é€‰æ‹©åŠŸèƒ½(1~6):";
 		cin >> c;
-		switch (c) 
+		switch (c)
 		{
-			case '1':
-				cout << endl << "ÊäÈëe(e = 0Ê±ÍË³ö)";
-				while (x != 0)
-				{
-					cin >> x;
-					if (x != 0)
-						sa.Push(x);
-				}
-				break;
-	       case '2':
-			    sb = sa;
-				cout << endl;
-			    sb.Traverse(Write<double>);
-				break;
-		   case '3':
-			    cout << endl << "ÊäÈëÔªËØÖµ:";
-			    cin >> x;
-			    sa.Push(x);
-			    break;
-           case '4':
-			    sa.Pop(x);
-			    cout << endl << "Õ»¶¥ÔªËØÖµÎª " << x << " ." << endl;
-			    break;
-           case '5':
-			    sa.Top(x);
-			    cout << endl << "Õ»¶¥ÔªËØÖµÎª " << x << " ." << endl;
-			    break;
-		   case '6':;
+		case '1':
+			cout << endl
+				 << "è¾“å…¥e(e = 0æ—¶é€€å‡º)";
+			while (x != 0)
+			{
+				cin >> x;
+				if (x != 0)
+					sa.Push(x);
+			}
+			break;
+		case '2':
+			sb = sa;
+			cout << endl;
+			sb.Traverse(Write<double>);
+			break;
+		case '3':
+			cout << endl
+				 << "è¾“å…¥å…ƒç´ å€¼:";
+			cin >> x;
+			sa.Push(x);
+			break;
+		case '4':
+			sa.Pop(x);
+			cout << endl
+				 << "æ ˆé¡¶å…ƒç´ å€¼ä¸º " << x << " ." << endl;
+			break;
+		case '5':
+			sa.Top(x);
+			cout << endl
+				 << "æ ˆé¡¶å…ƒç´ å€¼ä¸º " << x << " ." << endl;
+			break;
+		case '6':;
 		}
 	}
 
-	system("PAUSE");        // µ÷ÓÃ¿âº¯Êısystem()
-	return 0;               // ·µ»ØÖµ0, ·µ»Ø²Ù×÷ÏµÍ³
+	system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
+	return 0;		 // è¿”å›å€¼0, è¿”å›æ“ä½œç³»ç»Ÿ
 }
-
-

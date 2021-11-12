@@ -152,7 +152,7 @@ StatusCode SimpleLinkList<ElemType>::GetElem(ElemType Exp, ElemType &coe)
 //	否则返回NOT_PRESENT
 {
     Item<ElemType> *tmpPtr;
-    if (tmpPtr = GetElemPtr(Exp) != NULL) // 如果取出指向指数为Exp的项指针成功
+    if ((tmpPtr = GetElemPtr(Exp)) != NULL) // 如果取出指向指数为Exp的项指针成功
     {
         coe = tmpPtr->coe; // 返回系数
         return ENTRY_FOUND;
@@ -162,23 +162,16 @@ StatusCode SimpleLinkList<ElemType>::GetElem(ElemType Exp, ElemType &coe)
 }
 
 template <class ElemType>
-StatusCode SimpleLinkList<ElemType>::SetElem(int position, ElemType &coe, ElemType &exp)
+StatusCode SimpleLinkList<ElemType>::SetElem(ElemType Exp, ElemType Coe)
 //  操作结果：将线性表的第position个位置的指数赋值为exp,系数赋值为coe
 //	position的取值范围为1≤position≤Length(),
 //	position合法时返回SUCCESS,否则返回RANGE_ERROR
 {
-    if (position < 1 || position > Length())
-    { // position范围错
-        return RANGE_ERROR;
-    }
-    else
-    { // position合法
-        Item<ElemType> *tmpPtr;
-        tmpPtr = GetElemPtr(position); // 取出指向第position个结点的指针
-        tmpPtr->exp = exp;             // 设置第position个项的系数与指数
-        tmpPtr->coe = coe;
-        return SUCCESS;
-    }
+    Item<ElemType> *tmpPtr;
+    tmpPtr = GetElemPtr(Exp); // 取出指向第position个结点的指针
+    tmpPtr->exp = exp;             // 设置第position个项的系数与指数
+    tmpPtr->coe = coe;
+    return SUCCESS;
 }
 
 template <class ElemType>

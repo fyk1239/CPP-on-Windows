@@ -1,173 +1,172 @@
 #ifndef __LK_QUEUE_H__
 #define __LK_QUEUE_H__
 
-#include "utility.h"			// ÊµÓÃ³ÌĞòÈí¼ş°ü
-#include "node.h"				// ½áµãÀàÄ£°å
+#include "node.h"	 // ç»“ç‚¹ç±»æ¨¡æ¿
+#include "utility.h" // å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
 
-// Á´¶ÓÁĞÀàÄ£°å
+// é“¾é˜Ÿåˆ—ç±»æ¨¡æ¿
 
-template<class ElemType>
-class LinkQueue 
+template <class ElemType>
+class LinkQueue
 {
 protected:
-//  Á´¶ÓÁĞÊµÏÖµÄÊı¾İ³ÉÔ±:
-	Node<ElemType> *front, *rear;					// ¶ÓÍ·¶ÓÎ²Ö¸Ö¸
+	//  é“¾é˜Ÿåˆ—å®ç°çš„æ•°æ®æˆå‘˜:
+	Node<ElemType> *front, *rear; // é˜Ÿå¤´é˜Ÿå°¾æŒ‡æŒ‡
 
-// ¸¨Öúº¯ÊıÄ£°å:
-	void Init();									// ³õÊ¼»¯¶ÓÁĞ
+	// è¾…åŠ©å‡½æ•°æ¨¡æ¿:
+	void Init(); // åˆå§‹åŒ–é˜Ÿåˆ—
 
 public:
-//  ³éÏóÊı¾İÀàĞÍ·½·¨ÉùÃ÷¼°ÖØÔØ±àÒëÏµÍ³Ä¬ÈÏ·½·¨ÉùÃ÷:
-	LinkQueue();									// ÎŞ²ÎÊıµÄ¹¹Ôìº¯ÊıÄ£°å
-	virtual ~LinkQueue();							// Îö¹¹º¯ÊıÄ£°å
-	int Length() const;								// Çó¶ÓÁĞ³¤¶È			 
-	bool Empty() const;								// ÅĞ¶Ï¶ÓÁĞÊÇ·ñÎª¿Õ
-	void Clear();									// ½«¶ÓÁĞÇå¿Õ
-	void Traverse(void (*visit)(const ElemType &)) const ;	// ±éÀú¶ÓÁĞ
-	StatusCode OutQueue(ElemType &e);				// ³ö¶Ó²Ù×÷
-	StatusCode GetHead(ElemType &e) const;			// È¡¶ÓÍ·²Ù×÷
-	StatusCode InQueue(const ElemType &e);			// Èë¶Ó²Ù×÷
-	LinkQueue(const LinkQueue<ElemType> &copy);		// ¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
-	LinkQueue<ElemType> &operator =(const LinkQueue<ElemType> &copy);// ÖØÔØ¸³ÖµÔËËã·û
+	//  æŠ½è±¡æ•°æ®ç±»å‹æ–¹æ³•å£°æ˜åŠé‡è½½ç¼–è¯‘ç³»ç»Ÿé»˜è®¤æ–¹æ³•å£°æ˜:
+	LinkQueue();													 // æ— å‚æ•°çš„æ„é€ å‡½æ•°æ¨¡æ¿
+	virtual ~LinkQueue();											 // ææ„å‡½æ•°æ¨¡æ¿
+	int Length() const;												 // æ±‚é˜Ÿåˆ—é•¿åº¦
+	bool Empty() const;												 // åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦ä¸ºç©º
+	void Clear();													 // å°†é˜Ÿåˆ—æ¸…ç©º
+	void Traverse(void (*visit)(const ElemType &)) const;			 // éå†é˜Ÿåˆ—
+	StatusCode OutQueue(ElemType &e);								 // å‡ºé˜Ÿæ“ä½œ
+	StatusCode GetHead(ElemType &e) const;							 // å–é˜Ÿå¤´æ“ä½œ
+	StatusCode InQueue(const ElemType &e);							 // å…¥é˜Ÿæ“ä½œ
+	LinkQueue(const LinkQueue<ElemType> &copy);						 // å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
+	LinkQueue<ElemType> &operator=(const LinkQueue<ElemType> &copy); // é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 };
 
-// Á´¶ÓÁĞÀàÄ£°åµÄÊµÏÖ²¿·Ö
+// é“¾é˜Ÿåˆ—ç±»æ¨¡æ¿çš„å®ç°éƒ¨åˆ†
 
 template <class ElemType>
 void LinkQueue<ElemType>::Init()
-// ²Ù×÷½á¹û£º³õÊ¼»¯¶ÓÁĞ
+// æ“ä½œç»“æœï¼šåˆå§‹åŒ–é˜Ÿåˆ—
 {
-	rear = front = new Node<ElemType>;	// Éú³ÉÍ·½áµã
+	rear = front = new Node<ElemType>; // ç”Ÿæˆå¤´ç»“ç‚¹
 }
 
-template<class ElemType>
+template <class ElemType>
 LinkQueue<ElemType>::LinkQueue()
-// ²Ù×÷½á¹û£º¹¹ÔìÒ»¸ö¿Õ¶ÓÁĞ
+// æ“ä½œç»“æœï¼šæ„é€ ä¸€ä¸ªç©ºé˜Ÿåˆ—
 {
 	Init();
 }
 
-template<class ElemType>
+template <class ElemType>
 LinkQueue<ElemType>::~LinkQueue()
-// ²Ù×÷½á¹û£ºÏú»Ù¶ÓÁĞ
+// æ“ä½œç»“æœï¼šé”€æ¯é˜Ÿåˆ—
 {
-	Clear();		
+	Clear();
 }
 
-template<class ElemType>
+template <class ElemType>
 int LinkQueue<ElemType>::Length() const
-// ²Ù×÷½á¹û£º·µ»Ø¶ÓÁĞ³¤¶È			 
+// æ“ä½œç»“æœï¼šè¿”å›é˜Ÿåˆ—é•¿åº¦
 {
-	int count = 0;		// ¼ÆÊıÆ÷ 
+	int count = 0; // è®¡æ•°å™¨
 	for (Node<ElemType> *tmpPtr = front->next; tmpPtr != NULL; tmpPtr = tmpPtr->next)
-	{	// ÓÃtmpPtrÒÀ´ÎÖ¸ÏòÃ¿¸öÔªËØ
-		count++;		// ¶ÔÕ»Ã¿¸öÔªËØ½øĞĞ¼ÆÊı
+	{			 // ç”¨tmpPträ¾æ¬¡æŒ‡å‘æ¯ä¸ªå…ƒç´ 
+		count++; // å¯¹æ ˆæ¯ä¸ªå…ƒç´ è¿›è¡Œè®¡æ•°
 	}
 	return count;
 }
 
-template<class ElemType>
+template <class ElemType>
 bool LinkQueue<ElemType>::Empty() const
-// ²Ù×÷½á¹û£ºÈç¶ÓÁĞÎª¿Õ£¬Ôò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+// æ“ä½œç»“æœï¼šå¦‚é˜Ÿåˆ—ä¸ºç©ºï¼Œåˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 {
-   return rear == front;
+	return rear == front;
 }
 
-template<class ElemType>
-void LinkQueue<ElemType>::Clear() 
-// ²Ù×÷½á¹û£ºÇå¿Õ¶ÓÁĞ
+template <class ElemType>
+void LinkQueue<ElemType>::Clear()
+// æ“ä½œç»“æœï¼šæ¸…ç©ºé˜Ÿåˆ—
 {
-	ElemType tmpElem;	// ÁÙÊ±ÔªËØÖµ
+	ElemType tmpElem; // ä¸´æ—¶å…ƒç´ å€¼
 	while (Length() > 0)
-	{	// ¶ÓÁĞ·Ç¿Õ£¬Ôò³öÁĞ
+	{ // é˜Ÿåˆ—éç©ºï¼Œåˆ™å‡ºåˆ—
 		OutQueue(tmpElem);
 	}
 }
 
 template <class ElemType>
-void LinkQueue<ElemType>::Traverse(void (*visit)(const ElemType &)) const 
-// ²Ù×÷½á¹û£ºÒÀ´Î¶Ô¶ÓÁĞµÄÃ¿¸öÔªËØµ÷ÓÃº¯Êı(*visit)
+void LinkQueue<ElemType>::Traverse(void (*visit)(const ElemType &)) const
+// æ“ä½œç»“æœï¼šä¾æ¬¡å¯¹é˜Ÿåˆ—çš„æ¯ä¸ªå…ƒç´ è°ƒç”¨å‡½æ•°(*visit)
 {
-	for (Node<ElemType> *tmpPtr = front->next; tmpPtr != NULL; 
-		tmpPtr = tmpPtr->next)
-	{	// ¶Ô¶ÓÁĞÃ¿¸öÔªËØµ÷ÓÃº¯Êı(*visit)
+	for (Node<ElemType> *tmpPtr = front->next; tmpPtr != NULL;
+		 tmpPtr = tmpPtr->next)
+	{ // å¯¹é˜Ÿåˆ—æ¯ä¸ªå…ƒç´ è°ƒç”¨å‡½æ•°(*visit)
 		(*visit)(tmpPtr->data);
 	}
 }
 
-
-template<class ElemType>
+template <class ElemType>
 StatusCode LinkQueue<ElemType>::OutQueue(ElemType &e)
-// ²Ù×÷½á¹û£ºÈç¹û¶ÓÁĞ·Ç¿Õ£¬ÄÇÃ´É¾³ı¶ÓÍ·ÔªËØ£¬²¢ÓÃe·µ»ØÆäÖµ£¬·µ»ØSUCCESS,
-//	·ñÔò·µ»ØUNDER_FLOW£¬
+// æ“ä½œç»“æœï¼šå¦‚æœé˜Ÿåˆ—éç©ºï¼Œé‚£ä¹ˆåˆ é™¤é˜Ÿå¤´å…ƒç´ ï¼Œå¹¶ç”¨eè¿”å›å…¶å€¼ï¼Œè¿”å›SUCCESS,
+//	å¦åˆ™è¿”å›UNDER_FLOWï¼Œ
 {
-	if (!Empty()) 
-	{	// ¶ÓÁĞ·Ç¿Õ
-		Node<ElemType> *tmpPtr = front->next;	// Ö¸Ïò¶ÓÁĞÍ·ËØ
-		e = tmpPtr->data;						// ÓÃe·µ»Ø¶ÓÍ·ÔªËØ
-		front->next = tmpPtr->next;				// frontÖ¸ÏòÏÂÒ»ÔªËØ
+	if (!Empty())
+	{										  // é˜Ÿåˆ—éç©º
+		Node<ElemType> *tmpPtr = front->next; // æŒ‡å‘é˜Ÿåˆ—å¤´ç´ 
+		e = tmpPtr->data;					  // ç”¨eè¿”å›é˜Ÿå¤´å…ƒç´ 
+		front->next = tmpPtr->next;			  // frontæŒ‡å‘ä¸‹ä¸€å…ƒç´ 
 		if (rear == tmpPtr)
-		{	// ±íÊ¾³ö¶ÓÇ°¶ÓÁĞÖĞÖ»ÓĞÒ»¸öÔªËØ£¬³ö¶ÓºóÎª¿Õ¶ÓÁĞ
+		{ // è¡¨ç¤ºå‡ºé˜Ÿå‰é˜Ÿåˆ—ä¸­åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œå‡ºé˜Ÿåä¸ºç©ºé˜Ÿåˆ—
 			rear = front;
 		}
-		delete tmpPtr;							// ÊÍ·Å³ö¶ÓµÄ½áµã
+		delete tmpPtr; // é‡Šæ”¾å‡ºé˜Ÿçš„ç»“ç‚¹
 		return SUCCESS;
 	}
 	else
-	{	// ¶ÓÁĞÎª¿Õ
+	{ // é˜Ÿåˆ—ä¸ºç©º
 		return UNDER_FLOW;
 	}
 }
 
-template<class ElemType>
+template <class ElemType>
 StatusCode LinkQueue<ElemType>::GetHead(ElemType &e) const
-// ²Ù×÷½á¹û£ºÈç¹û¶ÓÁĞ·Ç¿Õ£¬ÄÇÃ´ÓÃe·µ»Ø¶ÓÍ·ÔªËØ£¬·µ»ØSUCCESS,
-//	·ñÔò·µ»ØUNDER_FLOW£¬
+// æ“ä½œç»“æœï¼šå¦‚æœé˜Ÿåˆ—éç©ºï¼Œé‚£ä¹ˆç”¨eè¿”å›é˜Ÿå¤´å…ƒç´ ï¼Œè¿”å›SUCCESS,
+//	å¦åˆ™è¿”å›UNDER_FLOWï¼Œ
 {
-	if (!Empty()) 
-	{	// ¶ÓÁĞ·Ç¿Õ
-		Node<ElemType> *tmpPtr = front->next;	// Ö¸Ïò¶ÓÁĞÍ·ËØ
-		e = tmpPtr->data;						// ÓÃe·µ»Ø¶ÓÍ·ÔªËØ
+	if (!Empty())
+	{										  // é˜Ÿåˆ—éç©º
+		Node<ElemType> *tmpPtr = front->next; // æŒ‡å‘é˜Ÿåˆ—å¤´ç´ 
+		e = tmpPtr->data;					  // ç”¨eè¿”å›é˜Ÿå¤´å…ƒç´ 
 		return SUCCESS;
 	}
 	else
-	{	// ¶ÓÁĞÎª¿Õ
+	{ // é˜Ÿåˆ—ä¸ºç©º
 		return UNDER_FLOW;
 	}
 }
 
-template<class ElemType>
+template <class ElemType>
 StatusCode LinkQueue<ElemType>::InQueue(const ElemType &e)
-// ²Ù×÷½á¹û£º²åÈëÔªËØeÎªĞÂµÄ¶ÓÎ²£¬·µ»ØSUCCESS
+// æ“ä½œç»“æœï¼šæ’å…¥å…ƒç´ eä¸ºæ–°çš„é˜Ÿå°¾ï¼Œè¿”å›SUCCESS
 {
-	Node<ElemType> *tmpPtr = new Node<ElemType>(e);	// Éú³ÉĞÂ½áµã
-	rear->next = tmpPtr;							// ĞÂ½áµã×·¼ÓÔÚ¶ÓÎ²
-	rear = tmpPtr;									// rearÖ¸ÏòĞÂ¶ÓÎ²
+	Node<ElemType> *tmpPtr = new Node<ElemType>(e); // ç”Ÿæˆæ–°ç»“ç‚¹
+	rear->next = tmpPtr;							// æ–°ç»“ç‚¹è¿½åŠ åœ¨é˜Ÿå°¾
+	rear = tmpPtr;									// rearæŒ‡å‘æ–°é˜Ÿå°¾
 	return SUCCESS;
 }
 
-template<class ElemType>
+template <class ElemType>
 LinkQueue<ElemType>::LinkQueue(const LinkQueue<ElemType> &copy)
-// ²Ù×÷½á¹û£ºÓÉ¶ÓÁĞcopy¹¹ÔìĞÂ¶ÓÁĞ¡ª¡ª¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
+// æ“ä½œç»“æœï¼šç”±é˜Ÿåˆ—copyæ„é€ æ–°é˜Ÿåˆ—â€”â€”å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
 {
 	Init();
-	for (Node<ElemType> *tmpPtr = copy.front->next; tmpPtr != NULL; 
-		tmpPtr = tmpPtr->next)
-	{	// ¶Ôcopy¶ÓÁĞÃ¿¸öÔªËØ¶Ôµ±Ç°¶ÓÁĞ×÷Èë¶ÓÁĞ²Ù×÷
+	for (Node<ElemType> *tmpPtr = copy.front->next; tmpPtr != NULL;
+		 tmpPtr = tmpPtr->next)
+	{ // å¯¹copyé˜Ÿåˆ—æ¯ä¸ªå…ƒç´ å¯¹å½“å‰é˜Ÿåˆ—ä½œå…¥é˜Ÿåˆ—æ“ä½œ
 		InQueue(tmpPtr->data);
 	}
 }
 
-template<class ElemType>
-LinkQueue<ElemType> &LinkQueue<ElemType>::operator =(const LinkQueue<ElemType> &copy)
-// ²Ù×÷½á¹û£º½«¶ÓÁĞcopy¸³Öµ¸øµ±Ç°¶ÓÁĞ¡ª¡ªÖØÔØ¸³ÖµÔËËã·û
+template <class ElemType>
+LinkQueue<ElemType> &LinkQueue<ElemType>::operator=(const LinkQueue<ElemType> &copy)
+// æ“ä½œç»“æœï¼šå°†é˜Ÿåˆ—copyèµ‹å€¼ç»™å½“å‰é˜Ÿåˆ—â€”â€”é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 {
 	if (&copy != this)
 	{
 		Clear();
-		for (Node<ElemType> *tmpPtr = copy.front->next; tmpPtr != NULL; 
-			tmpPtr = tmpPtr->next)
-		{	// ¶Ôcopy¶ÓÁĞÃ¿¸öÔªËØ¶Ôµ±Ç°¶ÓÁĞ×÷Èë¶ÓÁĞ²Ù×÷
+		for (Node<ElemType> *tmpPtr = copy.front->next; tmpPtr != NULL;
+			 tmpPtr = tmpPtr->next)
+		{ // å¯¹copyé˜Ÿåˆ—æ¯ä¸ªå…ƒç´ å¯¹å½“å‰é˜Ÿåˆ—ä½œå…¥é˜Ÿåˆ—æ“ä½œ
 			InQueue(tmpPtr->data);
 		}
 	}

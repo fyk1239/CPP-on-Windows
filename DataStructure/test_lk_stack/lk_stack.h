@@ -1,194 +1,192 @@
 #ifndef __LK_STACK_H__
 #define __LK_STACK_H__
 
-#include "utility.h"									// ÊµÓÃ³ÌĞòÈí¼ş°ü
-#include "node.h"										// ½áµãÀàÄ£°å
+#include "node.h"	 // ç»“ç‚¹ç±»æ¨¡æ¿
+#include "utility.h" // å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
 
-// Á´Õ»ÀàÄ£°å
-template<class ElemType>
-class LinkStack 
+// é“¾æ ˆç±»æ¨¡æ¿
+template <class ElemType>
+class LinkStack
 {
 protected:
-//  Á´Õ»ÊµÏÖµÄÊı¾İ³ÉÔ±:
-	Node<ElemType> *top;								// Õ»¶¥Ö¸Õë
+	//  é“¾æ ˆå®ç°çš„æ•°æ®æˆå‘˜:
+	Node<ElemType> *top; // æ ˆé¡¶æŒ‡é’ˆ
 
-// ¸¨Öúº¯ÊıÄ£°å:
-	void Init();										// ³õÊ¼»¯Õ»
+	// è¾…åŠ©å‡½æ•°æ¨¡æ¿:
+	void Init(); // åˆå§‹åŒ–æ ˆ
 
 public:
-//  ³éÏóÊı¾İÀàĞÍ·½·¨ÉùÃ÷¼°ÖØÔØ±àÒëÏµÍ³Ä¬ÈÏ·½·¨ÉùÃ÷:
-	LinkStack();										// ÎŞ²ÎÊıµÄ¹¹Ôìº¯ÊıÄ£°å
-	virtual ~LinkStack();								// Îö¹¹º¯ÊıÄ£°å
-	int Length() const;									// ÇóÕ»³¤¶È			 
-	bool Empty() const;									// ÅĞ¶ÏÕ»ÊÇ·ñÎª¿Õ
-	void Clear();										// ½«Õ»Çå¿Õ
-	void Traverse(void (*visit)(const ElemType &)) const ;		// ±éÀúÕ»
-	StatusCode Push(const ElemType &e);					// ÈëÕ»
-	StatusCode Top(ElemType &e) const;					// ·µ»ØÕ»¶¥ÔªËØ
-	StatusCode Pop(ElemType &e);						// ³öÕ»
-	LinkStack(const LinkStack<ElemType> &copy);			// ¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
-	LinkStack<ElemType> &operator =(const LinkStack<ElemType> &copy); // ÖØÔØ¸³ÖµÔËËã·û
+	//  æŠ½è±¡æ•°æ®ç±»å‹æ–¹æ³•å£°æ˜åŠé‡è½½ç¼–è¯‘ç³»ç»Ÿé»˜è®¤æ–¹æ³•å£°æ˜:
+	LinkStack();													 // æ— å‚æ•°çš„æ„é€ å‡½æ•°æ¨¡æ¿
+	virtual ~LinkStack();											 // ææ„å‡½æ•°æ¨¡æ¿
+	int Length() const;												 // æ±‚æ ˆé•¿åº¦
+	bool Empty() const;												 // åˆ¤æ–­æ ˆæ˜¯å¦ä¸ºç©º
+	void Clear();													 // å°†æ ˆæ¸…ç©º
+	void Traverse(void (*visit)(const ElemType &)) const;			 // éå†æ ˆ
+	StatusCode Push(const ElemType &e);								 // å…¥æ ˆ
+	StatusCode Top(ElemType &e) const;								 // è¿”å›æ ˆé¡¶å…ƒç´ 
+	StatusCode Pop(ElemType &e);									 // å‡ºæ ˆ
+	LinkStack(const LinkStack<ElemType> &copy);						 // å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
+	LinkStack<ElemType> &operator=(const LinkStack<ElemType> &copy); // é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 };
 
-
-// Á´Õ»ÀàÄ£°åµÄÊµÏÖ²¿·Ö
+// é“¾æ ˆç±»æ¨¡æ¿çš„å®ç°éƒ¨åˆ†
 template <class ElemType>
 void LinkStack<ElemType>::Init()
-// ²Ù×÷½á¹û£º³õÊ¼»¯Õ»
+// æ“ä½œç»“æœï¼šåˆå§‹åŒ–æ ˆ
 {
-	top = NULL;				// ¹¹ÔìÕ»¶¥Ö¸Õë
+	top = NULL; // æ„é€ æ ˆé¡¶æŒ‡é’ˆ
 }
 
-template<class ElemType>
+template <class ElemType>
 LinkStack<ElemType>::LinkStack()
-// ²Ù×÷½á¹û£º¹¹ÔìÒ»¸ö¿ÕÕ»±í
+// æ“ä½œç»“æœï¼šæ„é€ ä¸€ä¸ªç©ºæ ˆè¡¨
 {
 	Init();
 }
 
-template<class ElemType>
+template <class ElemType>
 LinkStack<ElemType>::~LinkStack()
-// ²Ù×÷½á¹û£ºÏú»ÙÕ»
+// æ“ä½œç»“æœï¼šé”€æ¯æ ˆ
 {
 	Clear();
 }
 
 template <class ElemType>
 int LinkStack<ElemType>::Length() const
-// ²Ù×÷½á¹û£º·µ»ØÕ»ÔªËØ¸öÊı
+// æ“ä½œç»“æœï¼šè¿”å›æ ˆå…ƒç´ ä¸ªæ•°
 {
-	int count = 0;		// ¼ÆÊıÆ÷ 
+	int count = 0; // è®¡æ•°å™¨
 	for (Node<ElemType> *tmpPtr = top; tmpPtr != NULL; tmpPtr = tmpPtr->next)
-	{	// ÓÃtmpPtrÒÀ´ÎÖ¸ÏòÃ¿¸öÔªËØ
-		count++;		// ¶ÔÕ»Ã¿¸öÔªËØ½øĞĞ¼ÆÊı
+	{			 // ç”¨tmpPträ¾æ¬¡æŒ‡å‘æ¯ä¸ªå…ƒç´ 
+		count++; // å¯¹æ ˆæ¯ä¸ªå…ƒç´ è¿›è¡Œè®¡æ•°
 	}
 	return count;
 }
 
-template<class ElemType>
+template <class ElemType>
 bool LinkStack<ElemType>::Empty() const
-// ²Ù×÷½á¹û£ºÈçÕ»Îª¿Õ£¬Ôò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+// æ“ä½œç»“æœï¼šå¦‚æ ˆä¸ºç©ºï¼Œåˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 {
 	return top == NULL;
 }
 
-template<class ElemType>
+template <class ElemType>
 void LinkStack<ElemType>::Clear()
-// ²Ù×÷½á¹û£ºÇå¿ÕÕ»
+// æ“ä½œç»“æœï¼šæ¸…ç©ºæ ˆ
 {
-	ElemType tmpElem;	// ÁÙÊ±ÔªËØÖµ
+	ElemType tmpElem; // ä¸´æ—¶å…ƒç´ å€¼
 	while (!Empty())
 		Pop(tmpElem);
 }
 
 template <class ElemType>
 void LinkStack<ElemType>::Traverse(void (*visit)(const ElemType &)) const
-// ²Ù×÷½á¹û£º´ÓÕ»µ×µ½Õ»¶¥ÒÀ´Î¶ÔÕ»µÄÃ¿¸öÔªËØµ÷ÓÃº¯Êı(*visit)
+// æ“ä½œç»“æœï¼šä»æ ˆåº•åˆ°æ ˆé¡¶ä¾æ¬¡å¯¹æ ˆçš„æ¯ä¸ªå…ƒç´ è°ƒç”¨å‡½æ•°(*visit)
 {
-	Node<ElemType> *tmpPtr;		
-	LinkStack<ElemType> tmpS;	// ÁÙÊ±Õ»,tmpSÖĞÔªËØË³ĞòÓëµ±Ç°Õ»ÔªËØË³ĞòÏà·´
+	Node<ElemType> *tmpPtr;
+	LinkStack<ElemType> tmpS; // ä¸´æ—¶æ ˆ,tmpSä¸­å…ƒç´ é¡ºåºä¸å½“å‰æ ˆå…ƒç´ é¡ºåºç›¸å
 	for (tmpPtr = top; tmpPtr != NULL; tmpPtr = tmpPtr->next)
-	{	// ÓÃtmpPtrÒÀ´ÎÖ¸Ïòµ±Ç°Õ»µÄÃ¿¸öÔªËØ
-		tmpS.Push(tmpPtr->data);	// ¶Ôµ±Ç°Õ»µÄÃ¿¸öÔªËØÈëÕ»µ½tmpSÖĞ
+	{							 // ç”¨tmpPträ¾æ¬¡æŒ‡å‘å½“å‰æ ˆçš„æ¯ä¸ªå…ƒç´ 
+		tmpS.Push(tmpPtr->data); // å¯¹å½“å‰æ ˆçš„æ¯ä¸ªå…ƒç´ å…¥æ ˆåˆ°tmpSä¸­
 	}
-	
+
 	for (tmpPtr = tmpS.top; tmpPtr != NULL; tmpPtr = tmpPtr->next)
-	{	// ÓÃtmpPtr´ÓÕ»¶¥µ½Õ»µ×ÒÀ´ÎÖ¸ÏòÕ»tmpSµÄÃ¿¸öÔªËØ
-		(*visit)(tmpPtr->data);		// ¶ÔÕ»tmpSµÄÃ¿¸öÔªËØµ÷ÓÃº¯Êı(*visit)
+	{							// ç”¨tmpPträ»æ ˆé¡¶åˆ°æ ˆåº•ä¾æ¬¡æŒ‡å‘æ ˆtmpSçš„æ¯ä¸ªå…ƒç´ 
+		(*visit)(tmpPtr->data); // å¯¹æ ˆtmpSçš„æ¯ä¸ªå…ƒç´ è°ƒç”¨å‡½æ•°(*visit)
 	}
 }
 
-template<class ElemType>
+template <class ElemType>
 StatusCode LinkStack<ElemType>::Push(const ElemType &e)
-// ²Ù×÷½á¹û£º½«ÔªËØe×·¼Óµ½Õ»¶¥,Èç³É¹¦Ôò·µ¼ÓSUCCESS,·ñÔòÈç¶¯Ì¬ÄÚ´æÒÑºÄ¾¡
-//	½«·µ»ØOVER_FLOW
+// æ“ä½œç»“æœï¼šå°†å…ƒç´ eè¿½åŠ åˆ°æ ˆé¡¶,å¦‚æˆåŠŸåˆ™è¿”åŠ SUCCESS,å¦åˆ™å¦‚åŠ¨æ€å†…å­˜å·²è€—å°½
+//	å°†è¿”å›OVER_FLOW
 {
 	Node<ElemType> *new_top = new Node<ElemType>(e, top);
-	if (new_top == NULL) 
-	{	// ¶¯Ì¬ÄÚ´æºÄ¾¡
+	if (new_top == NULL)
+	{ // åŠ¨æ€å†…å­˜è€—å°½
 		return OVER_FLOW;
 	}
 	else
-	{	// ²Ù×÷³É¹¦
+	{ // æ“ä½œæˆåŠŸ
 		top = new_top;
 		return SUCCESS;
 	}
 }
 
-template<class ElemType>
+template <class ElemType>
 StatusCode LinkStack<ElemType>::Top(ElemType &e) const
-// ²Ù×÷½á¹û£ºÈçÕ»·Ç¿Õ,ÓÃe·µ»ØÕ»¶¥ÔªËØ,·µ»ØSUCCESS,·ñÔò·µ»ØUNDER_FLOW
-{
-	if(Empty())
-	{	// Õ»¿Õ
-		return UNDER_FLOW;
-	}
-	else
-	{	// Õ»·Ç¿Õ,²Ù×÷³É¹¦
-		e = top->data;				// ÓÃe·µ»ØÕ»¶¥ÔªËØ
-		return SUCCESS;
-	}
-}
-
-template<class ElemType>
-StatusCode LinkStack<ElemType>::Pop(ElemType &e)
-// ²Ù×÷½á¹û£ºÈçÕ»·Ç¿Õ,É¾³ıÕ»¶¥ÔªËØ,²¢ÓÃe·µ»ØÕ»¶¥ÔªËØ,·µ»ØSUCCESS,·ñÔò
-//	·µ»ØUNDER_FLOW
+// æ“ä½œç»“æœï¼šå¦‚æ ˆéç©º,ç”¨eè¿”å›æ ˆé¡¶å…ƒç´ ,è¿”å›SUCCESS,å¦åˆ™è¿”å›UNDER_FLOW
 {
 	if (Empty())
-	{	// Õ»¿Õ
+	{ // æ ˆç©º
 		return UNDER_FLOW;
 	}
 	else
-	{	// ²Ù×÷³É¹¦
-		Node<ElemType> *old_top = top;	// ¾ÉÕ»¶¥
-		e = old_top->data;				// ÓÃe·µ»ØÕ»¶¥ÔªËØ
-		top = old_top->next;			// topÖ¸ÏòĞÂÕ»¶¥
-		delete old_top;					// É¾³ı¾ÉÕ»¶¥
+	{				   // æ ˆéç©º,æ“ä½œæˆåŠŸ
+		e = top->data; // ç”¨eè¿”å›æ ˆé¡¶å…ƒç´ 
 		return SUCCESS;
 	}
 }
 
-template<class ElemType>
-LinkStack<ElemType>::LinkStack(const LinkStack<ElemType> &copy) 
-// ²Ù×÷½á¹û£ºÓÉÕ»copy¹¹ÔìĞÂÕ»¡ª¡ª¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
+template <class ElemType>
+StatusCode LinkStack<ElemType>::Pop(ElemType &e)
+// æ“ä½œç»“æœï¼šå¦‚æ ˆéç©º,åˆ é™¤æ ˆé¡¶å…ƒç´ ,å¹¶ç”¨eè¿”å›æ ˆé¡¶å…ƒç´ ,è¿”å›SUCCESS,å¦åˆ™
+//	è¿”å›UNDER_FLOW
+{
+	if (Empty())
+	{ // æ ˆç©º
+		return UNDER_FLOW;
+	}
+	else
+	{								   // æ“ä½œæˆåŠŸ
+		Node<ElemType> *old_top = top; // æ—§æ ˆé¡¶
+		e = old_top->data;			   // ç”¨eè¿”å›æ ˆé¡¶å…ƒç´ 
+		top = old_top->next;		   // topæŒ‡å‘æ–°æ ˆé¡¶
+		delete old_top;				   // åˆ é™¤æ—§æ ˆé¡¶
+		return SUCCESS;
+	}
+}
+
+template <class ElemType>
+LinkStack<ElemType>::LinkStack(const LinkStack<ElemType> &copy)
+// æ“ä½œç»“æœï¼šç”±æ ˆcopyæ„é€ æ–°æ ˆâ€”â€”å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
 {
 	if (copy.Empty())
-	{	// copyÎª¿Õ
-		Init();									// ¹¹ÔìÒ»¿ÕÕ»
+	{			// copyä¸ºç©º
+		Init(); // æ„é€ ä¸€ç©ºæ ˆ
 	}
-	else 
-	{	// copy·Ç¿Õ,¸´ÖÆÕ»
-		top = new Node<ElemType>(copy.top->data);	// Éú³Éµ±Ç°Õ»Ïî
-		Node<ElemType> *buttomPtr = top;			// µ±Ç°Õ»µ×Ö¸Õë
+	else
+	{											  // copyéç©º,å¤åˆ¶æ ˆ
+		top = new Node<ElemType>(copy.top->data); // ç”Ÿæˆå½“å‰æ ˆé¡¹
+		Node<ElemType> *buttomPtr = top;		  // å½“å‰æ ˆåº•æŒ‡é’ˆ
 		for (Node<ElemType> *tmpPtr = copy.top->next; tmpPtr != NULL; tmpPtr = tmpPtr->next)
-		{	// ÓÃtmpPtrÒÀ´ÎÖ¸ÏòÆäÓàÔªËØ
-			buttomPtr->next = new Node<ElemType>(tmpPtr->data); // ÏòÕ»µ××·¼ÓÔªËØ	
-			buttomPtr = buttomPtr->next;					// buttomPtrÖ¸ÏòĞÂÕ»µ×
+		{														// ç”¨tmpPträ¾æ¬¡æŒ‡å‘å…¶ä½™å…ƒç´ 
+			buttomPtr->next = new Node<ElemType>(tmpPtr->data); // å‘æ ˆåº•è¿½åŠ å…ƒç´ 
+			buttomPtr = buttomPtr->next;						// buttomPtræŒ‡å‘æ–°æ ˆåº•
 		}
 	}
 }
 
-
-template<class ElemType>
-LinkStack<ElemType> &LinkStack<ElemType>::operator = (const LinkStack<ElemType> &copy)
-// ²Ù×÷½á¹û£º½«Õ»copy¸³Öµ¸øµ±Ç°Õ»¡ª¡ªÖØÔØ¸³ÖµÔËËã·û
+template <class ElemType>
+LinkStack<ElemType> &LinkStack<ElemType>::operator=(const LinkStack<ElemType> &copy)
+// æ“ä½œç»“æœï¼šå°†æ ˆcopyèµ‹å€¼ç»™å½“å‰æ ˆâ€”â€”é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 {
 	if (&copy != this)
 	{
 		if (copy.Empty())
-		{	// copyÎª¿Õ
-			Init();										// ¹¹ÔìÒ»¿ÕÕ»
+		{			// copyä¸ºç©º
+			Init(); // æ„é€ ä¸€ç©ºæ ˆ
 		}
-		else 
-		{	// copy·Ç¿Õ,¸´ÖÆÕ»
-			Clear();									// Çå¿Õµ±Ç°Õ»
-			top = new Node<ElemType>(copy.top->data);	// Éú³Éµ±Ç°Õ»Ïî
-			Node<ElemType> *buttomPtr = top;			// µ±Ç°Õ»µ×Ö¸Õë
+		else
+		{											  // copyéç©º,å¤åˆ¶æ ˆ
+			Clear();								  // æ¸…ç©ºå½“å‰æ ˆ
+			top = new Node<ElemType>(copy.top->data); // ç”Ÿæˆå½“å‰æ ˆé¡¹
+			Node<ElemType> *buttomPtr = top;		  // å½“å‰æ ˆåº•æŒ‡é’ˆ
 			for (Node<ElemType> *tmpPtr = copy.top->next; tmpPtr != NULL; tmpPtr = tmpPtr->next)
-			{	// ÓÃtmpPtrÒÀ´ÎÖ¸ÏòÆäÓàÔªËØ
-				buttomPtr->next = new Node<ElemType>(tmpPtr->data); // ÏòÕ»µ××·¼ÓÔªËØ	
-				buttomPtr = buttomPtr->next;			// buttomPtrÖ¸ÏòĞÂÕ»µ×
+			{														// ç”¨tmpPträ¾æ¬¡æŒ‡å‘å…¶ä½™å…ƒç´ 
+				buttomPtr->next = new Node<ElemType>(tmpPtr->data); // å‘æ ˆåº•è¿½åŠ å…ƒç´ 
+				buttomPtr = buttomPtr->next;						// buttomPtræŒ‡å‘æ–°æ ˆåº•
 			}
 		}
 	}
