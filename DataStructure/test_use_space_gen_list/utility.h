@@ -1,233 +1,248 @@
-#ifndef __UTILITY_H__				// Èç¹ûÃ»ÓĞ¶¨Òå__UTILITY_H__
-#define __UTILITY_H__				// ÄÇÃ´¶¨Òå__UTILITY_H__
+#ifndef __UTILITY_H__ // å¦‚æœæ²¡æœ‰å®šä¹‰__UTILITY_H__
+#define __UTILITY_H__ // é‚£ä¹ˆå®šä¹‰__UTILITY_H__
 
-// ÊµÓÃ³ÌĞòÈí¼ş°ü
+// å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
 
-#ifdef _MSC_VER						// ±íÊ¾ÊÇVC 
-#if _MSC_VER == 1200				// ±íÊ¾VC6.0
+#ifdef _MSC_VER		 // è¡¨ç¤ºæ˜¯VC
+#if _MSC_VER == 1200 // è¡¨ç¤ºVC6.0
 
-// ±ê×¼¿âÍ·ÎÄ¼ş
-#include <string.h>					// ±ê×¼´®ºÍ²Ù×÷
-#include <iostream.h>				// ±ê×¼Á÷²Ù×÷
-#include <limits.h>					// ¼«ÏŞ
-#include <math.h>					// ÊıÑ§º¯Êı
-#include <fstream.h>				// ÎÄ¼şÊäÈëÊä³ö
-#include <ctype.h>				 	// ×Ö·û´¦Àí
-#include <time.h>				 	// ÈÕÆÚºÍÊ±¼äº¯Êı
-#include <stdlib.h>					// ±ê×¼¿â
-#include <stdio.h>					// ±ê×¼ÊäÈëÊä³ö
-#include <iomanip.h>				// ÊäÈëÊä³öÁ÷¸ñÊ½ÉèÖÃ	
-#include <stdarg.h> 				// Ö§³Ö±ä³¤º¯Êı²ÎÊı	
-#include <assert.h>					// Ö§³Ö¶ÏÑÔ
+// æ ‡å‡†åº“å¤´æ–‡ä»¶
+#include <assert.h>	  // æ”¯æŒæ–­è¨€
+#include <ctype.h>	  // å­—ç¬¦å¤„ç†
+#include <fstream.h>  // æ–‡ä»¶è¾“å…¥è¾“å‡º
+#include <iomanip.h>  // è¾“å…¥è¾“å‡ºæµæ ¼å¼è®¾ç½®
+#include <iostream.h> // æ ‡å‡†æµæ“ä½œ
+#include <limits.h>	  // æé™
+#include <math.h>	  // æ•°å­¦å‡½æ•°
+#include <stdarg.h>	  // æ”¯æŒå˜é•¿å‡½æ•°å‚æ•°
+#include <stdio.h>	  // æ ‡å‡†è¾“å…¥è¾“å‡º
+#include <stdlib.h>	  // æ ‡å‡†åº“
+#include <string.h>	  // æ ‡å‡†ä¸²å’Œæ“ä½œ
+#include <time.h>	  // æ—¥æœŸå’Œæ—¶é—´å‡½æ•°
 
-#else								// ÆäËü°æ±¾µÄVC++
+#else				// å…¶å®ƒç‰ˆæœ¬çš„VC++
 
-// ANSI C++±ê×¼¿âÍ·ÎÄ¼ş
-#include <string>					// ±ê×¼´®ºÍ²Ù×÷
-#include <iostream>					// ±ê×¼Á÷²Ù×÷
-#include <limits>					// ¼«ÏŞ
-#include <cmath>					// ÊıÑ§º¯Êı
-#include <fstream>					// ÎÄ¼şÊäÈëÊä³ö
-#include <cctype>					// ×Ö·û´¦Àí
-#include <ctime>       				// ÈÕÆÚºÍÊ±¼äº¯Êı
-#include <cstdlib>					// ±ê×¼¿â
-#include <cstdio>       			// ±ê×¼ÊäÈëÊä³ö
-#include <iomanip>					// ÊäÈëÊä³öÁ÷¸ñÊ½ÉèÖÃ	
-#include <cstdarg> 					// Ö§³Ö±ä³¤º¯Êı²ÎÊı	
-#include <cassert>					// Ö§³Ö¶ÏÑÔ
-using namespace std;				// ±ê×¼¿â°üº¬ÔÚÃüÃû¿Õ¼ästdÖĞ
+// ANSI C++æ ‡å‡†åº“å¤´æ–‡ä»¶
+#include <cassert>	// æ”¯æŒæ–­è¨€
+#include <cctype>	// å­—ç¬¦å¤„ç†
+#include <cmath>	// æ•°å­¦å‡½æ•°
+#include <cstdarg>	// æ”¯æŒå˜é•¿å‡½æ•°å‚æ•°
+#include <cstdio>	// æ ‡å‡†è¾“å…¥è¾“å‡º
+#include <cstdlib>	// æ ‡å‡†åº“
+#include <ctime>	// æ—¥æœŸå’Œæ—¶é—´å‡½æ•°
+#include <fstream>	// æ–‡ä»¶è¾“å…¥è¾“å‡º
+#include <iomanip>	// è¾“å…¥è¾“å‡ºæµæ ¼å¼è®¾ç½®
+#include <iostream> // æ ‡å‡†æµæ“ä½œ
+#include <limits>	// æé™
+#include <string>	// æ ‡å‡†ä¸²å’Œæ“ä½œ
+using namespace std; // æ ‡å‡†åº“åŒ…å«åœ¨å‘½åç©ºé—´stdä¸­
 
-#endif	// _MSC_VER == 1200
-#else								// ·ÇVC 
+#endif				// _MSC_VER == 1200
+#else				// éVC
 
-// ANSI C++±ê×¼¿âÍ·ÎÄ¼ş
-#include <string>					// ±ê×¼´®²Ù×÷
-#include <iostream>					// ±ê×¼Á÷²Ù×÷
-#include <limits>					// ¼«ÏŞ
-#include <cmath>					// Êı¾İº¯Êı
-#include <fstream>					// ÎÄ¼şÊäÈëÊä³ö
-#include <cctype>					// ×Ö·û´¦Àí
-#include <ctime>       				// ÈÕÆÚºÍÊ±¼äº¯Êı
-#include <cstdlib>					// ±ê×¼¿â
-#include <cstdio>       			// ±ê×¼ÊäÈëÊä³ö
-#include <iomanip>					// ÊäÈëÊä³öÁ÷¸ñÊ½ÉèÖÃ	
-#include <cstdarg> 					// Ö§³Ö±ä³¤º¯Êı²ÎÊı	
-#include <cassert>					// Ö§³Ö¶ÏÑÔ
-using namespace std;				// ±ê×¼¿â°üº¬ÔÚÃüÃû¿Õ¼ästdÖĞ
+// ANSI C++æ ‡å‡†åº“å¤´æ–‡ä»¶
+#include <cassert>	// æ”¯æŒæ–­è¨€
+#include <cctype>	// å­—ç¬¦å¤„ç†
+#include <cmath>	// æ•°æ®å‡½æ•°
+#include <cstdarg>	// æ”¯æŒå˜é•¿å‡½æ•°å‚æ•°
+#include <cstdio>	// æ ‡å‡†è¾“å…¥è¾“å‡º
+#include <cstdlib>	// æ ‡å‡†åº“
+#include <ctime>	// æ—¥æœŸå’Œæ—¶é—´å‡½æ•°
+#include <fstream>	// æ–‡ä»¶è¾“å…¥è¾“å‡º
+#include <iomanip>	// è¾“å…¥è¾“å‡ºæµæ ¼å¼è®¾ç½®
+#include <iostream> // æ ‡å‡†æµæ“ä½œ
+#include <limits>	// æé™
+#include <string>	// æ ‡å‡†ä¸²æ“ä½œ
+using namespace std; // æ ‡å‡†åº“åŒ…å«åœ¨å‘½åç©ºé—´stdä¸­
 
-#endif	// _MSC_VER
+#endif // _MSC_VER
 
+// è‡ªå®šä¹‰ç±»å‹
+enum StatusCode
+{
+	SUCCESS,
+	FAIL,
+	UNDER_FLOW,
+	OVER_FLOW,
+	RANGE_ERROR,
+	DUPLICATE_ERROR,
+	NOT_PRESENT,
+	ENTRY_INSERTED,
+	ENTRY_FOUND,
+	VISITED,
+	UNVISITED
+};
 
+// å®å®šä¹‰
+#define DEFAULT_SIZE 1000		 // ç¼ºçœå…ƒç´ ä¸ªæ•°
+#define DEFAULT_INFINITY 1000000 // ç¼ºçœæ— ç©·å¤§
 
-// ×Ô¶¨ÒåÀàĞÍ
-enum StatusCode {SUCCESS, FAIL, UNDER_FLOW, OVER_FLOW,RANGE_ERROR, DUPLICATE_ERROR,
-	NOT_PRESENT, ENTRY_INSERTED, ENTRY_FOUND, VISITED, UNVISITED};
-
-// ºê¶¨Òå
-#define DEFAULT_SIZE 1000			// È±Ê¡ÔªËØ¸öÊı
-#define DEFAULT_INFINITY 1000000	// È±Ê¡ÎŞÇî´ó
-
-
-// ÊµÓÃº¯Êı(Ä£°å)ÉùÃ÷
-static char GetChar(istream &inStream = cin); // ´ÓÊäÈëÁ÷inStreamÖĞÌø¹ı¿Õ¸ñ¼°ÖÆ±í·û»ñÈ¡Ò»×Ö·û
-static bool UserSaysYes();		// µ±ÓÃ»§¿Ï¶¨»Ø´ğ(yes)Ê±, ·µ»Øtrue, ÓÃ»§·ñ¶¨»Ø´ğ(no)Ê±,·µ»Øfalse
-static void SetRandSeed();		// ÉèÖÃµ±Ç°Ê±¼äÎªËæ»úÊıÖÖ×Ó
-static int GetRand(int n);		// Éú³É0 ~ n-1Ö®¼äµÄËæ»úÊı
-static int GetRand();			// Éú³ÉËæ»úÊı
-static int GetPoissionRand(double expectValue);// Éú³ÉÆÚÍûÖµÎªexpectValue²´ËÉËæ»úÊı 
-template <class ElemType >
-void Swap(ElemType &e1, ElemType &e2);	// ½»»»e1, e2Ö®Öµ
-template<class ElemType>
-void Display(ElemType elem[], int n);	// ÏÔÊ¾Êı×éelemµÄ¸÷Êı¾İÔªËØÖµ
+// å®ç”¨å‡½æ•°(æ¨¡æ¿)å£°æ˜
+static char GetChar(istream &inStream = cin);	// ä»è¾“å…¥æµinStreamä¸­è·³è¿‡ç©ºæ ¼åŠåˆ¶è¡¨ç¬¦è·å–ä¸€å­—ç¬¦
+static bool UserSaysYes();						// å½“ç”¨æˆ·è‚¯å®šå›ç­”(yes)æ—¶, è¿”å›true, ç”¨æˆ·å¦å®šå›ç­”(no)æ—¶,è¿”å›false
+static void SetRandSeed();						// è®¾ç½®å½“å‰æ—¶é—´ä¸ºéšæœºæ•°ç§å­
+static int GetRand(int n);						// ç”Ÿæˆ0 ~ n-1ä¹‹é—´çš„éšæœºæ•°
+static int GetRand();							// ç”Ÿæˆéšæœºæ•°
+static int GetPoissionRand(double expectValue); // ç”ŸæˆæœŸæœ›å€¼ä¸ºexpectValueæ³Šæ¾éšæœºæ•°
 template <class ElemType>
-void Write(const ElemType &e);			// ÏÔÊ¾Êı¾İÔªËØ
+void Swap(ElemType &e1, ElemType &e2); // äº¤æ¢e1, e2ä¹‹å€¼
+template <class ElemType>
+void Display(ElemType elem[], int n); // æ˜¾ç¤ºæ•°ç»„elemçš„å„æ•°æ®å…ƒç´ å€¼
+template <class ElemType>
+void Write(const ElemType &e); // æ˜¾ç¤ºæ•°æ®å…ƒç´ 
 
-// ÊµÓÃÀà
-class Timer;			// ¶¨Ê±Æ÷ÀàTimer
-class Error;			// Í¨ÓÃÒì³£Àà
+// å®ç”¨ç±»
+class Timer; // å®šæ—¶å™¨ç±»Timer
+class Error; // é€šç”¨å¼‚å¸¸ç±»
 
 static char GetChar(istream &inStream)
-// ²Ù×÷½á¹û£º´ÓÊäÈëÁ÷inStreamÖĞÌø¹ı¿Õ¸ñ¼°ÖÆ±í·û»ñÈ¡Ò»×Ö·û
+// æ“ä½œç»“æœï¼šä»è¾“å…¥æµinStreamä¸­è·³è¿‡ç©ºæ ¼åŠåˆ¶è¡¨ç¬¦è·å–ä¸€å­—ç¬¦
 {
-	char ch;								// ÁÙÊ±±äÁ¿
-	while ((ch = (inStream).peek()) != EOF	// ÎÄ¼ş½áÊø·û(peek()º¯Êı´ÓÊäÈëÁ÷ÖĞ½ÓÊÜ1
-											// ×Ö·û,Á÷µÄµ±Ç°Î»ÖÃ²»±ä)
-		&& ((ch = (inStream).get()) == ' '	// ¿Õ¸ñ(get()º¯Êı´ÓÊäÈëÁ÷ÖĞ½ÓÊÜ1×Ö·û,Á÷
-											// µÄµ±Ç°Î»ÖÃÏòºóÒÆ1¸öÎ»ÖÃ)
-		|| ch == '\t'));					// ÖÆ±í·û
-	
-	return ch;								// ·µ»Ø×Ö·û
+	char ch;								  // ä¸´æ—¶å˜é‡
+	while ((ch = (inStream).peek()) != EOF	  // æ–‡ä»¶ç»“æŸç¬¦(peek()å‡½æ•°ä»è¾“å…¥æµä¸­æ¥å—1
+											  // å­—ç¬¦,æµçš„å½“å‰ä½ç½®ä¸å˜)
+		   && ((ch = (inStream).get()) == ' ' // ç©ºæ ¼(get()å‡½æ•°ä»è¾“å…¥æµä¸­æ¥å—1å­—ç¬¦,æµ
+											  // çš„å½“å‰ä½ç½®å‘åç§»1ä¸ªä½ç½®)
+			   || ch == '\t'))
+		; // åˆ¶è¡¨ç¬¦
+
+	return ch; // è¿”å›å­—ç¬¦
 }
 
 static bool UserSaysYes()
-// ²Ù×÷½á¹û: µ±ÓÃ»§¿Ï¶¨»Ø´ğ(yes)Ê±, ·µ»Øtrue, ÓÃ»§·ñ¶¨»Ø´ğ(no)Ê±,·µ»Øfalse
+// æ“ä½œç»“æœ: å½“ç”¨æˆ·è‚¯å®šå›ç­”(yes)æ—¶, è¿”å›true, ç”¨æˆ·å¦å®šå›ç­”(no)æ—¶,è¿”å›false
 {
-	char ch;							// ÓÃ»§»Ø´ğ×Ö·û
-	bool initialResponse = true;		// ³õÊ¼»Ø´ğ
+	char ch;					 // ç”¨æˆ·å›ç­”å­—ç¬¦
+	bool initialResponse = true; // åˆå§‹å›ç­”
 
 	do
-	{	// Ñ­»·Ö±µ½ÓÃ»§ÊäÈëÇ¡µ±µÄ»Ø´ğÎªÖ¹
+	{ // å¾ªç¯ç›´åˆ°ç”¨æˆ·è¾“å…¥æ°å½“çš„å›ç­”ä¸ºæ­¢
 		if (initialResponse)
-		{	// ³õÊ¼»Ø´ğ
-			cout << "(y, n)?"; 
+		{ // åˆå§‹å›ç­”
+			cout << "(y, n)?";
 		}
 		else
-		{	// ·Ç³õÊ¼»Ø´ğ
-			cout << "ÓÃy»òn»Ø´ğ:";
+		{ // éåˆå§‹å›ç­”
+			cout << "ç”¨yæˆ–nå›ç­”:";
 		}
-		
-		while ((ch = GetChar()) == '\n');	// Ìø¹ı¿Õ¸ñ,ÖÆ±í·û¼°»»ĞĞ·û»ñÈ¡Ò»×Ö·û
+
+		while ((ch = GetChar()) == '\n')
+			; // è·³è¿‡ç©ºæ ¼,åˆ¶è¡¨ç¬¦åŠæ¢è¡Œç¬¦è·å–ä¸€å­—ç¬¦
 		initialResponse = false;
 	} while (ch != 'y' && ch != 'Y' && ch != 'n' && ch != 'N');
-	while (GetChar() != '\n');		// Ìø¹ıµ±Ç°ĞĞºóÃæµÄ×Ö·û
-	
-	if (ch == 'y' || ch == 'Y') return true;
-	else return false;
+	while (GetChar() != '\n')
+		; // è·³è¿‡å½“å‰è¡Œåé¢çš„å­—ç¬¦
+
+	if (ch == 'y' || ch == 'Y')
+		return true;
+	else
+		return false;
 }
 
-// ¶¨Ê±Æ÷ÀàTimer
+// å®šæ—¶å™¨ç±»Timer
 class Timer
 {
 private:
-// Êı¾İ³ÉÔ±
+	// æ•°æ®æˆå‘˜
 	clock_t startTime;
 
 public:
-//  ·½·¨ÉùÃ÷
-	Timer() { startTime = clock(); }			// ¹¹Ôìº¯Êı
-	~Timer() {};								// Îö¹¹º¯Êı	
-	double ElapsedTime()						// ·µ»ØÒÑ¹ıµÄÊ±¼ä
+	//  æ–¹æ³•å£°æ˜
+	Timer() { startTime = clock(); } // æ„é€ å‡½æ•°
+	~Timer(){};						 // ææ„å‡½æ•°
+	double ElapsedTime()			 // è¿”å›å·²è¿‡çš„æ—¶é—´
 	{
-		clock_t endTime = clock();				// ½áÊøÊ±¼ä
-		return (double)(endTime - startTime) / (double)CLK_TCK;	
-			// ·µ»Ø´ÓTimer¶ÔÏóÆô¶¯»ò×îºóÒ»´Îµ÷ÓÃreset()ºóËùÊ¹ÓÃµÄCPUÊ±¼ä
+		clock_t endTime = clock(); // ç»“æŸæ—¶é—´
+		return (double)(endTime - startTime) / (double)CLK_TCK;
+		// è¿”å›ä»Timerå¯¹è±¡å¯åŠ¨æˆ–æœ€åä¸€æ¬¡è°ƒç”¨reset()åæ‰€ä½¿ç”¨çš„CPUæ—¶é—´
 	}
-	void Reset() { startTime = clock(); }		// ÖØÖÃ¿ªÊ¼Ê±¼ä
-
+	void Reset() { startTime = clock(); } // é‡ç½®å¼€å§‹æ—¶é—´
 };
 
 #define MAX_ERROR_MESSAGE_LEN 100
 
-// Í¨ÓÃÒì³£Àà                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+// é€šç”¨å¼‚å¸¸ç±»
 class Error
 {
 private:
-// Êı¾İ³ÉÔ±
-	char message[MAX_ERROR_MESSAGE_LEN];// Òì³£ĞÅÏ¢
+	// æ•°æ®æˆå‘˜
+	char message[MAX_ERROR_MESSAGE_LEN]; // å¼‚å¸¸ä¿¡æ¯
 
 public:
-//  ·½·¨ÉùÃ÷
-	Error(char mes[] = "Ò»°ãĞÔÒì³£!")	// ¹¹Ôìº¯Êı 
+	//  æ–¹æ³•å£°æ˜
+	Error(char mes[] = "ä¸€èˆ¬æ€§å¼‚å¸¸!") // æ„é€ å‡½æ•°
 	{
-		strcpy(message, mes);			// ¸´ÖÆÒì³£ĞÅÏ¢
+		strcpy(message, mes); // å¤åˆ¶å¼‚å¸¸ä¿¡æ¯
 	}
-	~Error(void) {};					// Îö¹¹º¯Êı	
-	void Show() const					// ÏÔÊ¾Òì³£ĞÅÏ¢
+	~Error(void){};	  // ææ„å‡½æ•°
+	void Show() const // æ˜¾ç¤ºå¼‚å¸¸ä¿¡æ¯
 	{
-		cout << message << endl;		// ÏÔÊ¾Òì³£ĞÅÏ¢	
+		cout << message << endl; // æ˜¾ç¤ºå¼‚å¸¸ä¿¡æ¯
 	}
 };
 
 static void SetRandSeed()
-// ²Ù×÷½á¹û£ºÉèÖÃµ±Ç°Ê±¼äÎªËæ»úÊıÖÖ×Ó
-{ 
-	srand((unsigned)time(NULL)); 
+// æ“ä½œç»“æœï¼šè®¾ç½®å½“å‰æ—¶é—´ä¸ºéšæœºæ•°ç§å­
+{
+	srand((unsigned)time(NULL));
 }
 
 static int GetRand(int n)
-// ²Ù×÷½á¹û£ºÉú³É0 ~ n-1Ö®¼äµÄËæ»úÊı
-{ 
-	return rand() % (n); 
+// æ“ä½œç»“æœï¼šç”Ÿæˆ0 ~ n-1ä¹‹é—´çš„éšæœºæ•°
+{
+	return rand() % (n);
 }
 
 static int GetRand()
-// ²Ù×÷½á¹û£ºÉú³ÉËæ»úÊı
-{ 
-	return rand(); 
+// æ“ä½œç»“æœï¼šç”Ÿæˆéšæœºæ•°
+{
+	return rand();
 }
 
 static int GetPoissionRand(double expectValue)
-// ²Ù×÷½á¹û£ºÉú³ÉÆÚÍûÖµÎªexpectValue²´ËÉËæ»úÊı 
+// æ“ä½œç»“æœï¼šç”ŸæˆæœŸæœ›å€¼ä¸ºexpectValueæ³Šæ¾éšæœºæ•°
 {
-	double x = rand() / (double)(RAND_MAX + 1);	// x¾ùÔÈ·Ö²¼ÓÚ[0, 1)
+	double x = rand() / (double)(RAND_MAX + 1); // xå‡åŒ€åˆ†å¸ƒäº[0, 1)
 	int k = 0;
-	double p = exp(-expectValue);			// pkÎª²´ËÉ·Ö²¼Öµ
-	double s = 0;							// skÓÃÓÚÇóºÍp0+p1+...+pk-1
+	double p = exp(-expectValue); // pkä¸ºæ³Šæ¾åˆ†å¸ƒå€¼
+	double s = 0;				  // skç”¨äºæ±‚å’Œp0+p1+...+pk-1
 
 	while (s <= x)
-	{	// µ±sk <= xÊ±Ñ­»·, Ñ­»·½áÊøºósk-1 <= x < sk
-		s += p;								// ÇóºÍ
+	{			// å½“sk <= xæ—¶å¾ªç¯, å¾ªç¯ç»“æŸåsk-1 <= x < sk
+		s += p; // æ±‚å’Œ
 		k++;
-		p = p * expectValue / k;			// ÇóÏÂÒ»Ïîpk
+		p = p * expectValue / k; // æ±‚ä¸‹ä¸€é¡¹pk
 	}
-	return k - 1;							// k-1µÄÖµ·ş´ÓÆÚÏ£ÖµÎªexpectValueµÄ²´ËÉ·Ö²¼
+	return k - 1; // k-1çš„å€¼æœä»æœŸå¸Œå€¼ä¸ºexpectValueçš„æ³Šæ¾åˆ†å¸ƒ
 }
 
-template <class ElemType >
+template <class ElemType>
 void Swap(ElemType &e1, ElemType &e2)
-// ²Ù×÷½á¹û: ½»»»e1, e2Ö®Öµ
+// æ“ä½œç»“æœ: äº¤æ¢e1, e2ä¹‹å€¼
 {
-	ElemType temp;		// ÁÙÊ±±äÁ¿
-	// Ñ­»·¸³ÖµÊµÏÖ½»»»e1, e2
-	temp = e1;	e1 = e2;  e2 = temp;
+	ElemType temp; // ä¸´æ—¶å˜é‡
+	// å¾ªç¯èµ‹å€¼å®ç°äº¤æ¢e1, e2
+	temp = e1;
+	e1 = e2;
+	e2 = temp;
 }
 
-template<class ElemType>
+template <class ElemType>
 void Display(ElemType elem[], int n)
-// ²Ù×÷½á¹û: ÏÔÊ¾Êı×éelemµÄ¸÷Êı¾İÔªËØÖµ
+// æ“ä½œç»“æœ: æ˜¾ç¤ºæ•°ç»„elemçš„å„æ•°æ®å…ƒç´ å€¼
 {
 	for (int i = 0; i < n; i++)
-	{	// ÏÔÊ¾Êı×éelem
+	{ // æ˜¾ç¤ºæ•°ç»„elem
 		cout << elem[i] << "  ";
 	}
-	cout << endl; 
+	cout << endl;
 }
 
 template <class ElemType>
 void Write(const ElemType &e)
-// ²Ù×÷½á¹û: ÏÔÊ¾Êı¾İÔªËØ
+// æ“ä½œç»“æœ: æ˜¾ç¤ºæ•°æ®å…ƒç´ 
 {
-    cout << e << "  ";
+	cout << e << "  ";
 }
 
 #endif

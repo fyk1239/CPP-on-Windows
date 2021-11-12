@@ -1,239 +1,244 @@
 #ifndef __GEN_LIST_H__
 #define __GEN_LIST_H__
 
-#include "gen_node.h"						// ¹ãÒå±í½áµãÀàÄ£°å 
+#include "gen_node.h" // å¹¿ä¹‰è¡¨ç»“ç‚¹ç±»æ¨¡æ¿
 
-// ¹ãÒå±íÀàÄ£°å
-template<class ElemType>
+// å¹¿ä¹‰è¡¨ç±»æ¨¡æ¿
+template <class ElemType>
 class GenList
 {
 protected:
-// ¹ãÒå±íÀàµÄÊı¾İ³ÉÔ±:
-	GenListNode<ElemType> *head;			// ¹ãÒå±íÍ·Ö¸Õë
-	
-// ¸¨Öúº¯ÊıÄ£°å:
-	void ShowHelp(GenListNode<ElemType> *hd) const;	
-		// ÏÔÊ¾ÒÔhdÎªÍ·½áµãµÄ¹ãÒå±í
-	int DepthHelp(const GenListNode<ElemType> *hd);	// ¼ÆËãÒÔhdÎª±íÍ·µÄ¹ãÒå±íµÄÉî¶È
-	void CopyHelp(const GenListNode<ElemType> *sourceHead, 
-		 GenListNode<ElemType> *&destHead);	
-		// ½«ÒÔdestHeadÎªÍ·½áµãµÄ¹ãÒå±í¸´ÖÆ³ÉÒÔsourceHeadÎªÍ·½áµãµÄ¹ãÒå±í
+	// å¹¿ä¹‰è¡¨ç±»çš„æ•°æ®æˆå‘˜:
+	GenListNode<ElemType> *head; // å¹¿ä¹‰è¡¨å¤´æŒ‡é’ˆ
+
+	// è¾…åŠ©å‡½æ•°æ¨¡æ¿:
+	void ShowHelp(GenListNode<ElemType> *hd) const;
+	// æ˜¾ç¤ºä»¥hdä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨
+	int DepthHelp(const GenListNode<ElemType> *hd); // è®¡ç®—ä»¥hdä¸ºè¡¨å¤´çš„å¹¿ä¹‰è¡¨çš„æ·±åº¦
+	void CopyHelp(const GenListNode<ElemType> *sourceHead,
+				  GenListNode<ElemType> *&destHead);
+	// å°†ä»¥destHeadä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨å¤åˆ¶æˆä»¥sourceHeadä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨
 	void CreateHelp(GenListNode<ElemType> *&first);
-		// ´´½¨ÒÔfirstÎªÍ·½áµãµÄ¹ãÒå±í
+	// åˆ›å»ºä»¥firstä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨
 
 public:
-// ³éÏóÊı¾İÀàĞÍ·½·¨ÉùÃ÷¼°ÖØÔØ±àÒëÏµÍ³Ä¬ÈÏ·½·¨ÉùÃ÷:
-	GenList();								// ÎŞ²ÎÊıµÄ¹¹Ôìº¯ÊıÄ£°å
-	GenList(GenListNode<ElemType> *hd);		// ÓÉÍ·½áµãÖ¸Õë¹¹Ôì¹ãÒå±í
-	~GenList(){};							// Îö¹¹º¯ÊıÄ£°å
-	GenListNode<ElemType> *First() const;	// ·µ»Ø¹ãÒå±íµÄµÚÒ»¸öÔªËØ
-	GenListNode<ElemType> *Next(GenListNode<ElemType> *elemPtr) const;	                                                                               
-		// ·µ»ØelemPtrÖ¸ÏòµÄ¹ãÒå±íÔªËØµÄºó¼Ì
-	bool Empty() const;						// ÅĞ¶Ï¹ãÒå±íÊÇ·ñÎª¿Õ
-	void Push(const ElemType &e);			// ½«Ô­×ÓÔªËØe×÷Îª±íÍ·¼ÓÈëµ½¹ãÒå±í×îÇ°Ãæ
-	void Push(GenList<ElemType> &subList);	// ½«×Ó±ísubList×÷Îª±íÍ·¼ÓÈëµ½¹ãÒå±í×îÇ°Ãæ
-	int Depth();							// ¼ÆËã¹ãÒå±íÉî¶È
-	GenList(const GenList<ElemType> &copy);	// ¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
-	GenList<ElemType> &operator =(const GenList<ElemType> &copy);// ÖØÔØ¸³ÖµÔËËã·û
-	void Input();							// ÊäÈë¹ãÒå±í	
-	void Show();							// ÏÔÊ¾¹ãÒå±í	
+	// æŠ½è±¡æ•°æ®ç±»å‹æ–¹æ³•å£°æ˜åŠé‡è½½ç¼–è¯‘ç³»ç»Ÿé»˜è®¤æ–¹æ³•å£°æ˜:
+	GenList();							  // æ— å‚æ•°çš„æ„é€ å‡½æ•°æ¨¡æ¿
+	GenList(GenListNode<ElemType> *hd);	  // ç”±å¤´ç»“ç‚¹æŒ‡é’ˆæ„é€ å¹¿ä¹‰è¡¨
+	~GenList(){};						  // ææ„å‡½æ•°æ¨¡æ¿
+	GenListNode<ElemType> *First() const; // è¿”å›å¹¿ä¹‰è¡¨çš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+	GenListNode<ElemType> *Next(GenListNode<ElemType> *elemPtr) const;
+	// è¿”å›elemPtræŒ‡å‘çš„å¹¿ä¹‰è¡¨å…ƒç´ çš„åç»§
+	bool Empty() const;											 // åˆ¤æ–­å¹¿ä¹‰è¡¨æ˜¯å¦ä¸ºç©º
+	void Push(const ElemType &e);								 // å°†åŸå­å…ƒç´ eä½œä¸ºè¡¨å¤´åŠ å…¥åˆ°å¹¿ä¹‰è¡¨æœ€å‰é¢
+	void Push(GenList<ElemType> &subList);						 // å°†å­è¡¨subListä½œä¸ºè¡¨å¤´åŠ å…¥åˆ°å¹¿ä¹‰è¡¨æœ€å‰é¢
+	int Depth();												 // è®¡ç®—å¹¿ä¹‰è¡¨æ·±åº¦
+	GenList(const GenList<ElemType> &copy);						 // å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
+	GenList<ElemType> &operator=(const GenList<ElemType> &copy); // é‡è½½èµ‹å€¼è¿ç®—ç¬¦
+	void Input();												 // è¾“å…¥å¹¿ä¹‰è¡¨
+	void Show();												 // æ˜¾ç¤ºå¹¿ä¹‰è¡¨
 };
 
-// ¹ãÒå±íÀàÄ£°åµÄÊµÏÖ²¿·Ö
+// å¹¿ä¹‰è¡¨ç±»æ¨¡æ¿çš„å®ç°éƒ¨åˆ†
 template <class ElemType>
 GenList<ElemType>::GenList()
-// ²Ù×÷½á¹û£º¹¹ÔìÒ»¸ö¿Õ¹ãÒå±í
+// æ“ä½œç»“æœï¼šæ„é€ ä¸€ä¸ªç©ºå¹¿ä¹‰è¡¨
 {
 	head = new GenListNode<ElemType>(HEAD);
 }
 
 template <class ElemType>
 GenList<ElemType>::GenList(GenListNode<ElemType> *hd)
-// ²Ù×÷½á¹û£ºÓÉÍ·½áµãÖ¸Õë¹¹Ôì¹ãÒå±í
+// æ“ä½œç»“æœï¼šç”±å¤´ç»“ç‚¹æŒ‡é’ˆæ„é€ å¹¿ä¹‰è¡¨
 {
-	head = hd;								// Í·½áµã
+	head = hd; // å¤´ç»“ç‚¹
 }
 
 template <class ElemType>
 GenListNode<ElemType> *GenList<ElemType>::First() const
-// ²Ù×÷½á¹û£º·µ»Ø¹ãÒå±íµÄµÚÒ»¸öÔªËØ
+// æ“ä½œç»“æœï¼šè¿”å›å¹¿ä¹‰è¡¨çš„ç¬¬ä¸€ä¸ªå…ƒç´ 
 {
 	return head->nextLink;
 }
 
 template <class ElemType>
 GenListNode<ElemType> *GenList<ElemType>::Next(GenListNode<ElemType> *elemPtr) const
-// ²Ù×÷½á¹û£º·µ»ØelemPtrÖ¸ÏòµÄ¹ãÒå±íÔªËØµÄºó¼Ì
+// æ“ä½œç»“æœï¼šè¿”å›elemPtræŒ‡å‘çš„å¹¿ä¹‰è¡¨å…ƒç´ çš„åç»§
 {
 	return elemPtr->nextLink;
 }
 
 template <class ElemType>
 bool GenList<ElemType>::Empty() const
-// ²Ù×÷½á¹û£ºÈç¹ãÒå±íÎª¿Õ£¬Ôò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+// æ“ä½œç»“æœï¼šå¦‚å¹¿ä¹‰è¡¨ä¸ºç©ºï¼Œåˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 {
 	return head->nextLink == NULL;
 }
 
 template <class ElemType>
 void GenList<ElemType>::Push(const ElemType &e)
-// ²Ù×÷½á¹û£º½«Ô­×ÓÔªËØe×÷Îª±íÍ·¼ÓÈëµ½¹ãÒå±í×îÇ°Ãæ
+// æ“ä½œç»“æœï¼šå°†åŸå­å…ƒç´ eä½œä¸ºè¡¨å¤´åŠ å…¥åˆ°å¹¿ä¹‰è¡¨æœ€å‰é¢
 {
 	GenListNode<ElemType> *tmpPtr = new GenListNode<ElemType>(ATOM, head->nextLink);
-	tmpPtr->atom = e;					// Êı¾İÓò
-	head->nextLink = tmpPtr;			// ½«tmpPtr²åÈëÔÚheadÓëhead->nextLinkÖ®¼ä 
+	tmpPtr->atom = e;		 // æ•°æ®åŸŸ
+	head->nextLink = tmpPtr; // å°†tmpPtræ’å…¥åœ¨headä¸head->nextLinkä¹‹é—´
 }
 
 template <class ElemType>
 void GenList<ElemType>::Push(GenList<ElemType> &subList)
-// ²Ù×÷½á¹û£º½«×Ó±ísubList×÷Îª±íÍ·¼ÓÈëµ½¹ãÒå±í×îÇ°Ãæ
+// æ“ä½œç»“æœï¼šå°†å­è¡¨subListä½œä¸ºè¡¨å¤´åŠ å…¥åˆ°å¹¿ä¹‰è¡¨æœ€å‰é¢
 {
 	GenListNode<ElemType> *tmpPtr = new GenListNode<ElemType>(LIST, head->nextLink);
-	tmpPtr->subLink = subList.head;		// ×Ó±í
-	head->nextLink = tmpPtr;			// ½«tmpPtr²åÈëÔÚheadÓëhead->nextLinkÖ®¼ä 
+	tmpPtr->subLink = subList.head; // å­è¡¨
+	head->nextLink = tmpPtr;		// å°†tmpPtræ’å…¥åœ¨headä¸head->nextLinkä¹‹é—´
 }
 
 template <class ElemType>
 void GenList<ElemType>::ShowHelp(GenListNode<ElemType> *hd) const
-// ²Ù×÷½á¹û£ºÏÔÊ¾ÒÔhdÎªÍ·½áµãµÄ¹ãÒå±í
+// æ“ä½œç»“æœï¼šæ˜¾ç¤ºä»¥hdä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨
 {
 	bool frist = true;
-	cout << "(";						// ¹ãÒå±íÒÔ(¿ªÊ¼
+	cout << "("; // å¹¿ä¹‰è¡¨ä»¥(å¼€å§‹
 	for (GenListNode<ElemType> *tmpPtr = hd->nextLink; tmpPtr != NULL; tmpPtr = tmpPtr->nextLink)
-	{	// ÒÀ´Î´¦Àí¹ãÒå±í¸÷ÔªËØ 
-		if (frist) frist = false;		// µÚÒ»¸öÔªËØ
-		else cout << ",";				// ²»Í¬ÔªËØÕâ¼äÓÃ¶ººÅ¸ô¿ª
+	{ // ä¾æ¬¡å¤„ç†å¹¿ä¹‰è¡¨å„å…ƒç´ 
+		if (frist)
+			frist = false; // ç¬¬ä¸€ä¸ªå…ƒç´ 
+		else
+			cout << ","; // ä¸åŒå…ƒç´ è¿™é—´ç”¨é€—å·éš”å¼€
 		if (tmpPtr->tag == ATOM)
-		{	// Ô­×Ó½áµã
+		{ // åŸå­ç»“ç‚¹
 			cout << tmpPtr->atom;
 		}
 		else
-		{	// ±í½áµã
+		{ // è¡¨ç»“ç‚¹
 			ShowHelp(tmpPtr->subLink);
 		}
 	}
-	cout << ")";						// ¹ãÒå±íÒÔ)½áÊø
+	cout << ")"; // å¹¿ä¹‰è¡¨ä»¥)ç»“æŸ
 }
 
 template <class ElemType>
 void GenList<ElemType>::Show()
-// ²Ù×÷½á¹û£ºÏÔÊ¾¹ãÒå±í	
+// æ“ä½œç»“æœï¼šæ˜¾ç¤ºå¹¿ä¹‰è¡¨
 {
-	ShowHelp(head);						// µ÷ÓÃ¸¨Öúº¯ÊıÏÔÊ¾¹ãÒå±í
+	ShowHelp(head); // è°ƒç”¨è¾…åŠ©å‡½æ•°æ˜¾ç¤ºå¹¿ä¹‰è¡¨
 }
-
 
 template <class ElemType>
 int GenList<ElemType>::DepthHelp(const GenListNode<ElemType> *hd)
-// ²Ù×÷½á¹û£º·µ»ØÒÔhdÎª±íÍ·µÄ¹ãÒå±íµÄÉî¶È
+// æ“ä½œç»“æœï¼šè¿”å›ä»¥hdä¸ºè¡¨å¤´çš„å¹¿ä¹‰è¡¨çš„æ·±åº¦
 {
-	if (hd->nextLink == NULL) return 1;// ¿Õ¹ãÒå±íµÄÉî¶ÈÎª1
-	
-	int subMaxDepth = 0;				// ×Ó±í×î´óÉî¶È
+	if (hd->nextLink == NULL)
+		return 1; // ç©ºå¹¿ä¹‰è¡¨çš„æ·±åº¦ä¸º1
+
+	int subMaxDepth = 0; // å­è¡¨æœ€å¤§æ·±åº¦
 	for (GenListNode<ElemType> *tmpPtr = hd->nextLink; tmpPtr != NULL; tmpPtr = tmpPtr->nextLink)
-	{	// Çó×Ó±íµÄ×î´óÉî¶È
+	{ // æ±‚å­è¡¨çš„æœ€å¤§æ·±åº¦
 		if (tmpPtr->tag == LIST)
-		{	// ×Ó±í
-			int curSubDepth = DepthHelp(tmpPtr->subLink);	// ×Ó±íÉî¶È
-			if (subMaxDepth < curSubDepth) subMaxDepth = curSubDepth;
+		{												  // å­è¡¨
+			int curSubDepth = DepthHelp(tmpPtr->subLink); // å­è¡¨æ·±åº¦
+			if (subMaxDepth < curSubDepth)
+				subMaxDepth = curSubDepth;
 		}
 	}
-	return subMaxDepth + 1;				// ¹ãÒå±íÉî¶ÈÎª×Ó±í×î´óÉî¶È¼Ó1
+	return subMaxDepth + 1; // å¹¿ä¹‰è¡¨æ·±åº¦ä¸ºå­è¡¨æœ€å¤§æ·±åº¦åŠ 1
 }
 
 template <class ElemType>
 int GenList<ElemType>::Depth()
-// ²Ù×÷½á¹û£º·µ»Ø¹ãÒå±íÉî¶È
+// æ“ä½œç»“æœï¼šè¿”å›å¹¿ä¹‰è¡¨æ·±åº¦
 {
 	return DepthHelp(head);
 }
 
 template <class ElemType>
-void GenList<ElemType>::CopyHelp(const GenListNode<ElemType> *sourceHead, GenListNode<ElemType> *&destHead)	
-// ³õÊ¼Ìõ¼ş: ÒÔsourceHeadÎªÍ·½áµãµÄ¹ãÒå±íÎª·Çµİ¹é¹ãÒå±í
-// ²Ù×÷½á¹û: ½«ÒÔsourceHeadÎªÍ·½áµãµÄ¹ãÒå±í¸´ÖÆ³ÉÒÔdestHeadÎªÍ·½áµãµÄ¹ãÒå±í
+void GenList<ElemType>::CopyHelp(const GenListNode<ElemType> *sourceHead, GenListNode<ElemType> *&destHead)
+// åˆå§‹æ¡ä»¶: ä»¥sourceHeadä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨ä¸ºéé€’å½’å¹¿ä¹‰è¡¨
+// æ“ä½œç»“æœ: å°†ä»¥sourceHeadä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨å¤åˆ¶æˆä»¥destHeadä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨
 {
-	destHead = new GenListNode<ElemType>(HEAD);			// ¸´ÖÆÍ·½áµã
-	GenListNode<ElemType> *destPtr = destHead;			// destHeadµÄµ±Ç°½áµã
-	for (GenListNode<ElemType> *tmpPtr = sourceHead->nextLink; tmpPtr != NULL; 
-		tmpPtr = tmpPtr->nextLink)
-	{	// É¨Ãè¹ãÒå±ísourceHeadµÄ¶¥²ã
-		destPtr = destPtr->nextLink = new GenListNode<ElemType>(tmpPtr->tag);	// Éú³ÉĞÂ½áµã
+	destHead = new GenListNode<ElemType>(HEAD); // å¤åˆ¶å¤´ç»“ç‚¹
+	GenListNode<ElemType> *destPtr = destHead;	// destHeadçš„å½“å‰ç»“ç‚¹
+	for (GenListNode<ElemType> *tmpPtr = sourceHead->nextLink; tmpPtr != NULL;
+		 tmpPtr = tmpPtr->nextLink)
+	{																		  // æ‰«æå¹¿ä¹‰è¡¨sourceHeadçš„é¡¶å±‚
+		destPtr = destPtr->nextLink = new GenListNode<ElemType>(tmpPtr->tag); // ç”Ÿæˆæ–°ç»“ç‚¹
 		if (tmpPtr->tag == LIST)
-		{	// ×Ó±í
-			CopyHelp(tmpPtr->subLink, destPtr->subLink);// ¸´ÖÆ×Ó±í
+		{												 // å­è¡¨
+			CopyHelp(tmpPtr->subLink, destPtr->subLink); // å¤åˆ¶å­è¡¨
 		}
 		else
-		{	// Ô­×Ó½áµã
-			destPtr->atom = tmpPtr->atom;				// ¸´ÖÆÔ­×Ó½áµã
+		{								  // åŸå­ç»“ç‚¹
+			destPtr->atom = tmpPtr->atom; // å¤åˆ¶åŸå­ç»“ç‚¹
 		}
 	}
 }
 
 template <class ElemType>
 GenList<ElemType>::GenList(const GenList<ElemType> &copy)
-// ²Ù×÷½á¹û£ºÓÉ¹ãÒå±ícopy¹¹ÔìĞÂ¹ãÒå±í¡ª¡ª¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
+// æ“ä½œç»“æœï¼šç”±å¹¿ä¹‰è¡¨copyæ„é€ æ–°å¹¿ä¹‰è¡¨â€”â€”å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
 {
 	CopyHelp(copy.head, head);
 }
 
-template<class ElemType>
-GenList<ElemType> &GenList<ElemType>::operator =(const GenList<ElemType> &copy)
-// ²Ù×÷½á¹û£º½«¹ãÒå±ícopy¸³Öµ¸øµ±Ç°¹ãÒå±í¡ª¡ªÖØÔØ¸³ÖµÔËËã·û
+template <class ElemType>
+GenList<ElemType> &GenList<ElemType>::operator=(const GenList<ElemType> &copy)
+// æ“ä½œç»“æœï¼šå°†å¹¿ä¹‰è¡¨copyèµ‹å€¼ç»™å½“å‰å¹¿ä¹‰è¡¨â€”â€”é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 {
 	if (&copy != this)
 	{
-		CopyHelp(copy.head, head);		// ¸´ÖÆ¹ãÒå±í
+		CopyHelp(copy.head, head); // å¤åˆ¶å¹¿ä¹‰è¡¨
 	}
 	return *this;
 }
 
-template<class ElemType>
+template <class ElemType>
 void GenList<ElemType>::CreateHelp(GenListNode<ElemType> *&first)
-// ²Ù×÷½á¹û£º´´½¨ÒÔfirstÎªÍ·½áµãµÄ¹ãÒå±í
+// æ“ä½œç»“æœï¼šåˆ›å»ºä»¥firstä¸ºå¤´ç»“ç‚¹çš„å¹¿ä¹‰è¡¨
 {
-	char ch = GetChar();					// ¶ÁÈë×Ö·û
+	char ch = GetChar(); // è¯»å…¥å­—ç¬¦
 	switch (ch)
 	{
-	case ')':								// ¹ãÒå±í½¨Á¢Íê±Ï
-		return;								// ½áÊø
-	case '(':								// ×Ó±í
-		// ±íÍ·Îª×Ó±í
-		first = new GenListNode<ElemType>(LIST);// Éú³É±í½áµã
-		
-		GenListNode<ElemType> *subHead;		// ×Ó±íÖ¸Õë
-		subHead = new GenListNode<ElemType>(HEAD);// Éú³É×Ó±íµÄÍ·½áµã
-		first->subLink = subHead;			// subHeadÎª×Ó±í
-		CreateHelp(subHead->nextLink);		// µİ¹é½¨Á¢×Ó±í
-		
-		ch = GetChar();						// Ìø¹ı','
-		if (ch != ',') cin.putback(ch);		// Èç²»ÊÇ','£¬Ôò½«ch»ØÍËµ½ÊäÈëÁ÷
-		CreateHelp(first->nextLink);		// ½¨Á¢¹ãÒå±íÏÂÒ»½áµã
+	case ')':	// å¹¿ä¹‰è¡¨å»ºç«‹å®Œæ¯•
+		return; // ç»“æŸ
+	case '(':	// å­è¡¨
+		// è¡¨å¤´ä¸ºå­è¡¨
+		first = new GenListNode<ElemType>(LIST); // ç”Ÿæˆè¡¨ç»“ç‚¹
+
+		GenListNode<ElemType> *subHead;			   // å­è¡¨æŒ‡é’ˆ
+		subHead = new GenListNode<ElemType>(HEAD); // ç”Ÿæˆå­è¡¨çš„å¤´ç»“ç‚¹
+		first->subLink = subHead;				   // subHeadä¸ºå­è¡¨
+		CreateHelp(subHead->nextLink);			   // é€’å½’å»ºç«‹å­è¡¨
+
+		ch = GetChar(); // è·³è¿‡','
+		if (ch != ',')
+			cin.putback(ch);		 // å¦‚ä¸æ˜¯','ï¼Œåˆ™å°†chå›é€€åˆ°è¾“å…¥æµ
+		CreateHelp(first->nextLink); // å»ºç«‹å¹¿ä¹‰è¡¨ä¸‹ä¸€ç»“ç‚¹
 		break;
-	default:								// Ô­×Ó
-		// ±íÍ·ÎªÔ­×Ó
-		cin.putback(ch);					// ½«ch»ØÍËµ½ÊäÈëÁ÷
-		ElemType amData;					// Ô­×Ó½áµãÊı¾İ
-		cin >> amData;						// ÊäÈëÔ­×Ó½áµãÊı¾İ
-		first = new GenListNode<ElemType>(ATOM);// Éú³ÉÔ­±í½áµã
-		first->atom = amData;				// Ô­×Ó½áµãÊı¾İ
-		
-		ch = GetChar();						// Ìø¹ı','
-		if (ch != ',') cin.putback(ch);		// Èç²»ÊÇ','£¬Ôò½«ch»ØÍËµ½ÊäÈëÁ÷
-		CreateHelp(first->nextLink);		// ½¨Á¢¹ãÒå±íÏÂÒ»½áµã
+	default: // åŸå­
+		// è¡¨å¤´ä¸ºåŸå­
+		cin.putback(ch);						 // å°†chå›é€€åˆ°è¾“å…¥æµ
+		ElemType amData;						 // åŸå­ç»“ç‚¹æ•°æ®
+		cin >> amData;							 // è¾“å…¥åŸå­ç»“ç‚¹æ•°æ®
+		first = new GenListNode<ElemType>(ATOM); // ç”ŸæˆåŸè¡¨ç»“ç‚¹
+		first->atom = amData;					 // åŸå­ç»“ç‚¹æ•°æ®
+
+		ch = GetChar(); // è·³è¿‡','
+		if (ch != ',')
+			cin.putback(ch);		 // å¦‚ä¸æ˜¯','ï¼Œåˆ™å°†chå›é€€åˆ°è¾“å…¥æµ
+		CreateHelp(first->nextLink); // å»ºç«‹å¹¿ä¹‰è¡¨ä¸‹ä¸€ç»“ç‚¹
 		break;
 	}
 }
 
-template<class ElemType>
+template <class ElemType>
 void GenList<ElemType>::Input()
-// ²Ù×÷½á¹û£ºÊäÈë¹ãÒå±í	
+// æ“ä½œç»“æœï¼šè¾“å…¥å¹¿ä¹‰è¡¨
 {
-	head = new GenListNode<ElemType>(HEAD);	// Éú³É¹ãÒå±íÍ·½áµã
-	
-	GetChar();								// ¶ÁÈëµÚÒ»¸ö'('
+	head = new GenListNode<ElemType>(HEAD); // ç”Ÿæˆå¹¿ä¹‰è¡¨å¤´ç»“ç‚¹
+
+	GetChar(); // è¯»å…¥ç¬¬ä¸€ä¸ª'('
 	GenList<ElemType>::CreateHelp(head->nextLink);
-		// ´´½¨ÒÔhead->nextLinkÎª±íÍ·µÄ¹ãÒå±í
+	// åˆ›å»ºä»¥head->nextLinkä¸ºè¡¨å¤´çš„å¹¿ä¹‰è¡¨
 }
 
 #endif

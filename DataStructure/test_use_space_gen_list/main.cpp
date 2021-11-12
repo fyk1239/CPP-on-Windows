@@ -1,10 +1,10 @@
-#include "utility.h"				// ÊµÓÃ³ÌĞòÈí¼ş°ü
-#include "gen_list.h"				// ¹ãÒå±í
+#include "gen_list.h" // å¹¿ä¹‰è¡¨
+#include "utility.h"  // å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
 
 int main(void)
 {
-	
-    try								// ÓÃtry·â×°¿ÉÄÜ³öÏÖÒì³£µÄ´úÂë
+
+	try // ç”¨tryå°è£…å¯èƒ½å‡ºç°å¼‚å¸¸çš„ä»£ç 
 	{
 		GenList<int> gList1;
 		gList1.Push(3);
@@ -23,7 +23,7 @@ int main(void)
 		gList3.Show();
 		cout << endl;
 
-		cout << "gList3Éî¶È:" << gList3.Depth() << endl;
+		cout << "gList3æ·±åº¦:" << gList3.Depth() << endl;
 
 		GenList<int> gList4(gList3);
 		gList4 = gList3;
@@ -31,7 +31,7 @@ int main(void)
 		cout << endl;
 
 		GenList<int> gList;
-		cout << "ÇëÊäÈë¹ãÒå±íeg: (12,(34)):" << endl;
+		cout << "è¯·è¾“å…¥å¹¿ä¹‰è¡¨eg: (12,(34)):" << endl;
 		gList.Input();
 		if (!gList.Empty())
 		{
@@ -39,13 +39,11 @@ int main(void)
 			cout << endl;
 		}
 	}
-	catch (Error err)		// ²¶×½²¢´¦ÀíÒì³£
+	catch (Error err) // æ•æ‰å¹¶å¤„ç†å¼‚å¸¸
 	{
-		err.Show();			// ÏÔÊ¾Òì³£ĞÅÏ¢
+		err.Show(); // æ˜¾ç¤ºå¼‚å¸¸ä¿¡æ¯
 	}
 
-	system("PAUSE");        // µ÷ÓÃ¿âº¯Êısystem()
-	return 0;               // ·µ»ØÖµ0, ·µ»Ø²Ù×÷ÏµÍ³
+	system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
+	return 0;		 // è¿”å›å€¼0, è¿”å›æ“ä½œç³»ç»Ÿ
 }
-
-

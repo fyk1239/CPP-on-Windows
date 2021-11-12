@@ -3,38 +3,42 @@
 
 #ifndef __GEN_LIST_NODE_TYPE__
 #define __GEN_LIST_NODE_TYPE__
-enum GenListNodeType {HEAD, ATOM, LIST};
+enum GenListNodeType
+{
+	HEAD,
+	ATOM,
+	LIST
+};
 #endif
 
-#include "use_space_list.h"				// ¹ãÒå±íÊ¹ÓÃ¿Õ¼ä±íÀàÄ£°å
+#include "use_space_list.h" // å¹¿ä¹‰è¡¨ä½¿ç”¨ç©ºé—´è¡¨ç±»æ¨¡æ¿
 
-// ¹ãÒå±í½áµãÀàÄ£°å
-template<class ElemType>
+// å¹¿ä¹‰è¡¨ç»“ç‚¹ç±»æ¨¡æ¿
+template <class ElemType>
 struct GenListNode
 {
-// Êı¾İ³ÉÔ±:
-	GenListNodeType tag;				// ±êÖ¾Óò,HEAD(0):Í·½áµã, ATOM(1):Ô­×Ó½á¹¹, LIST(2):±í½áµã
-	GenListNode<ElemType> *nextLink;	// Ö¸ÏòÍ¬Ò»²ãÖĞµÄÏÂÒ»¸ö½áµãÖ¸ÕëÓò
+	// æ•°æ®æˆå‘˜:
+	GenListNodeType tag;			 // æ ‡å¿—åŸŸ,HEAD(0):å¤´ç»“ç‚¹, ATOM(1):åŸå­ç»“æ„, LIST(2):è¡¨ç»“ç‚¹
+	GenListNode<ElemType> *nextLink; // æŒ‡å‘åŒä¸€å±‚ä¸­çš„ä¸‹ä¸€ä¸ªç»“ç‚¹æŒ‡é’ˆåŸŸ
 	union
 	{
-		ElemType atom;					// tag=ATOM,´æ·ÅÔ­×Ó½áµãµÄÊı¾İÓò
-		GenListNode<ElemType> *subLink;	// tag=LISK,´æ·ÅÖ¸Ïò×Ó±íµÄÖ¸ÕëÓò
-	}; 
+		ElemType atom;					// tag=ATOM,å­˜æ”¾åŸå­ç»“ç‚¹çš„æ•°æ®åŸŸ
+		GenListNode<ElemType> *subLink; // tag=LISK,å­˜æ”¾æŒ‡å‘å­è¡¨çš„æŒ‡é’ˆåŸŸ
+	};
 
-// ¹¹Ôìº¯ÊıÄ£°å:
+	// æ„é€ å‡½æ•°æ¨¡æ¿:
 	GenListNode(GenListNodeType tg = HEAD, GenListNode<ElemType> *next = NULL);
-		// ÓÉ±êÖ¾tgºÍÖ¸Õënext¹¹Ôì¹ãÒå±í½áµã
+	// ç”±æ ‡å¿—tgå’ŒæŒ‡é’ˆnextæ„é€ å¹¿ä¹‰è¡¨ç»“ç‚¹
 };
 
-// ¹ãÒå±í½áµãÀàÄ£°åµÄÊµÏÖ²¿·Ö
-template<class ElemType>
+// å¹¿ä¹‰è¡¨ç»“ç‚¹ç±»æ¨¡æ¿çš„å®ç°éƒ¨åˆ†
+template <class ElemType>
 GenListNode<ElemType>::GenListNode(GenListNodeType tg, GenListNode<ElemType> *next)
-// ²Ù×÷½á¹û£ºÓÉ±êÖ¾tgºÍÖ¸Õënext¹¹Ôì¹ãÒå±í½áµã
+// æ“ä½œç»“æœï¼šç”±æ ‡å¿—tgå’ŒæŒ‡é’ˆnextæ„é€ å¹¿ä¹‰è¡¨ç»“ç‚¹
 {
-	tag = tg;							// ±êÖ¾
-	nextLink = next;					// ºó¼Ì
-	gUseSpaceList.Push(this);			// ½«Ö¸Ïòµ±Ç°½áµãµÄÖ¸Õë¼ÓÈëµ½¹ãÒå±íÊ¹ÓÃ¿Õ¼ä±íÖĞ
+	tag = tg;				  // æ ‡å¿—
+	nextLink = next;		  // åç»§
+	gUseSpaceList.Push(this); // å°†æŒ‡å‘å½“å‰ç»“ç‚¹çš„æŒ‡é’ˆåŠ å…¥åˆ°å¹¿ä¹‰è¡¨ä½¿ç”¨ç©ºé—´è¡¨ä¸­
 }
-
 
 #endif

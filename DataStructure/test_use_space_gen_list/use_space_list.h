@@ -1,52 +1,51 @@
 #ifndef __USE_SPACE_LIST_H__
 #define __USE_SPACE_LIST_H__
 
-#include "node.h"					// ½áµãÀà
+#include "node.h" // ç»“ç‚¹ç±»
 
-// Ê¹ÓÃ¿Õ¼ä±íÀà
+// ä½¿ç”¨ç©ºé—´è¡¨ç±»
 class UseSpaceList
 {
 protected:
-// Êı¾İ³ÉÔ±:
-	Node<void *> *head;				// Ê¹ÓÃ¿Õ¼ä±íÍ·Ö¸Õë
+	// æ•°æ®æˆå‘˜:
+	Node<void *> *head; // ä½¿ç”¨ç©ºé—´è¡¨å¤´æŒ‡é’ˆ
 
 public:
-// ·½·¨:
-	UseSpaceList();					// ÎŞ²ÎÊıµÄ¹¹Ôìº¯Êı
-	~UseSpaceList();				// Îö¹¹º¯Êı
-	void Push(void *nodePtr);		// ½«Ö¸Ïò½áµãµÄÖ¸Õë¼ÓÈëµ½Ê¹ÓÃ¿Õ¼ä±íÖĞ
+	// æ–¹æ³•:
+	UseSpaceList();			  // æ— å‚æ•°çš„æ„é€ å‡½æ•°
+	~UseSpaceList();		  // ææ„å‡½æ•°
+	void Push(void *nodePtr); // å°†æŒ‡å‘ç»“ç‚¹çš„æŒ‡é’ˆåŠ å…¥åˆ°ä½¿ç”¨ç©ºé—´è¡¨ä¸­
 };
 
-// Ê¹ÓÃ¿Õ¼ä±íÀàµÄÊµÏÖ²¿·Ö
+// ä½¿ç”¨ç©ºé—´è¡¨ç±»çš„å®ç°éƒ¨åˆ†
 UseSpaceList::UseSpaceList()
-// ²Ù×÷½á¹û£º¹¹ÔìÊ¹ÓÃ¿Õ¼ä±í
+// æ“ä½œç»“æœï¼šæ„é€ ä½¿ç”¨ç©ºé—´è¡¨
 {
 	head = NULL;
 }
 
 UseSpaceList::~UseSpaceList()
-// ²Ù×÷½á¹û£ºÊÍ·Å½áµãÕ¼ÓÃ´æ´¢¿Õ¼ä
+// æ“ä½œç»“æœï¼šé‡Šæ”¾ç»“ç‚¹å ç”¨å­˜å‚¨ç©ºé—´
 {
 	while (head != NULL)
-	{	// Ñ­»·ÊÍ·Å½áµã¿Õ¼ä
-		delete head->data;			// head->data´æ´¢µÄÊÇÖ¸Ïò½áµãµÄÖ¸Õë
-		Node<void *> *tmpPtr = head;// Ôİ´æhead
-		head = head->next;			// ĞÂµÄhead
-		delete tmpPtr;				// ÊÍ·ÅtmpPtr
+	{								 // å¾ªç¯é‡Šæ”¾ç»“ç‚¹ç©ºé—´
+		delete head->data;			 // head->dataå­˜å‚¨çš„æ˜¯æŒ‡å‘ç»“ç‚¹çš„æŒ‡é’ˆ
+		Node<void *> *tmpPtr = head; // æš‚å­˜head
+		head = head->next;			 // æ–°çš„head
+		delete tmpPtr;				 // é‡Šæ”¾tmpPtr
 	}
 }
 
 void UseSpaceList::Push(void *nodePtr)
-// ²Ù×÷½á¹û£º½«Ö¸Ïò½áµãµÄÖ¸Õë¼ÓÈëµ½Ê¹ÓÃ¿Õ¼ä±íÖĞ
+// æ“ä½œç»“æœï¼šå°†æŒ‡å‘ç»“ç‚¹çš„æŒ‡é’ˆåŠ å…¥åˆ°ä½¿ç”¨ç©ºé—´è¡¨ä¸­
 {
-	Node<void *> *tmpPtr = new Node<void *>(nodePtr, head);	// Éú³ÉĞÂÊ¹ÓÃ¿Õ¼ä±í½áµã
-	head = tmpPtr;					// tmpPtrÖ÷ĞÂ±íÍ·	
+	Node<void *> *tmpPtr = new Node<void *>(nodePtr, head); // ç”Ÿæˆæ–°ä½¿ç”¨ç©ºé—´è¡¨ç»“ç‚¹
+	head = tmpPtr;											// tmpPträ¸»æ–°è¡¨å¤´
 }
 
 #ifndef __GLOBAL_USE_SPACE_LIST__
 #define __GLOBAL_USE_SPACE_LIST__
-static UseSpaceList gUseSpaceList;	// È«¾ÖÊ¹ÓÃ¿Õ¼ä±í¶ÔÏó
+static UseSpaceList gUseSpaceList; // å…¨å±€ä½¿ç”¨ç©ºé—´è¡¨å¯¹è±¡
 #endif
-
 
 #endif
