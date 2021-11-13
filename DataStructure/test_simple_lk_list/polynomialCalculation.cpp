@@ -18,6 +18,7 @@ int main()
         cout << endl
              << "3. 检索指定项.";
         cout << endl
+            
              << "4. 设置指定项系数.";
         cout << endl
              << "5. 删除指定项.";
