@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
     char c = '0';
-    SimpleLinkList<double> la, lb;
+    Polynomial la, lb;
     double coe, exp;
     int position;
 
@@ -18,7 +18,6 @@ int main()
         cout << endl
              << "3. 检索指定项.";
         cout << endl
-            
              << "4. 设置指定项系数.";
         cout << endl
              << "5. 删除指定项.";
@@ -39,10 +38,11 @@ int main()
             cin >> coe >> exp;
             while (coe != 0)
             {
-                la.Insert(la.Length() + 1, coe, exp);
+                Item<double> tmpItem(coe, exp);
+                Node<Item<double>> tmpNode(tmpItem);
+                la.InsertItem(tmpNode);
                 cin >> coe >> exp;
             }
-            la.Sort();
             break;
         case '2':
             lb = la;
@@ -58,9 +58,11 @@ int main()
                 cout << "该项:" << coe << "x^" << exp << endl;
             break;
         case '4':
-            cout << endl << "输入位置:";
+            cout << endl
+                 << "输入位置:";
             cin >> position;
-            cout << endl << "依次输入该项的系数与指数:";
+            cout << endl
+                 << "依次输入该项的系数与指数:";
             cin >> coe >> exp;
             if (la.SetElem(position, coe, exp) == RANGE_ERROR)
                 cout << "位置范围错." << endl;
@@ -68,7 +70,8 @@ int main()
                 cout << "设置成功." << endl;
             break;
         case '5':
-            cout << endl << "输入位置:";
+            cout << endl
+                 << "输入位置:";
             cin >> position;
             if (la.Delete(position, coe, exp) == RANGE_ERROR)
                 cout << "位置范围错." << endl;
