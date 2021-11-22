@@ -1,4 +1,4 @@
-//李刘豪的代码：
+
 
 /***********************
 基于STC15F2K60S2系列单片机C语言编程实现
@@ -11,11 +11,11 @@ uchar code table[] = {0x02, 0x04, 0x08, 0x10}; //控制电机转动数组
 /**********************
 引脚别名定义
 ***********************/
-sbit beep = P3 ^ 4;   //蜂鸣器
-bit flag;             //控制蜂鸣器发声
-uchar timeh, timel;   //定义定时器的重装值
-uint time_counter;    //定时器中断计数
-uchar quzi_index; //quzi数组的下标控制，在中断服务程序中用到
+sbit beep = P3 ^ 4; //蜂鸣器
+bit flag;           //控制蜂鸣器发声
+uchar timeh, timel; //定义定时器的重装值
+uint time_counter;  //定时器中断计数
+uchar quzi_index;   //quzi数组的下标控制，在中断服务程序中用到
 
 uchar quzi[] = {
     //此数组数据为各个音符在定时器中的重装值，第一列是高位，第二列是低位
@@ -85,7 +85,6 @@ void init_sys()
     //霍尔传感器管脚P1.2设置成输入
     P1M1 = 0x04;
     P1M0 = 0x00;
-
     P0M1 = 0x00;
     P0M0 = 0xff;
     P2M1 = 0x10;
@@ -94,10 +93,10 @@ void init_sys()
     P3M0 = 0x00; //beep = P3.4 准双向口 cyh
     //IO端口设置
 
-    beep = 0; //蜂鸣器初始化为低电平
+    //beep=0;	//蜂鸣器初试化为低电平
     TH0 = 0x00;
     TL0 = 0x00;  //初始化定时器计数初始值
-    TMOD = 0x01; //定时器0，方式1 16位不可重装模式
+    TMOD = 0x01; //定时器0，方式1       16位不可重装模式
     EA = 1;      //总中断使能
     ET0 = 1;     //定时器0中断使能
     TR0 = 0;     //暂时关闭定时器0
@@ -110,67 +109,51 @@ void main()
     flag = 0;
     time_counter = 0;
     quzi_index = 0; //变量初始化
-
     P4 = 0x00;
     P0M1 = 0x00;
     P0M0 = 0xff; //设置P0为准双向口推挽输出
-    /* while (HALL == 1)
+    while (HALL == 1)
     {
         P0 = 0x01; //初始化时第一个灯亮
         for (i = 0; i < 8; i++)
         {
             P0 = P0 << 1; //每次向左移动1位
         }
-    } */
+    }
     while (1)
     {
-        while (HALL == 1)
-            ; //如果没有小磁铁靠近就一直等待
-
-        //下面这段代码实现的功能是正转300步
-        stepCount = 0;
-        while (stepCount < 300)
-        {
-            for (i = 0; i < 4; i++)
-            {
-                P4 = table[i]; ///控制电机转动
-
-                delay(20); //延时以控制电机转速
-            }
-            stepCount++;
-        }
-
-        while (time_counter < 30)
-        {
-            time_counter++; //中断计数
-            timeh = quzi[quzi_index];
-            timel = quzi[quzi_index + 1];
-            TH0 = timeh;
-            TL0 = timel;
-
-            beep = ~beep; //beep管脚取反
-        }
-        quzi_index = (quzi_index + 2) % 14;
-
-        P4 = 0x00;
 
         while (HALL == 1)
             ; //如果没有小磁铁靠近就一直等待
 
-        //下面这段代码实现的功能是反转300步
-        stepCount = 0;
-        while (stepCount < 300)
-        {
-            for (i = 3; i >= 0; i--)
-            {
-                P4 = table[i]; ///控制电机转动
-                delay(20);     //延时以控制电机转速
-            }
-            stepCount++;
-        }
-        flag = 1; //将标志位置1
+        flag = 1; //有振动则将振动标志位置1
         TR0 = 1;  //启动定时器
+    }
+}
+void tim1() interrupt 1 //计时器控制频率
+{
+    if (flag)
+    {
+        time_counter++;                              //中断计数
+        if (time_counter == (300 + 30 * quzi_index)) //用于控制每个特定频率声音的发声时长
+        {
+            time_counter = 0;
+            if (quzi_index < 12)
+            {
+                quzi_index = quzi_index + 2;
+                flag = 0;
+            }
+            else
+            {
+                quzi_index = 0;
+                flag = 0;
+            }
+        }
+        timeh = quzi[quzi_index];
+        timel = quzi[quzi_index + 1];
+        TH0 = timeh;
+        TL0 = timel;
 
-        P4 = 0x00;
+        beep = ~beep; //beep管脚取反
     }
 }

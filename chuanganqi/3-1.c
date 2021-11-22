@@ -1,5 +1,3 @@
-//根据PPT的图片自己写的代码，2021.11.16 14:55
-
 #include <STC15F2K60S2.h>
 #define uint unsigned int
 #define uchar unsigned char
