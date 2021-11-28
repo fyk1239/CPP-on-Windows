@@ -1,33 +1,33 @@
-#include "lk_stack.h" // 链栈类
+#include "linkstack.h" // 链栈类
 #include "utility.h"  // 实用程序软件包
 
-int main(void)
+int main()
 {
-	char c = '0';
+	char code = '0';
 	LinkStack<double> sa, sb;
 	double x;
-	while (c != '6')
+	while (code != '6')
 	{
 		cout << endl
-			 << "1. 生成栈.";
+			 << "1. 生成栈";
 		cout << endl
-			 << "2. 显示栈.";
+			 << "2. 显示栈";
 		cout << endl
-			 << "3. 入栈.";
+			 << "3. 入栈";
 		cout << endl
-			 << "4. 出栈.";
+			 << "4. 出栈";
 		cout << endl
-			 << "5. 取栈顶.";
+			 << "5. 取栈顶";
 		cout << endl
 			 << "6. 退出";
 		cout << endl
 			 << "选择功能(1~6):";
-		cin >> c;
-		switch (c)
+		cin >> code;
+		switch (code)
 		{
 		case '1':
 			cout << endl
-				 << "输入e(e = 0时退出)";
+				 << "输入元素e(e = 0时退出)";
 			while (x != 0)
 			{
 				cin >> x;
@@ -42,19 +42,19 @@ int main(void)
 			break;
 		case '3':
 			cout << endl
-				 << "输入元素值:";
+				 << "请输入你想入栈的元素值e:";
 			cin >> x;
 			sa.Push(x);
 			break;
 		case '4':
 			sa.Pop(x);
 			cout << endl
-				 << "栈顶元素值为 " << x << " ." << endl;
+				 << "原栈顶元素值为 " << x << " , 该元素已出栈。" << endl;
 			break;
 		case '5':
 			sa.Top(x);
 			cout << endl
-				 << "栈顶元素值为 " << x << " ." << endl;
+				 << "栈顶元素值为 " << x << " 。" << endl;
 			break;
 		case '6':;
 		}

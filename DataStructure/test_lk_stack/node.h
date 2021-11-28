@@ -11,7 +11,7 @@ struct Node
 
 	// 构造函数模板:
 	Node();											  // 无参数的构造函数模板
-	Node(ElemType item, Node<ElemType> *link = NULL); // 已知数据元素值和指针建立结构
+	Node(ElemType item, Node<ElemType> *link = nullptr); // 已知数据元素值和指针建立结构
 };
 
 // 结点类模板的实现部分
@@ -19,7 +19,7 @@ template <class ElemType>
 Node<ElemType>::Node()
 // 操作结果：构造指针域为空的结点
 {
-	next = NULL;
+	next = nullptr;
 }
 
 template <class ElemType>
