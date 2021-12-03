@@ -1,45 +1,42 @@
-#include "utility.h"					// ÊµÓÃ³ÌĞòÈí¼ş°ü
-#include "adj_matrix_dir_graph.h"		// ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
-#include "dfs.h"						// Í¼µÄÉî¶ÈÓÅÏÈ±éÀú
+#include "dfs.h" // å›¾çš„æ·±åº¦ä¼˜å…ˆéå†
 
-int main(void)
+int main()
 {
-    try									// ÓÃtry·â×°¿ÉÄÜ³öÏÖÒì³£µÄ´úÂë
+	try // ç”¨tryå°è£…å¯èƒ½å‡ºç°å¼‚å¸¸çš„ä»£ç 
 	{
 		char vexs[] = {'A', 'B', 'C', 'D'};
 		int m[4][4] = {
 			{0, 1, 0, 1},
 			{1, 0, 1, 1},
 			{0, 1, 0, 1},
-			{1, 1, 1, 0}
-		};
+			{1, 1, 1, 0}};
 		int n = 4;
 
 		AdjMatrixDirGraph<char> g(vexs, n);
 
 		for (int u = 0; u < n; u++)
-		{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
+		{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
 			for (int v = 0; v < n; v++)
-			{	// Éú³ÉÁÚ½Ó¾ØÕóÔªËØµÄÖµ
-				if (m[u][v] == 1) g.InsertEdge(u, v);
+			{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µå…ƒç´ çš„å€¼
+				if (m[u][v] == 1)
+					g.InsertEdge(u, v);
 			}
 		}
 
-		cout << "Ô­ÓĞÍ¼:" << endl;
-		Display(g);						// ÏÔÊ¾Í¼g
+		cout << "åŸæœ‰å›¾:" << endl;
+		Display(g); // æ˜¾ç¤ºå›¾g
 		cout << endl;
-		system("PAUSE");				// µ÷ÓÃ¿âº¯Êısystem()
+		system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
 
-		cout << "Éî¶ÈÓÅÏÈ±éÀú:";
-		DFSTraverse<char>(g, Write<char>);// <char>ÓÃÓÚÈ·¶¨º¯ÊıÄ£°å²ÎÊı
+		cout << "æ·±åº¦ä¼˜å…ˆéå†:";
+		DFSTraverse<char>(g, Write<char>); // <char>ç”¨äºç¡®å®šå‡½æ•°æ¨¡æ¿å‚æ•°
 		cout << endl;
 	}
-	catch (Error err)					// ²¶×½²¢´¦ÀíÒì³£
+	catch (Error err) // æ•æ‰å¹¶å¤„ç†å¼‚å¸¸
 	{
-		err.Show();						// ÏÔÊ¾Òì³£ĞÅÏ¢
+		err.Show(); // æ˜¾ç¤ºå¼‚å¸¸ä¿¡æ¯
 	}
 
-	system("PAUSE");					// µ÷ÓÃ¿âº¯Êısystem()
-	return 0;							// ·µ»ØÖµ0, ·µ»Ø²Ù×÷ÏµÍ³
+	system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
+	return 0;		 // è¿”å›å€¼0, è¿”å›æ“ä½œç³»ç»Ÿ
 }
-

@@ -1,97 +1,96 @@
 #ifndef __ADJ_MATRIX_DIR_GRAPH_H__
 #define __ADJ_MATRIX_DIR_GRAPH_H__
 
-#include "utility.h"							// ÊµÓÃ³ÌĞòÈí¼ş°ü
+#include "utility.h" // å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
 
-// ÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕóÀàÄ£°å
+// æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µç±»æ¨¡æ¿
 template <class ElemType>
-class AdjMatrixDirGraph 
+class AdjMatrixDirGraph
 {
 protected:
-// ÁÚ½Ó¾ØÕóµÄÊı¾İ³ÉÔ±:
-	int vexNum, edgeNum;						// ¶¥µã¸öÊıºÍ±ßÊı
-	int **Matrix;								// ÁÚ½Ó¾ØÕó
-	ElemType *elems;							// ¶¥µãÔªËØ
-	mutable StatusCode *tag;					// Ö¸Ïò±êÖ¾Êı×éµÄÖ¸Õë
+	// é‚»æ¥çŸ©é˜µçš„æ•°æ®æˆå‘˜:
+	int vexNum, edgeNum;	 // é¡¶ç‚¹ä¸ªæ•°å’Œè¾¹æ•°
+	int **Matrix;			 // é‚»æ¥çŸ©é˜µ
+	ElemType *elems;		 // é¡¶ç‚¹å…ƒç´ 
+	mutable StatusCode *tag; // æŒ‡å‘æ ‡å¿—æ•°ç»„çš„æŒ‡é’ˆ
 
-// ¸¨Öúº¯ÊıÄ£°å:
-	void DestroyHelp();							// Ïú»ÙÓĞÏòÍ¼,ÊÍ·ÅÓĞÏòÍ¼Õ¼ÓÃµÄ¿Õ¼ä
+	// è¾…åŠ©å‡½æ•°æ¨¡æ¿:
+	void DestroyHelp(); // é”€æ¯æœ‰å‘å›¾,é‡Šæ”¾æœ‰å‘å›¾å ç”¨çš„ç©ºé—´
 
 public:
-// ³éÏóÊı¾İÀàĞÍ·½·¨ÉùÃ÷¼°ÖØÔØ±àÒëÏµÍ³Ä¬ÈÏ·½·¨ÉùÃ÷:
-	AdjMatrixDirGraph(ElemType es[], int vertexNum = DEFAULT_SIZE);	
-		// ¹¹ÔìÊı¾İÔªËØes[],¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
-	AdjMatrixDirGraph(int vertexNum = DEFAULT_SIZE);	
-		// ¹¹Ôì¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
-	~AdjMatrixDirGraph();						// Îö¹¹º¯ÊıÄ£°å
-	StatusCode GetElem(int v, ElemType &e) const;// Çó¶¥µãµÄÔªËØ	
-	StatusCode SetElem(int v, const ElemType &e);// ÉèÖÃ¶¥µãµÄÔªËØÖµ
-	int GetVexNum() const;						// ·µ»Ø¶¥µã¸öÊı			 
-	int GetEdgeNum() const;						// ·µ»Ø±ßÊı¸öÊı			 
-	int FirstAdjVex(int v) const;				// ·µ»Ø¶¥µãvµÄµÚÒ»¸öÁÚ½Óµã			 
-	int NextAdjVex(int v1, int v2) const;		// ·µ»Ø¶¥µãv1µÄÏà¶ÔÓÚv2µÄÏÂÒ»¸öÁÚ½Óµã			 
-	void InsertEdge(int v1, int v2);			// ²åÈë¶¥µãÎªv1ºÍv2µÄ±ß			 
-	void DeleteEdge(int v1, int v2);			// É¾³ı¶¥µãÎªv1ºÍv2µÄ±ß			 
-	StatusCode GetTag(int v) const;				// ·µ»Ø¶¥µãvµÄ±êÖ¾		 
-	void SetTag(int v, StatusCode val) const;	// ÉèÖÃ¶¥µãvµÄ±êÖ¾Îªval		 
-	AdjMatrixDirGraph(const AdjMatrixDirGraph<ElemType> &copy);	// ¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
-	AdjMatrixDirGraph<ElemType> &operator =(const AdjMatrixDirGraph<ElemType> &copy); 
-		// ÖØÔØ¸³ÖµÔËËã·û
-}; 
+	// æŠ½è±¡æ•°æ®ç±»å‹æ–¹æ³•å£°æ˜åŠé‡è½½ç¼–è¯‘ç³»ç»Ÿé»˜è®¤æ–¹æ³•å£°æ˜:
+	AdjMatrixDirGraph(ElemType es[], int vertexNum = DEFAULT_SIZE);
+	// æ„é€ æ•°æ®å…ƒç´ es[],é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
+	AdjMatrixDirGraph(int vertexNum = DEFAULT_SIZE);
+	// æ„é€ é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
+	~AdjMatrixDirGraph();										// ææ„å‡½æ•°æ¨¡æ¿
+	StatusCode GetElem(int v, ElemType &e) const;				// æ±‚é¡¶ç‚¹çš„å…ƒç´ 
+	StatusCode SetElem(int v, const ElemType &e);				// è®¾ç½®é¡¶ç‚¹çš„å…ƒç´ å€¼
+	int GetVexNum() const;										// è¿”å›é¡¶ç‚¹ä¸ªæ•°
+	int GetEdgeNum() const;										// è¿”å›è¾¹æ•°ä¸ªæ•°
+	int FirstAdjVex(int v) const;								// è¿”å›é¡¶ç‚¹vçš„ç¬¬ä¸€ä¸ªé‚»æ¥ç‚¹
+	int NextAdjVex(int v1, int v2) const;						// è¿”å›é¡¶ç‚¹v1çš„ç›¸å¯¹äºv2çš„ä¸‹ä¸€ä¸ªé‚»æ¥ç‚¹
+	void InsertEdge(int v1, int v2);							// æ’å…¥é¡¶ç‚¹ä¸ºv1å’Œv2çš„è¾¹
+	void DeleteEdge(int v1, int v2);							// åˆ é™¤é¡¶ç‚¹ä¸ºv1å’Œv2çš„è¾¹
+	StatusCode GetTag(int v) const;								// è¿”å›é¡¶ç‚¹vçš„æ ‡å¿—
+	void SetTag(int v, StatusCode val) const;					// è®¾ç½®é¡¶ç‚¹vçš„æ ‡å¿—ä¸ºval
+	AdjMatrixDirGraph(const AdjMatrixDirGraph<ElemType> &copy); // å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
+	AdjMatrixDirGraph<ElemType> &operator=(const AdjMatrixDirGraph<ElemType> &copy);
+	// é‡è½½èµ‹å€¼è¿ç®—ç¬¦
+};
 
-#ifndef _MSC_VER					// ±íÊ¾·ÇVC 
+#ifndef _MSC_VER // è¡¨ç¤ºéVC
 
-// ·ÇVCĞèÒªÔÚº¯ÊıÄ£°åÉùÃ÷Ê±Ğ´ÉÏ²ÎÊıÈ±Ê¡Öµ 
+// éVCéœ€è¦åœ¨å‡½æ•°æ¨¡æ¿å£°æ˜æ—¶å†™ä¸Šå‚æ•°ç¼ºçœå€¼
 template <class ElemType>
-void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem = true);// ÏÔÊ¾ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem = true); // æ˜¾ç¤ºé‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 
-#else								// ±íÊ¾VC 
+#else // è¡¨ç¤ºVC
 
-// VC²»±ØÔÚº¯ÊıÄ£°åÉùÃ÷Ê±Ğ´ÉÏ²ÎÊıÈ±Ê¡Öµ 
+// VCä¸å¿…åœ¨å‡½æ•°æ¨¡æ¿å£°æ˜æ—¶å†™ä¸Šå‚æ•°ç¼ºçœå€¼
 template <class ElemType>
-void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem);	// ÏÔÊ¾ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem); // æ˜¾ç¤ºé‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 
 #endif
 
-
 template <class ElemType>
-void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem);	// ÏÔÊ¾ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem); // æ˜¾ç¤ºé‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 
-
-// ÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕóÀàÄ£°åµÄÊµÏÖ²¿·Ö
+// æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µç±»æ¨¡æ¿çš„å®ç°éƒ¨åˆ†
 template <class ElemType>
 AdjMatrixDirGraph<ElemType>::AdjMatrixDirGraph(ElemType es[], int vertexNum)
-// ²Ù×÷½á¹û£º¹¹ÔìÊı¾İÔªËØes[],¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
+// æ“ä½œç»“æœï¼šæ„é€ æ•°æ®å…ƒç´ es[],é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
 {
-	if (vertexNum < 0)	throw Error("¶¥µã¸öÊı²»ÄÜÎª¸º!");// Å×³öÒì³£
+	if (vertexNum < 0)
+		throw Error("é¡¶ç‚¹ä¸ªæ•°ä¸èƒ½ä¸ºè´Ÿ!"); // æŠ›å‡ºå¼‚å¸¸
 
-	vexNum = vertexNum;							// ¶¥µãÊıÎªvertexNum
-	edgeNum = 0;								// ±ßÊıÎª0
+	vexNum = vertexNum; // é¡¶ç‚¹æ•°ä¸ºvertexNum
+	edgeNum = 0;		// è¾¹æ•°ä¸º0
 
-	elems = new ElemType[vexNum];				// Éú³É¶¥µãÔªËØ±êÊı×é
-	
-	int u, v;									// ÁÙÊ±±äÁ¿ 
+	elems = new ElemType[vexNum]; // ç”Ÿæˆé¡¶ç‚¹å…ƒç´ æ ‡æ•°ç»„
+
+	int u, v; // ä¸´æ—¶å˜é‡
 	for (v = 0; v < vexNum; v++)
-	{	// ³õÊ¼»¯Êı¾İÔªËØ
+	{ // åˆå§‹åŒ–æ•°æ®å…ƒç´ 
 		elems[v] = es[v];
 	}
 
-	tag = new StatusCode[vexNum];				// Éú³É±êÖ¾Êı×é
+	tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
 	for (v = 0; v < vexNum; v++)
-	{	// ³õÊ¼»¯±êÖ¾Êı×é
+	{ // åˆå§‹åŒ–æ ‡å¿—æ•°ç»„
 		tag[v] = UNVISITED;
 	}
 
-	Matrix = (int **)new int *[vexNum];			// Éú³ÉÁÚ½Ó¾ØÕó
+	Matrix = (int **)new int *[vexNum]; // ç”Ÿæˆé‚»æ¥çŸ©é˜µ
 	for (v = 0; v < vexNum; v++)
-	{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
-		Matrix[v] = new int[vexNum];	
+	{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
+		Matrix[v] = new int[vexNum];
 	}
 
 	for (u = 0; u < vexNum; u++)
 	{
 		for (v = 0; v < vexNum; v++)
-		{	// ÎªÁÚ½Ó¾ØÕóÔªËØ¸³Öµ
+		{ // ä¸ºé‚»æ¥çŸ©é˜µå…ƒç´ èµ‹å€¼
 			Matrix[u][v] = 0;
 		}
 	}
@@ -99,32 +98,33 @@ AdjMatrixDirGraph<ElemType>::AdjMatrixDirGraph(ElemType es[], int vertexNum)
 
 template <class ElemType>
 AdjMatrixDirGraph<ElemType>::AdjMatrixDirGraph(int vertexNum)
-// ²Ù×÷½á¹û£º¹¹Ôì¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
+// æ“ä½œç»“æœï¼šæ„é€ é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
 {
-	if (vertexNum < 0)	throw Error("¶¥µã¸öÊı²»ÄÜÎª¸º!");// Å×³öÒì³£
+	if (vertexNum < 0)
+		throw Error("é¡¶ç‚¹ä¸ªæ•°ä¸èƒ½ä¸ºè´Ÿ!"); // æŠ›å‡ºå¼‚å¸¸
 
-	vexNum = vertexNum;							// ¶¥µãÊıÎªvertexNum
-	edgeNum = 0;								// ±ßÊıÎª0
+	vexNum = vertexNum; // é¡¶ç‚¹æ•°ä¸ºvertexNum
+	edgeNum = 0;		// è¾¹æ•°ä¸º0
 
-	elems = new ElemType[vexNum];				// Éú³É¶¥µãÔªËØ±êÊı×é
+	elems = new ElemType[vexNum]; // ç”Ÿæˆé¡¶ç‚¹å…ƒç´ æ ‡æ•°ç»„
 
-	int u, v;									// ÁÙÊ±±äÁ¿ 
-	tag = new StatusCode[vexNum];				// Éú³É±êÖ¾Êı×é
+	int u, v;					  // ä¸´æ—¶å˜é‡
+	tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
 	for (v = 0; v < vexNum; v++)
-	{	// ³õÊ¼»¯±êÖ¾Êı×é
+	{ // åˆå§‹åŒ–æ ‡å¿—æ•°ç»„
 		tag[v] = UNVISITED;
 	}
 
-	Matrix = (int **)new int *[vexNum];			// Éú³ÉÁÚ½Ó¾ØÕó
+	Matrix = (int **)new int *[vexNum]; // ç”Ÿæˆé‚»æ¥çŸ©é˜µ
 	for (v = 0; v < vexNum; v++)
-	{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
-		Matrix[v] = new int[vexNum];	
+	{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
+		Matrix[v] = new int[vexNum];
 	}
 
 	for (u = 0; u < vexNum; u++)
 	{
 		for (v = 0; v < vexNum; v++)
-		{	// ÎªÁÚ½Ó¾ØÕóÔªËØ¸³Öµ
+		{ // ä¸ºé‚»æ¥çŸ©é˜µå…ƒç´ èµ‹å€¼
 			Matrix[u][v] = 0;
 		}
 	}
@@ -132,218 +132,232 @@ AdjMatrixDirGraph<ElemType>::AdjMatrixDirGraph(int vertexNum)
 
 template <class ElemType>
 void AdjMatrixDirGraph<ElemType>::DestroyHelp()
-// ²Ù×÷½á¹û£ºÏú»ÙÓĞÏòÍ¼,ÊÍ·ÅÓĞÏòÍ¼Õ¼ÓÃµÄ¿Õ¼ä
+// æ“ä½œç»“æœï¼šé”€æ¯æœ‰å‘å›¾,é‡Šæ”¾æœ‰å‘å›¾å ç”¨çš„ç©ºé—´
 {
-	delete []elems;								// ÊÍ·ÅÔªËØ
-	delete []tag;								// ÊÍ·Å±êÖ¾
+	delete[] elems; // é‡Šæ”¾å…ƒç´ 
+	delete[] tag;	// é‡Šæ”¾æ ‡å¿—
 
 	for (int iPos = 0; iPos < vexNum; iPos++)
-	{	// ÊÍ·ÅÁÚ½Ó¾ØÕóµÄĞĞ
-		delete []Matrix[iPos];
+	{ // é‡Šæ”¾é‚»æ¥çŸ©é˜µçš„è¡Œ
+		delete[] Matrix[iPos];
 	}
-	delete []Matrix;							// ÊÍ·ÅÁÚ½Ó¾ØÕó
+	delete[] Matrix; // é‡Šæ”¾é‚»æ¥çŸ©é˜µ
 }
 
 template <class ElemType>
 AdjMatrixDirGraph<ElemType>::~AdjMatrixDirGraph()
-// ²Ù×÷½á¹û£ºÊÍ·Å¶ÔÏóËùÕ¼ÓÃ¿Õ¼ä
+// æ“ä½œç»“æœï¼šé‡Šæ”¾å¯¹è±¡æ‰€å ç”¨ç©ºé—´
 {
 	DestroyHelp();
 }
 
 template <class ElemType>
 StatusCode AdjMatrixDirGraph<ElemType>::GetElem(int v, ElemType &e) const
-// ²Ù×÷½á¹û£ºÇó¶¥µãvµÄÔªËØ, vµÄÈ¡Öµ·¶Î§Îª0 ¡Ü v £¼ vexNum, vºÏ·¨Ê±·µ»Ø
-//	SUCCESS, ·ñÔò·µ»ØRANGE_ERROR
+// æ“ä½œç»“æœï¼šæ±‚é¡¶ç‚¹vçš„å…ƒç´ , vçš„å–å€¼èŒƒå›´ä¸º0 â‰¤ v ï¼œ vexNum, våˆæ³•æ—¶è¿”å›
+//	SUCCESS, å¦åˆ™è¿”å›RANGE_ERROR
 {
 	if (v < 0 || v >= vexNum)
-	{	// v·¶Î§´í
-		return NOT_PRESENT;	// ÔªËØ²»´æÔÚ
+	{						// vèŒƒå›´é”™
+		return NOT_PRESENT; // å…ƒç´ ä¸å­˜åœ¨
 	}
 	else
-	{	// vºÏ·¨
-		e = elems[v];		// ½«¶¥µãvµÄÔªËØÖµ¸³¸øe
-		return ENTRY_FOUND;	// ÔªËØ´æÔÚ
+	{						// våˆæ³•
+		e = elems[v];		// å°†é¡¶ç‚¹vçš„å…ƒç´ å€¼èµ‹ç»™e
+		return ENTRY_FOUND; // å…ƒç´ å­˜åœ¨
 	}
-}	
+}
 
 template <class ElemType>
 StatusCode AdjMatrixDirGraph<ElemType>::SetElem(int v, const ElemType &e)
-// ²Ù×÷½á¹û£ºÉèÖÃ¶¥µãµÄÔªËØÖµvµÄÈ¡Öµ·¶Î§Îª0 ¡Ü v £¼ vexNum, vºÏ·¨Ê±·µ»Ø
-//	SUCCESS, ·ñÔò·µ»ØRANGE_ERROR
+// æ“ä½œç»“æœï¼šè®¾ç½®é¡¶ç‚¹çš„å…ƒç´ å€¼vçš„å–å€¼èŒƒå›´ä¸º0 â‰¤ v ï¼œ vexNum, våˆæ³•æ—¶è¿”å›
+//	SUCCESS, å¦åˆ™è¿”å›RANGE_ERROR
 {
 	if (v < 0 || v >= vexNum)
-	{	// v·¶Î§´í
-		return RANGE_ERROR;	// Î»ÖÃ´í
+	{						// vèŒƒå›´é”™
+		return RANGE_ERROR; // ä½ç½®é”™
 	}
 	else
-	{	// vºÏ·¨
-		elems[v] = e;		// ¶¥µãÔªËØ
-		return SUCCESS;		// ³É¹¦
+	{					// våˆæ³•
+		elems[v] = e;	// é¡¶ç‚¹å…ƒç´ 
+		return SUCCESS; // æˆåŠŸ
 	}
 }
 
 template <class ElemType>
 int AdjMatrixDirGraph<ElemType>::GetVexNum() const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µã¸öÊı			 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹ä¸ªæ•°
 {
 	return vexNum;
 }
 
 template <class ElemType>
 int AdjMatrixDirGraph<ElemType>::GetEdgeNum() const
-// ²Ù×÷½á¹û£º·µ»Ø±ßÊı¸öÊı
+// æ“ä½œç»“æœï¼šè¿”å›è¾¹æ•°ä¸ªæ•°
 {
 	return edgeNum;
-}		 
+}
 
 template <class ElemType>
 int AdjMatrixDirGraph<ElemType>::FirstAdjVex(int v) const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µãvµÄµÚ1¸öÁÚ½Óµã			 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹vçš„ç¬¬1ä¸ªé‚»æ¥ç‚¹
 {
-	if (v < 0 || v >= vexNum) throw Error("v²»ºÏ·¨!");// Å×³öÒì³£
+	if (v < 0 || v >= vexNum)
+		throw Error("vä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
 
 	for (int cur = 0; cur < vexNum; cur++)
-	{	// ²éÕÒÁÚ½Óµã
-		if (Matrix[v][cur] != 0) return cur;
+	{ // æŸ¥æ‰¾é‚»æ¥ç‚¹
+		if (Matrix[v][cur] != 0)
+			return cur;
 	}
 
-	return -1;									// ·µ»Ø-1±íÊ¾ÎŞÁÚ½Óµã
+	return -1; // è¿”å›-1è¡¨ç¤ºæ— é‚»æ¥ç‚¹
 }
 
 template <class ElemType>
 int AdjMatrixDirGraph<ElemType>::NextAdjVex(int v1, int v2) const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µãv1µÄÏà¶ÔÓÚv2µÄÏÂ1¸öÁÚ½Óµã			 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹v1çš„ç›¸å¯¹äºv2çš„ä¸‹1ä¸ªé‚»æ¥ç‚¹
 {
-	if (v1 < 0 || v1 >= vexNum) throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v2 < 0 || v2 >= vexNum) throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v1 == v2) throw Error("v1²»ÄÜµÈÓÚv2!");				// Å×³öÒì³£
+	if (v1 < 0 || v1 >= vexNum)
+		throw Error("v1ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v2 < 0 || v2 >= vexNum)
+		throw Error("v2ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v1 == v2)
+		throw Error("v1ä¸èƒ½ç­‰äºv2!"); // æŠ›å‡ºå¼‚å¸¸
 
 	for (int cur = v2 + 1; cur < vexNum; cur++)
-	{	// ²éÕÒÁÚ½Óµã
-		if (Matrix[v1][cur] != 0) return cur;
+	{ // æŸ¥æ‰¾é‚»æ¥ç‚¹
+		if (Matrix[v1][cur] != 0)
+			return cur;
 	}
 
-	return -1;									// ·µ»Ø-1±íÊ¾ÎŞÁÚ½Óµã
+	return -1; // è¿”å›-1è¡¨ç¤ºæ— é‚»æ¥ç‚¹
 }
 
 template <class ElemType>
 void AdjMatrixDirGraph<ElemType>::InsertEdge(int v1, int v2)
-// ²Ù×÷½á¹û£º²åÈë¶¥µãÎªv1ºÍv2,È¨ÎªwµÄ±ß			 
+// æ“ä½œç»“æœï¼šæ’å…¥é¡¶ç‚¹ä¸ºv1å’Œv2,æƒä¸ºwçš„è¾¹
 {
-	if (v1 < 0 || v1 >= vexNum) throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v2 < 0 || v2 >= vexNum) throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v1 == v2) throw Error("v1²»ÄÜµÈÓÚv2!");				// Å×³öÒì³£
+	if (v1 < 0 || v1 >= vexNum)
+		throw Error("v1ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v2 < 0 || v2 >= vexNum)
+		throw Error("v2ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v1 == v2)
+		throw Error("v1ä¸èƒ½ç­‰äºv2!"); // æŠ›å‡ºå¼‚å¸¸
 
 	if (Matrix[v1][v2] == 0)
-	{	// Ô­ÓĞÏòÍ¼ÎŞ±ß<v1, v2>,²åÈëºó±ßÊı×ÔÔö1
+	{ // åŸæœ‰å‘å›¾æ— è¾¹<v1, v2>,æ’å…¥åè¾¹æ•°è‡ªå¢1
 		edgeNum++;
 	}
-	Matrix[v1][v2] = 1;					// ĞŞ¸Ä<v1, v2>¶ÔÓ¦µÄÁÚ½Ó¾ØÕóÔªËØÖµ
+	Matrix[v1][v2] = 1; // ä¿®æ”¹<v1, v2>å¯¹åº”çš„é‚»æ¥çŸ©é˜µå…ƒç´ å€¼
 }
 
 template <class ElemType>
 void AdjMatrixDirGraph<ElemType>::DeleteEdge(int v1, int v2)
-// ²Ù×÷½á¹û£ºÉ¾³ı¶¥µãÎªv1ºÍv2µÄ±ß			 
+// æ“ä½œç»“æœï¼šåˆ é™¤é¡¶ç‚¹ä¸ºv1å’Œv2çš„è¾¹
 {
-	if (v1 < 0 || v1 >= vexNum) throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v2 < 0 || v2 >= vexNum) throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v1 == v2) throw Error("v1²»ÄÜµÈÓÚv2!");				// Å×³öÒì³£
+	if (v1 < 0 || v1 >= vexNum)
+		throw Error("v1ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v2 < 0 || v2 >= vexNum)
+		throw Error("v2ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v1 == v2)
+		throw Error("v1ä¸èƒ½ç­‰äºv2!"); // æŠ›å‡ºå¼‚å¸¸
 
 	if (Matrix[v1][v2] != 0)
-	{	// Ô­ÓĞÏòÍ¼´æÔÚ±ß<v1, v2>,É¾³ıºó±ßÊı×Ô¼õ1
+	{ // åŸæœ‰å‘å›¾å­˜åœ¨è¾¹<v1, v2>,åˆ é™¤åè¾¹æ•°è‡ªå‡1
 		edgeNum--;
 	}
-	Matrix[v1][v2] = 0;					// ĞŞ¸Ä<v1, v2>¶ÔÓ¦µÄÁÚ½Ó¾ØÕóÔªËØÖµ
+	Matrix[v1][v2] = 0; // ä¿®æ”¹<v1, v2>å¯¹åº”çš„é‚»æ¥çŸ©é˜µå…ƒç´ å€¼
 }
 
 template <class ElemType>
 StatusCode AdjMatrixDirGraph<ElemType>::GetTag(int v) const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µãvµÄ±êÖ¾		 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹vçš„æ ‡å¿—
 {
-	if (v < 0 || v >= vexNum) throw Error("v²»ºÏ·¨!");		// Å×³öÒì³£
+	if (v < 0 || v >= vexNum)
+		throw Error("vä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
 
 	return tag[v];
 }
 
 template <class ElemType>
-void AdjMatrixDirGraph<ElemType>::SetTag(int v, StatusCode val) const 
-// ²Ù×÷½á¹û£ºÉèÖÃ¶¥µãvµÄ±êÖ¾Îªval		 
+void AdjMatrixDirGraph<ElemType>::SetTag(int v, StatusCode val) const
+// æ“ä½œç»“æœï¼šè®¾ç½®é¡¶ç‚¹vçš„æ ‡å¿—ä¸ºval
 {
-	if (v < 0 || v >= vexNum) throw Error("v²»ºÏ·¨!");		// Å×³öÒì³£
+	if (v < 0 || v >= vexNum)
+		throw Error("vä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
 
 	tag[v] = val;
 }
 
 template <class ElemType>
 AdjMatrixDirGraph<ElemType>::AdjMatrixDirGraph(const AdjMatrixDirGraph<ElemType> &copy)
-// ²Ù×÷½á¹û£ºÓÉÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕócopy¹¹ÔìĞÂÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕócopy¡ª¡ª¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
+// æ“ä½œç»“æœï¼šç”±æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µcopyæ„é€ æ–°æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µcopyâ€”â€”å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
 {
-	int iPos, jPos;								// ÁÙÊ±±äÁ¿
-	vexNum = copy.vexNum;						// ¸´ÖÆ¶¥µãÊı
-	edgeNum = copy.edgeNum;						// ¸´ÖÆ±ßÊı
+	int iPos, jPos;			// ä¸´æ—¶å˜é‡
+	vexNum = copy.vexNum;	// å¤åˆ¶é¡¶ç‚¹æ•°
+	edgeNum = copy.edgeNum; // å¤åˆ¶è¾¹æ•°
 
-	elems = new ElemType[vexNum];			// Éú³É¶¥µãÊı¾İÊı×é
+	elems = new ElemType[vexNum]; // ç”Ÿæˆé¡¶ç‚¹æ•°æ®æ•°ç»„
 	for (iPos = 0; iPos < vexNum; iPos++)
-	{	// ¸´ÖÆ¶¥µãÊı¾İÊı×é
+	{ // å¤åˆ¶é¡¶ç‚¹æ•°æ®æ•°ç»„
 		elems[iPos] = copy.elems[iPos];
 	}
 
-	tag = new StatusCode[vexNum];				// Éú³É±êÖ¾Êı×é
+	tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
 	for (iPos = 0; iPos < vexNum; iPos++)
-	{	// ¸´ÖÆ±êÖ¾Êı×é
+	{ // å¤åˆ¶æ ‡å¿—æ•°ç»„
 		tag[iPos] = copy.tag[iPos];
 	}
 
-	Matrix = (int **)new int *[vexNum];			// Éú³ÉÁÚ½Ó¾ØÕó
+	Matrix = (int **)new int *[vexNum]; // ç”Ÿæˆé‚»æ¥çŸ©é˜µ
 	for (iPos = 0; iPos < vexNum; iPos++)
-	{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
-		Matrix[iPos] = new int[vexNum];	
-	}  
+	{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
+		Matrix[iPos] = new int[vexNum];
+	}
 
 	for (iPos = 0; iPos < vexNum; iPos++)
 	{
 		for (jPos = 0; jPos < vexNum; jPos++)
-		{	// ¸´ÖÆÁÚ½Ó¾ØÕóÔªËØ¸³Öµ
+		{ // å¤åˆ¶é‚»æ¥çŸ©é˜µå…ƒç´ èµ‹å€¼
 			Matrix[iPos][jPos] = copy.Matrix[iPos][jPos];
 		}
 	}
 }
 
 template <class ElemType>
-AdjMatrixDirGraph<ElemType> &AdjMatrixDirGraph<ElemType>::operator =(const AdjMatrixDirGraph<ElemType> &copy)
-// ²Ù×÷½á¹û£º½«ÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕócopy¸³Öµ¸øµ±Ç°ÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕó¡ª¡ªÖØÔØ¸³ÖµÔËËã·û
+AdjMatrixDirGraph<ElemType> &AdjMatrixDirGraph<ElemType>::operator=(const AdjMatrixDirGraph<ElemType> &copy)
+// æ“ä½œç»“æœï¼šå°†æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µcopyèµ‹å€¼ç»™å½“å‰æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µâ€”â€”é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 {
 	if (&copy != this)
 	{
-		DestroyHelp();							// ÊÍ·Åµ±Ç°ÓĞÏòÍ¼Õ¼ÓÃ¿Õ¼ä
+		DestroyHelp(); // é‡Šæ”¾å½“å‰æœ‰å‘å›¾å ç”¨ç©ºé—´
 
-		int iPos, jPos;							// ÁÙÊ±±äÁ¿
-		vexNum = copy.vexNum;					// ¸´ÖÆ¶¥µãÊı
-		edgeNum = copy.edgeNum;					// ¸´ÖÆ±ßÊı
+		int iPos, jPos;			// ä¸´æ—¶å˜é‡
+		vexNum = copy.vexNum;	// å¤åˆ¶é¡¶ç‚¹æ•°
+		edgeNum = copy.edgeNum; // å¤åˆ¶è¾¹æ•°
 
-		elems = new ElemType[vexNum];		// Éú³É¶¥µãÊı¾İÊı×é
+		elems = new ElemType[vexNum]; // ç”Ÿæˆé¡¶ç‚¹æ•°æ®æ•°ç»„
 		for (iPos = 0; iPos < vexNum; iPos++)
-		{	// ¸´ÖÆ¶¥µãÊı¾İÊı×é
+		{ // å¤åˆ¶é¡¶ç‚¹æ•°æ®æ•°ç»„
 			elems[iPos] = copy.elems[iPos];
 		}
 
-		tag = new StatusCode[vexNum];			// Éú³É±êÖ¾Êı×é
+		tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
 		for (iPos = 0; iPos < vexNum; iPos++)
-		{	// ¸´ÖÆ±êÖ¾Êı×é
+		{ // å¤åˆ¶æ ‡å¿—æ•°ç»„
 			tag[iPos] = copy.tag[iPos];
 		}
 
-		Matrix = (int **)new int*[vexNum];		// Éú³ÉÁÚ½Ó¾ØÕó
+		Matrix = (int **)new int *[vexNum]; // ç”Ÿæˆé‚»æ¥çŸ©é˜µ
 		for (iPos = 0; iPos < vexNum; iPos++)
-		{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
-			Matrix[iPos] = new int[vexNum];	
+		{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
+			Matrix[iPos] = new int[vexNum];
 		}
 
 		for (iPos = 0; iPos < vexNum; iPos++)
 		{
 			for (jPos = 0; jPos < vexNum; jPos++)
-			{	// ¸´ÖÆÁÚ½Ó¾ØÕóÔªËØ¸³Öµ
+			{ // å¤åˆ¶é‚»æ¥çŸ©é˜µå…ƒç´ èµ‹å€¼
 				Matrix[iPos][jPos] = copy.Matrix[iPos][jPos];
 			}
 		}
@@ -351,114 +365,114 @@ AdjMatrixDirGraph<ElemType> &AdjMatrixDirGraph<ElemType>::operator =(const AdjMa
 	return *this;
 }
 
-#ifndef _MSC_VER					// ±íÊ¾·ÇVC 
+#ifndef _MSC_VER // è¡¨ç¤ºéVC
 
-// ·ÇVC²»ÄÜÔÚº¯ÊıÄ£°å¶¨ÒåÊ±Ğ´ÉÏ²ÎÊıÈ±Ê¡Öµ 
+// éVCä¸èƒ½åœ¨å‡½æ•°æ¨¡æ¿å®šä¹‰æ—¶å†™ä¸Šå‚æ•°ç¼ºçœå€¼
 template <class ElemType>
 void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem)
-// ²Ù×÷½á¹û: ÏÔÊ¾ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+// æ“ä½œç»“æœ: æ˜¾ç¤ºé‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 {
-	int **Matrix;									// ÁÚ½Ó¾ØÕó
-	Matrix = (int **)new int *[g.GetVexNum()];		// Éú³ÉÁÚ½Ó¾ØÕó
-	int iPos;										// ÁÙÊ±±äÁ¿ 
+	int **Matrix;							   // é‚»æ¥çŸ©é˜µ
+	Matrix = (int **)new int *[g.GetVexNum()]; // ç”Ÿæˆé‚»æ¥çŸ©é˜µ
+	int iPos;								   // ä¸´æ—¶å˜é‡
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
-	{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
-		Matrix[iPos] = new int[g.GetVexNum()];	
+	{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
+		Matrix[iPos] = new int[g.GetVexNum()];
 	}
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
 	{
 		for (int jPos = 0; jPos < g.GetVexNum(); jPos++)
-		{	// ÎªÁÚ½Ó¾ØÕóÔªËØ¸³Öµ
+		{ // ä¸ºé‚»æ¥çŸ©é˜µå…ƒç´ èµ‹å€¼
 			Matrix[iPos][jPos] = 0;
 		}
 	}
 
 	for (int v = 0; v < g.GetVexNum(); v++)
-	{	// ²éÕÒÓĞÏòÍ¼ÖĞvµÄÁÚ½Óµã
+	{ // æŸ¥æ‰¾æœ‰å‘å›¾ä¸­vçš„é‚»æ¥ç‚¹
 		for (int u = g.FirstAdjVex(v); u != -1; u = g.NextAdjVex(v, u))
-		{	// uÎªvµÄÁÚ½Óµã
+		{ // uä¸ºvçš„é‚»æ¥ç‚¹
 			Matrix[v][u] = 1;
 		}
 	}
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
-	{	// ÏÔÊ¾ĞĞ
+	{ // æ˜¾ç¤ºè¡Œ
 		if (showVexElem)
-		{	// ÏÔÊ¾¶¥µãÔªËØ
-			ElemType e;					// Êı¾İÔªËØ
-			g.GetElem(iPos, e);			// È¡³öÔªËØÖµ
-			cout << e;					// ÏÔÊ¾ÔªËØÖµ
+		{						// æ˜¾ç¤ºé¡¶ç‚¹å…ƒç´ 
+			ElemType e;			// æ•°æ®å…ƒç´ 
+			g.GetElem(iPos, e); // å–å‡ºå…ƒç´ å€¼
+			cout << e;			// æ˜¾ç¤ºå…ƒç´ å€¼
 		}
 
 		for (int jPos = 0; jPos < g.GetVexNum(); jPos++)
-		{	// ÏÔÊ¾ÔªËØ
- 			cout << "\t" << Matrix[iPos][jPos];
+		{ // æ˜¾ç¤ºå…ƒç´ 
+			cout << "\t" << Matrix[iPos][jPos];
 		}
-		cout << endl;					// »»ĞĞ 
+		cout << endl; // æ¢è¡Œ
 	}
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
-	{	// ÊÍ·ÅÁÚ½Ó¾ØÕóµÄĞĞ
-		delete []Matrix[iPos];
+	{ // é‡Šæ”¾é‚»æ¥çŸ©é˜µçš„è¡Œ
+		delete[] Matrix[iPos];
 	}
-	delete []Matrix;					// ÊÍ·ÅÁÚ½Ó¾ØÕó
+	delete[] Matrix; // é‡Šæ”¾é‚»æ¥çŸ©é˜µ
 }
 
-#else								// ±íÊ¾VC 
+#else // è¡¨ç¤ºVC
 
-// VC¿ÉÒÔÔÚº¯ÊıÄ£°å¶¨ÒåÊ±Ğ´ÉÏ²ÎÊıÈ±Ê¡Öµ 
+// VCå¯ä»¥åœ¨å‡½æ•°æ¨¡æ¿å®šä¹‰æ—¶å†™ä¸Šå‚æ•°ç¼ºçœå€¼
 template <class ElemType>
 void Display(const AdjMatrixDirGraph<ElemType> &g, bool showVexElem = true)
-// ²Ù×÷½á¹û: ÏÔÊ¾ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+// æ“ä½œç»“æœ: æ˜¾ç¤ºé‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 {
-	int **Matrix;									// ÁÚ½Ó¾ØÕó
-	Matrix = (int **)new int *[g.GetVexNum()];		// Éú³ÉÁÚ½Ó¾ØÕó
-	int iPos;										// ÁÙÊ±±äÁ¿ 
+	int **Matrix;							   // é‚»æ¥çŸ©é˜µ
+	Matrix = (int **)new int *[g.GetVexNum()]; // ç”Ÿæˆé‚»æ¥çŸ©é˜µ
+	int iPos;								   // ä¸´æ—¶å˜é‡
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
-	{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
-		Matrix[iPos] = new int[g.GetVexNum()];	
+	{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
+		Matrix[iPos] = new int[g.GetVexNum()];
 	}
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
 	{
 		for (int jPos = 0; jPos < g.GetVexNum(); jPos++)
-		{	// ÎªÁÚ½Ó¾ØÕóÔªËØ¸³Öµ
+		{ // ä¸ºé‚»æ¥çŸ©é˜µå…ƒç´ èµ‹å€¼
 			Matrix[iPos][jPos] = 0;
 		}
 	}
 
 	for (int v = 0; v < g.GetVexNum(); v++)
-	{	// ²éÕÒÓĞÏòÍ¼ÖĞvµÄÁÚ½Óµã
+	{ // æŸ¥æ‰¾æœ‰å‘å›¾ä¸­vçš„é‚»æ¥ç‚¹
 		for (int u = g.FirstAdjVex(v); u != -1; u = g.NextAdjVex(v, u))
-		{	// uÎªvµÄÁÚ½Óµã
+		{ // uä¸ºvçš„é‚»æ¥ç‚¹
 			Matrix[v][u] = 1;
 		}
 	}
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
-	{	// ÏÔÊ¾ĞĞ
+	{ // æ˜¾ç¤ºè¡Œ
 		if (showVexElem)
-		{	// ÏÔÊ¾¶¥µãÔªËØ
-			ElemType e;					// Êı¾İÔªËØ
-			g.GetElem(iPos, e);			// È¡³öÔªËØÖµ
-			cout << e;					// ÏÔÊ¾ÔªËØÖµ
+		{						// æ˜¾ç¤ºé¡¶ç‚¹å…ƒç´ 
+			ElemType e;			// æ•°æ®å…ƒç´ 
+			g.GetElem(iPos, e); // å–å‡ºå…ƒç´ å€¼
+			cout << e;			// æ˜¾ç¤ºå…ƒç´ å€¼
 		}
 
 		for (int jPos = 0; jPos < g.GetVexNum(); jPos++)
-		{	// ÏÔÊ¾ÔªËØ
- 			cout << "\t" << Matrix[iPos][jPos];
+		{ // æ˜¾ç¤ºå…ƒç´ 
+			cout << "\t" << Matrix[iPos][jPos];
 		}
-		cout << endl;					// »»ĞĞ 
+		cout << endl; // æ¢è¡Œ
 	}
 
 	for (iPos = 0; iPos < g.GetVexNum(); iPos++)
-	{	// ÊÍ·ÅÁÚ½Ó¾ØÕóµÄĞĞ
-		delete []Matrix[iPos];
+	{ // é‡Šæ”¾é‚»æ¥çŸ©é˜µçš„è¡Œ
+		delete[] Matrix[iPos];
 	}
-	delete []Matrix;					// ÊÍ·ÅÁÚ½Ó¾ØÕó
+	delete[] Matrix; // é‡Šæ”¾é‚»æ¥çŸ©é˜µ
 }
 
 #endif

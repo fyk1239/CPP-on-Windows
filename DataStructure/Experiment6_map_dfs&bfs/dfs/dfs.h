@@ -1,50 +1,50 @@
 #ifndef __DFS_H__
 #define __DFS_H__
 
-#include "adj_matrix_dir_graph.h"	// ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+#include "adj_matrix_dir_graph.h" // é‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 
 template <class ElemType>
 void DFSTraverse(const AdjMatrixDirGraph<ElemType> &g, void (*visit)(const ElemType &))
-// ³õÊ¼Ìõ¼ş£º´æÔÚÍ¼g
-// ²Ù×÷½á¹û£º¶ÔÍ¼g½øĞĞÉî¶ÈÓÅÏÈ±éÀú
+// åˆå§‹æ¡ä»¶ï¼šå­˜åœ¨å›¾g
+// æ“ä½œç»“æœï¼šå¯¹å›¾gè¿›è¡Œæ·±åº¦ä¼˜å…ˆéå†
 {
 	int v;
 	for (v = 0; v < g.GetVexNum(); v++)
-	{	// ¶ÔÃ¿¸ö¶¥µã×÷·ÃÎÊ±êÖ¾
+	{ // å¯¹æ¯ä¸ªé¡¶ç‚¹ä½œè®¿é—®æ ‡å¿—
 		g.SetTag(v, UNVISITED);
 	}
 
 	for (v = 0; v < g.GetVexNum(); v++)
-	{	// ¶ÔÉĞÎ´·ÃÎÊµÄ¶¥µã°´DFS½øĞĞÉî¶ÈÓÅÏÈËÑË÷
+	{ // å¯¹å°šæœªè®¿é—®çš„é¡¶ç‚¹æŒ‰DFSè¿›è¡Œæ·±åº¦ä¼˜å…ˆæœç´¢
 		if (g.GetTag(v) == UNVISITED)
-		{	// ´Óv¿ªÊ¼½øĞĞÉî¶ÈÓÅÏÈËÑË÷   
-			#ifdef _MSC_VER
-				DFS<ElemType>(g, v , visit);	// VCĞè<ElemType>È·¶¨º¯ÊıÄ£°å²ÎÊı
-			#else
-				DFS(g, v , visit);
-			#endif
+		{ // ä»vå¼€å§‹è¿›è¡Œæ·±åº¦ä¼˜å…ˆæœç´¢
+#ifdef _MSC_VER
+			DFS<ElemType>(g, v, visit); // VCéœ€<ElemType>ç¡®å®šå‡½æ•°æ¨¡æ¿å‚æ•°
+#else
+			DFS(g, v, visit);
+#endif
 		}
 	}
 }
 
 template <class ElemType>
 void DFS(const AdjMatrixDirGraph<ElemType> &g, int v, void (*visit)(const ElemType &))
-// ³õÊ¼Ìõ¼ş£º´æÔÚÍ¼g
-// ²Ù×÷½á¹û£º´Ó¶¥µãv³ö·¢½øĞĞÉî¶ÈÓÅÏÈËÑË÷Í¼g
-{	
-	g.SetTag(v, VISITED);			// ×÷·ÃÎÊ±êÖ¾
-	ElemType e;						// ÁÙÊ±±äÁ¿
-	g.GetElem(v, e);				// ¶¥µãvµÄÊı¾İÔªËØ
-	(*visit)(e);					// ·ÃÎÊ¶¥µãvµÄÊı¾İÔªËØ
+// åˆå§‹æ¡ä»¶ï¼šå­˜åœ¨å›¾g
+// æ“ä½œç»“æœï¼šä»é¡¶ç‚¹vå‡ºå‘è¿›è¡Œæ·±åº¦ä¼˜å…ˆæœç´¢å›¾g
+{
+	g.SetTag(v, VISITED); // ä½œè®¿é—®æ ‡å¿—
+	ElemType e;			  // ä¸´æ—¶å˜é‡
+	g.GetElem(v, e);	  // é¡¶ç‚¹vçš„æ•°æ®å…ƒç´ 
+	(*visit)(e);		  // è®¿é—®é¡¶ç‚¹vçš„æ•°æ®å…ƒç´ 
 	for (int w = g.FirstAdjVex(v); w != -1; w = g.NextAdjVex(v, w))
-	{	// ¶ÔvµÄÉĞÎ´·ÃÎÊ¹ıµÄÁÚ½Ó¶¥µãwµİ¹éµ÷ÓÃDFS
+	{ // å¯¹vçš„å°šæœªè®¿é—®è¿‡çš„é‚»æ¥é¡¶ç‚¹wé€’å½’è°ƒç”¨DFS
 		if (g.GetTag(w) == UNVISITED)
-		{	// ´Ów¿ªÊ¼½øĞĞÉî¶ÈÓÅÏÈËÑË÷
-			#ifdef _MSC_VER
-				DFS<ElemType>(g, w , visit);	// VCĞè<ElemType>È·¶¨º¯ÊıÄ£°å²ÎÊı
-			#else
-				DFS(g, w , visit);
-			#endif
+		{ // ä»wå¼€å§‹è¿›è¡Œæ·±åº¦ä¼˜å…ˆæœç´¢
+#ifdef _MSC_VER
+			DFS<ElemType>(g, w, visit); // VCéœ€<ElemType>ç¡®å®šå‡½æ•°æ¨¡æ¿å‚æ•°
+#else
+			DFS(g, w, visit);
+#endif
 		}
 	}
 }
