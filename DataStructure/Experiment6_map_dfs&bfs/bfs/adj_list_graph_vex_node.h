@@ -1,35 +1,37 @@
 #ifndef __ADJ_LIST_NETWORK_VEX_NODE_H__
 #define __ADJ_LIST_NETWORK_VEX_NODE_H__
 
-// ÁÚ½Ó±íÍ¼¶¥µã½áµãÀàÄ£°å
+#include "linklist.h" // çº¿æ€§é“¾è¡¨ç±»æ¨¡æ¿
+
+// é‚»æ¥è¡¨å›¾é¡¶ç‚¹ç»“ç‚¹ç±»æ¨¡æ¿
 template <class ElemType>
 class AdjListGraphVexNode
 {
 public:
-// Êı¾İ³ÉÔ±:
-	ElemType data;							// Êı¾İÔªËØÖµ
-	LinkList<int> *adjLink;					// ÁÚ½ÓÁ´±í
+	// æ•°æ®æˆå‘˜:
+	ElemType data;			// æ•°æ®å…ƒç´ å€¼
+	LinkList<int> *adjLink; // é‚»æ¥é“¾è¡¨
 
-// ¹¹Ôìº¯ÊıÄ£°å:
-	AdjListGraphVexNode();					// ÎŞ²ÎÊıµÄ¹¹Ôìº¯ÊıÄ£°å
+	// æ„é€ å‡½æ•°æ¨¡æ¿:
+	AdjListGraphVexNode(); // æ— å‚æ•°çš„æ„é€ å‡½æ•°æ¨¡æ¿
 	AdjListGraphVexNode(ElemType item, LinkList<int> *adj = NULL);
-		// ¹¹Ôì¶¥µãÊı¾İÎªitem,Ö¸ÏòÁÚ½ÓÁ´±íµÄÖ¸ÕëÎªadjµÄ½á¹¹
+	// æ„é€ é¡¶ç‚¹æ•°æ®ä¸ºitem,æŒ‡å‘é‚»æ¥é“¾è¡¨çš„æŒ‡é’ˆä¸ºadjçš„ç»“æ„
 };
 
-// ÁÚ½Ó±íÍ¼¶¥µã½áµãÀàÄ£°åµÄÊµÏÖ²¿·Ö
+// é‚»æ¥è¡¨å›¾é¡¶ç‚¹ç»“ç‚¹ç±»æ¨¡æ¿çš„å®ç°éƒ¨åˆ†
 template <class ElemType>
 AdjListGraphVexNode<ElemType>::AdjListGraphVexNode()
-// ²Ù×÷½á¹û£º¹¹ÔìÒ»¸ö¿Õ¶¥µã½áµã¡ª¡ªÎŞ²Î¹¹Ôìº¯ÊıÄ£°å
+// æ“ä½œç»“æœï¼šæ„é€ ä¸€ä¸ªç©ºé¡¶ç‚¹ç»“ç‚¹â€”â€”æ— å‚æ„é€ å‡½æ•°æ¨¡æ¿
 {
-	adjLink = NULL;							// ÁÚ½ÓÁ´±íÎª¿Õ
+	adjLink = NULL; // é‚»æ¥é“¾è¡¨ä¸ºç©º
 }
 
 template <class ElemType>
 AdjListGraphVexNode<ElemType>::AdjListGraphVexNode(ElemType item, LinkList<int> *adj)
-// ²Ù×÷½á¹û£º¹¹ÔìÊı¾İÎªitem,Ö¸ÏòÁÚ½ÓÁ´±íÎªadjµÄ¶¥µã
+// æ“ä½œç»“æœï¼šæ„é€ æ•°æ®ä¸ºitem,æŒ‡å‘é‚»æ¥é“¾è¡¨ä¸ºadjçš„é¡¶ç‚¹
 {
-	data = item;							// ¶¥µãÊı¾İ
-	adjLink = adj;							// ÁÚ½ÓÁ´±í
+	data = item;   // é¡¶ç‚¹æ•°æ®
+	adjLink = adj; // é‚»æ¥é“¾è¡¨
 }
 
 #endif

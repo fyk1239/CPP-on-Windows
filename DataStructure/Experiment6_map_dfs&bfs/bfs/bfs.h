@@ -1,56 +1,56 @@
 #ifndef __BFS_H__
 #define __BFS_H__
 
-#include "adj_list_dir_graph.h"	// ÁÚ½Ó±íÓĞÏòÍ¼
-#include "lk_queue.h"			// Á´¶ÓÁĞ
+#include "adj_list_dir_graph.h" // é‚»æ¥è¡¨æœ‰å‘å›¾
+#include "linkqueue.h"			// é“¾é˜Ÿåˆ—
 
 template <class ElemType>
 void BFSTraverse(const AdjListDirGraph<ElemType> &g, void (*visit)(const ElemType &))
-// ³õÊ¼Ìõ¼ş£º´æÔÚÍ¼g
-// ²Ù×÷½á¹û£º¶ÔÍ¼g½øĞĞ¹ã¶ÈÓÅÏÈ±éÀú
+// åˆå§‹æ¡ä»¶ï¼šå­˜åœ¨å›¾g
+// æ“ä½œç»“æœï¼šå¯¹å›¾gè¿›è¡Œå¹¿åº¦ä¼˜å…ˆéå†
 {
 	int v;
 	for (v = 0; v < g.GetVexNum(); v++)
-	{	// ¶ÔÃ¿¸ö¶¥µã×÷·ÃÎÊ±êÖ¾
+	{ // å¯¹æ¯ä¸ªé¡¶ç‚¹ä½œè®¿é—®æ ‡å¿—
 		g.SetTag(v, UNVISITED);
 	}
 
 	for (v = 0; v < g.GetVexNum(); v++)
-	{	// ¶ÔÉĞÎ´·ÃÎÊµÄ¶¥µã°´BFS½øĞĞÉî¶ÈÓÅÏÈËÑË÷
-		if (g.GetTag(v) == UNVISITED) 
+	{ // å¯¹å°šæœªè®¿é—®çš„é¡¶ç‚¹æŒ‰BFSè¿›è¡Œæ·±åº¦ä¼˜å…ˆæœç´¢
+		if (g.GetTag(v) == UNVISITED)
 		{
-			#ifdef _MSC_VER
-				BFS<ElemType>(g, v , visit);	// VCĞè<ElemType>È·¶¨º¯ÊıÄ£°å²ÎÊı
-			#else
-				BFS(g, v , visit);
-			#endif
+#ifdef _MSC_VER
+			BFS<ElemType>(g, v, visit); // VCéœ€<ElemType>ç¡®å®šå‡½æ•°æ¨¡æ¿å‚æ•°
+#else
+			BFS(g, v, visit);
+#endif
 		}
 	}
 }
 
 template <class ElemType>
 void BFS(const AdjListDirGraph<ElemType> &g, int v, void (*visit)(const ElemType &))
-// ³õÊ¼Ìõ¼ş£º´æÔÚÍ¼g
-// ²Ù×÷½á¹û£º´ÓµÚ¶¥µãv³ö·¢½øĞĞ¹ã¶ÈÓÅÏÈËÑË÷Í¼g
-{	
-	g.SetTag(v, VISITED);						// ×÷·ÃÎÊ±êÖ¾
-	ElemType e;									// ÁÙÊ±±äÁ¿
-	g.GetElem(v, e);							// ¶¥µãvµÄÊı¾İÔªËØ
-	(*visit)(e);								// ·ÃÎÊ¶¥µãvµÄÊı¾İÔªËØ
-	LinkQueue<int> q;							// ¶¨Òå¶ÓÁĞ
-	q.InQueue(v);								// vÈë¶Ó
+// åˆå§‹æ¡ä»¶ï¼šå­˜åœ¨å›¾g
+// æ“ä½œç»“æœï¼šä»ç¬¬é¡¶ç‚¹vå‡ºå‘è¿›è¡Œå¹¿åº¦ä¼˜å…ˆæœç´¢å›¾g
+{
+	g.SetTag(v, VISITED); // ä½œè®¿é—®æ ‡å¿—
+	ElemType e;			  // ä¸´æ—¶å˜é‡
+	g.GetElem(v, e);	  // é¡¶ç‚¹vçš„æ•°æ®å…ƒç´ 
+	(*visit)(e);		  // è®¿é—®é¡¶ç‚¹vçš„æ•°æ®å…ƒç´ 
+	LinkQueue<int> q;	  // å®šä¹‰é˜Ÿåˆ—
+	q.InQueue(v);		  // vå…¥é˜Ÿ
 	while (!q.Empty())
-	{	// ¶ÓÁĞq·Ç¿Õ, ½øĞĞÑ­»·
-		int u, w;								// ÁÙÊ±¶¥µã
-		q.OutQueue(u);							// ³ö¶Ó
+	{				   // é˜Ÿåˆ—qéç©º, è¿›è¡Œå¾ªç¯
+		int u, w;	   // ä¸´æ—¶é¡¶ç‚¹
+		q.OutQueue(u); // å‡ºé˜Ÿ
 		for (w = g.FirstAdjVex(u); w >= 0; w = g.NextAdjVex(u, w))
-		{	// ¶ÔuÉĞÎ´·ÃÎÊ¹ıµÄÁÚ½Ó¶¥µãw½øĞĞ·ÃÎÊ
+		{ // å¯¹uå°šæœªè®¿é—®è¿‡çš„é‚»æ¥é¡¶ç‚¹wè¿›è¡Œè®¿é—®
 			if (g.GetTag(w) == UNVISITED)
-			{	// ¶Ôw½øĞĞ·ÃÎÊ
-				g.SetTag(w, VISITED);			// ×÷·ÃÎÊ±êÖ¾
- 				g.GetElem(w, e);				// ¶¥µãwµÄÊı¾İÔªËØ
-				(*visit)(e);					// ·ÃÎÊ¶¥µãwµÄÊı¾İÔªËØ
-				q.InQueue(w);					// wÈë¶Ó
+			{						  // å¯¹wè¿›è¡Œè®¿é—®
+				g.SetTag(w, VISITED); // ä½œè®¿é—®æ ‡å¿—
+				g.GetElem(w, e);	  // é¡¶ç‚¹wçš„æ•°æ®å…ƒç´ 
+				(*visit)(e);		  // è®¿é—®é¡¶ç‚¹wçš„æ•°æ®å…ƒç´ 
+				q.InQueue(w);		  // wå…¥é˜Ÿ
 			}
 		}
 	}

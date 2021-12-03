@@ -1,170 +1,172 @@
 #ifndef __ADJ_LIST_DIR_GRAPH_H__
 #define __ADJ_LIST_DIR_GRAPH_H__
 
-#include "lk_list.h"							// ÏßĞÔÁ´±íÀàÄ£°å
-#include "adj_list_graph_vex_node.h"			// ÁÚ½Ó±íÓĞÏòÍ¼¶¥µã½áµãÀàÄ£°å
+#include "adj_list_graph_vex_node.h" // é‚»æ¥è¡¨æœ‰å‘å›¾é¡¶ç‚¹ç»“ç‚¹ç±»æ¨¡æ¿
 
-// ÓĞÏòÍ¼µÄÁÚ½Ó±íÀàÄ£°å
+// æœ‰å‘å›¾çš„é‚»æ¥è¡¨ç±»æ¨¡æ¿
 template <class ElemType>
 class AdjListDirGraph
 {
 protected:
-// ÁÚ½Ó±íµÄÊı¾İ³ÉÔ±:
-	int vexNum, edgeNum;						// ¶¥µã¸öÊıºÍ±ßÊı
-	AdjListGraphVexNode<ElemType> *vexTable;	// ¶¥µã±í
-	mutable StatusCode *tag;					// Ö¸Ïò±êÖ¾Êı×éµÄÖ¸Õë				
+	// é‚»æ¥è¡¨çš„æ•°æ®æˆå‘˜:
+	int vexNum, edgeNum;					 // é¡¶ç‚¹ä¸ªæ•°å’Œè¾¹æ•°
+	AdjListGraphVexNode<ElemType> *vexTable; // é¡¶ç‚¹è¡¨
+	mutable StatusCode *tag;				 // æŒ‡å‘æ ‡å¿—æ•°ç»„çš„æŒ‡é’ˆ
 
-// ¸¨Öúº¯ÊıÄ£°å
-	void DestroyHelp();							// Ïú»ÙÓĞÏòÍ¼,ÊÍ·ÅÓĞÏòÍ¼µãÓÃµÄ¿Õ¼ä
+	// è¾…åŠ©å‡½æ•°æ¨¡æ¿
+	void DestroyHelp(); // é”€æ¯æœ‰å‘å›¾,é‡Šæ”¾æœ‰å‘å›¾ç‚¹ç”¨çš„ç©ºé—´
 	int IndexHelp(const LinkList<int> *la, int v) const;
-		//¶¨Î»¶¥µãvÔÚÁÚ½ÓÁ´±íÖĞµÄÎ»ÖÃ
+	//å®šä½é¡¶ç‚¹våœ¨é‚»æ¥é“¾è¡¨ä¸­çš„ä½ç½®
 
 public:
-// ³éÏóÊı¾İÀàĞÍ·½·¨ÉùÃ÷¼°ÖØÔØ±àÒëÏµÍ³Ä¬ÈÏ·½·¨ÉùÃ÷:
+	// æŠ½è±¡æ•°æ®ç±»å‹æ–¹æ³•å£°æ˜åŠé‡è½½ç¼–è¯‘ç³»ç»Ÿé»˜è®¤æ–¹æ³•å£°æ˜:
 	AdjListDirGraph(ElemType es[], int vertexNum = DEFAULT_SIZE);
-		// ¹¹Ôì¶¥µãÊı¾İÎªes[],¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
+	// æ„é€ é¡¶ç‚¹æ•°æ®ä¸ºes[],é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
 	AdjListDirGraph(int vertexNum = DEFAULT_SIZE);
-		// ¹¹Ôì¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
-	~AdjListDirGraph();							// Îö¹¹º¯ÊıÄ£°å
-	StatusCode GetElem(int v, ElemType &e) const;// Çó¶¥µãµÄÔªËØ	
-	StatusCode SetElem(int v, const ElemType &e);// ÉèÖÃ¶¥µãµÄÔªËØÖµ
-	int GetVexNum() const;						// ·µ»Ø¶¥µã¸öÊı			 
-	int GetedgeNum() const;						// ·µ»Ø±ßÊı¸öÊı			 
-	int FirstAdjVex(int v) const;				// ·µ»Ø¶¥µãvµÄµÚÒ»¸öÁÚ½Óµã			 
-	int NextAdjVex(int v1, int v2) const;		// ·µ»Ø¶¥µãv1µÄÏà¶ÔÓÚv2µÄÏÂÒ»¸öÁÚ½Óµã			 
-	void InsertEdge(int v1, int v2);			// ²åÈë¶¥µãÎªv1ºÍv2µÄ±ß			 
-	void DeleteEdge(int v1, int v2);			// É¾³ı¶¥µãÎªv1ºÍv2µÄ±ß			 
-	StatusCode GetTag(int v) const;			// ·µ»Ø¶¥µãvµÄ±êÖ¾		 
-	void SetTag(int v, StatusCode val) const;	// ÉèÖÃ¶¥µãvµÄ±êÖ¾Îªval		 
-	AdjListDirGraph(const AdjListDirGraph<ElemType> &copy);	// ¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
-	AdjListDirGraph<ElemType> &operator =(const AdjListDirGraph<ElemType> &copy); 
-		// ÖØÔØ¸³ÖµÔËËã·û
+	// æ„é€ é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
+	~AdjListDirGraph();										// ææ„å‡½æ•°æ¨¡æ¿
+	StatusCode GetElem(int v, ElemType &e) const;			// æ±‚é¡¶ç‚¹çš„å…ƒç´ 
+	StatusCode SetElem(int v, const ElemType &e);			// è®¾ç½®é¡¶ç‚¹çš„å…ƒç´ å€¼
+	int GetVexNum() const;									// è¿”å›é¡¶ç‚¹ä¸ªæ•°
+	int GetedgeNum() const;									// è¿”å›è¾¹æ•°ä¸ªæ•°
+	int FirstAdjVex(int v) const;							// è¿”å›é¡¶ç‚¹vçš„ç¬¬ä¸€ä¸ªé‚»æ¥ç‚¹
+	int NextAdjVex(int v1, int v2) const;					// è¿”å›é¡¶ç‚¹v1çš„ç›¸å¯¹äºv2çš„ä¸‹ä¸€ä¸ªé‚»æ¥ç‚¹
+	void InsertEdge(int v1, int v2);						// æ’å…¥é¡¶ç‚¹ä¸ºv1å’Œv2çš„è¾¹
+	void DeleteEdge(int v1, int v2);						// åˆ é™¤é¡¶ç‚¹ä¸ºv1å’Œv2çš„è¾¹
+	StatusCode GetTag(int v) const;							// è¿”å›é¡¶ç‚¹vçš„æ ‡å¿—
+	void SetTag(int v, StatusCode val) const;				// è®¾ç½®é¡¶ç‚¹vçš„æ ‡å¿—ä¸ºval
+	AdjListDirGraph(const AdjListDirGraph<ElemType> &copy); // å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
+	AdjListDirGraph<ElemType> &operator=(const AdjListDirGraph<ElemType> &copy);
+	// é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 };
 
 template <class ElemType>
-void Display(const AdjListDirGraph<ElemType> &g, bool showVexElem);	// ÏÔÊ¾ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+void Display(const AdjListDirGraph<ElemType> &g, bool showVexElem = true); // æ˜¾ç¤ºé‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 
-// ÓĞÏòÍ¼µÄÁÚ½Ó±íÀàÄ£°åµÄÊµÏÖ²¿·Ö
+// æœ‰å‘å›¾çš„é‚»æ¥è¡¨ç±»æ¨¡æ¿çš„å®ç°éƒ¨åˆ†
 template <class ElemType>
 AdjListDirGraph<ElemType>::AdjListDirGraph(ElemType es[], int vertexNum)
-// ²Ù×÷½á¹û£º¹¹Ôì¶¥µãÊıÎªnumVex,¶¥µãÊı¾İÎªes[],ÖÖÀàÎªkf,¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
+// æ“ä½œç»“æœï¼šæ„é€ é¡¶ç‚¹æ•°ä¸ºnumVex,é¡¶ç‚¹æ•°æ®ä¸ºes[],ç§ç±»ä¸ºkf,é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
 {
-	if (vertexNum < 0)	throw Error("¶¥µã¸öÊı²»ÄÜÎª¸º!");// Å×³öÒì³£
+	if (vertexNum < 0)
+		throw Error("é¡¶ç‚¹ä¸ªæ•°ä¸èƒ½ä¸ºè´Ÿ!"); // æŠ›å‡ºå¼‚å¸¸
 
-	vexNum = vertexNum;							// ¶¥µãÊıÎªvertexNum
-	edgeNum = 0;								// ±ßÊıÎª0
+	vexNum = vertexNum; // é¡¶ç‚¹æ•°ä¸ºvertexNum
+	edgeNum = 0;		// è¾¹æ•°ä¸º0
 
-	tag = new StatusCode[vexNum];				// Éú³É±êÖ¾Êı×é
-	int curPos;									// ÁÙÊ±±äÁ¿ 
+	tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
+	int curPos;					  // ä¸´æ—¶å˜é‡
 	for (curPos = 0; curPos < vexNum; curPos++)
-	{	// ³õÊ¼»¯±êÖ¾Êı×é
+	{ // åˆå§‹åŒ–æ ‡å¿—æ•°ç»„
 		tag[curPos] = UNVISITED;
 	}
 
-	vexTable = new AdjListGraphVexNode<ElemType>[vexNum];// Éú³ÉÁÚ½Ó±í
+	vexTable = new AdjListGraphVexNode<ElemType>[vexNum]; // ç”Ÿæˆé‚»æ¥è¡¨
 	for (curPos = 0; curPos < vexNum; curPos++)
-	{	// ³õÊ¼»¯¶¥µãÊı¾İ
+	{ // åˆå§‹åŒ–é¡¶ç‚¹æ•°æ®
 		vexTable[curPos].data = es[curPos];
 	}
 }
 
 template <class ElemType>
 AdjListDirGraph<ElemType>::AdjListDirGraph(int vertexNum)
-// ²Ù×÷½á¹û£º¹¹Ôì¶¥µãÊıÎªnumVex,ÖÖÀàÎªkf,¶¥µã¸öÊıÎªvertexNum,±ßÊıÎª0µÄÓĞÏòÍ¼
+// æ“ä½œç»“æœï¼šæ„é€ é¡¶ç‚¹æ•°ä¸ºnumVex,ç§ç±»ä¸ºkf,é¡¶ç‚¹ä¸ªæ•°ä¸ºvertexNum,è¾¹æ•°ä¸º0çš„æœ‰å‘å›¾
 {
-	if (vertexNum < 0)	throw Error("¶¥µã¸öÊı²»ÄÜÎª¸º!");// Å×³öÒì³£
+	if (vertexNum < 0)
+		throw Error("é¡¶ç‚¹ä¸ªæ•°ä¸èƒ½ä¸ºè´Ÿ!"); // æŠ›å‡ºå¼‚å¸¸
 
-	vexNum = vertexNum;							// ¶¥µãÊıÎªvertexNum
-	edgeNum = 0;								// ±ßÊıÎª0
+	vexNum = vertexNum; // é¡¶ç‚¹æ•°ä¸ºvertexNum
+	edgeNum = 0;		// è¾¹æ•°ä¸º0
 
-	tag = new StatusCode[vexNum];				// Éú³É±êÖ¾Êı×é
-	int curPos;									// ÁÙÊ±±äÁ¿ 
+	tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
+	int curPos;					  // ä¸´æ—¶å˜é‡
 	for (curPos = 0; curPos < vexNum; curPos++)
-	{	// ³õÊ¼»¯±êÖ¾Êı×é
+	{ // åˆå§‹åŒ–æ ‡å¿—æ•°ç»„
 		tag[curPos] = UNVISITED;
 	}
 
-	vexTable = new AdjListGraphVexNode<ElemType>[vexNum];// Éú³ÉÁÚ½Ó±í
+	vexTable = new AdjListGraphVexNode<ElemType>[vexNum]; // ç”Ÿæˆé‚»æ¥è¡¨
 }
 
 template <class ElemType>
 void AdjListDirGraph<ElemType>::DestroyHelp()
-// ²Ù×÷½á¹û£ºÏú»ÙÓĞÏòÍ¼,ÊÍ·ÅÓĞÏòÍ¼µãÓÃµÄ¿Õ¼ä
+// æ“ä½œç»“æœï¼šé”€æ¯æœ‰å‘å›¾,é‡Šæ”¾æœ‰å‘å›¾ç‚¹ç”¨çš„ç©ºé—´
 {
-	delete []tag;								// ÊÍ·Å±êÖ¾
+	delete[] tag; // é‡Šæ”¾æ ‡å¿—
 	for (int iPos = 0; iPos < vexNum; iPos++)
-	{	// ÊÍ·ÅÁ´±í
+	{ // é‡Šæ”¾é“¾è¡¨
 		if (vexTable[iPos].adjLink != NULL)
 			delete vexTable[iPos].adjLink;
 	}
-	delete []vexTable;							// ÊÍ·ÅÁÚ½Ó±í
+	delete[] vexTable; // é‡Šæ”¾é‚»æ¥è¡¨
 }
 
 template <class ElemType>
 AdjListDirGraph<ElemType>::~AdjListDirGraph()
-// ²Ù×÷½á¹û£ºÊÍ·ÅÁÚ½Ó±íÓĞÏòÍ¼ËùÕ¼ÓÃ¿Õ¼ä
+// æ“ä½œç»“æœï¼šé‡Šæ”¾é‚»æ¥è¡¨æœ‰å‘å›¾æ‰€å ç”¨ç©ºé—´
 {
 	DestroyHelp();
 }
 
 template <class ElemType>
 StatusCode AdjListDirGraph<ElemType>::GetElem(int v, ElemType &e) const
-// ²Ù×÷½á¹û£ºÇó¶¥µãvµÄÔªËØ, vµÄÈ¡Öµ·¶Î§Îª0 ¡Ü v £¼ vexNum, vºÏ·¨Ê±·µ»Ø
-//	SUCCESS, ·ñÔò·µ»ØRANGE_ERROR
+// æ“ä½œç»“æœï¼šæ±‚é¡¶ç‚¹vçš„å…ƒç´ , vçš„å–å€¼èŒƒå›´ä¸º0 â‰¤ v ï¼œ vexNum, våˆæ³•æ—¶è¿”å›
+//	SUCCESS, å¦åˆ™è¿”å›RANGE_ERROR
 {
 	if (v < 0 || v >= vexNum)
-	{	// v·¶Î§´í
-		return NOT_PRESENT;			// ÔªËØ²»´æÔÚ
+	{						// vèŒƒå›´é”™
+		return NOT_PRESENT; // å…ƒç´ ä¸å­˜åœ¨
 	}
 	else
-	{	// vºÏ·¨
-		e = vexTable[v].data;		// ½«¶¥µãvµÄÔªËØÖµ¸³¸øe
-		return ENTRY_FOUND;			// ÔªËØ´æÔÚ
+	{						  // våˆæ³•
+		e = vexTable[v].data; // å°†é¡¶ç‚¹vçš„å…ƒç´ å€¼èµ‹ç»™e
+		return ENTRY_FOUND;	  // å…ƒç´ å­˜åœ¨
 	}
-}	
+}
 
 template <class ElemType>
 StatusCode AdjListDirGraph<ElemType>::SetElem(int v, const ElemType &e)
-// ²Ù×÷½á¹û£ºÉèÖÃ¶¥µãµÄÔªËØÖµvµÄÈ¡Öµ·¶Î§Îª0 ¡Ü v £¼ vexNum, vºÏ·¨Ê±·µ»Ø
-//	SUCCESS, ·ñÔò·µ»ØRANGE_ERROR
+// æ“ä½œç»“æœï¼šè®¾ç½®é¡¶ç‚¹çš„å…ƒç´ å€¼vçš„å–å€¼èŒƒå›´ä¸º0 â‰¤ v ï¼œ vexNum, våˆæ³•æ—¶è¿”å›
+//	SUCCESS, å¦åˆ™è¿”å›RANGE_ERROR
 {
 	if (v < 0 || v >= vexNum)
-	{	// v·¶Î§´í
-		return RANGE_ERROR;			// Î»ÖÃ´í
+	{						// vèŒƒå›´é”™
+		return RANGE_ERROR; // ä½ç½®é”™
 	}
 	else
-	{	// vºÏ·¨
-		vexTable[v].data = e;		// ¶¥µãÔªËØ
-		return SUCCESS;				// ³É¹¦
+	{						  // våˆæ³•
+		vexTable[v].data = e; // é¡¶ç‚¹å…ƒç´ 
+		return SUCCESS;		  // æˆåŠŸ
 	}
 }
 
 template <class ElemType>
 int AdjListDirGraph<ElemType>::GetVexNum() const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µã¸öÊı			 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹ä¸ªæ•°
 {
 	return vexNum;
 }
 
 template <class ElemType>
 int AdjListDirGraph<ElemType>::GetedgeNum() const
-// ²Ù×÷½á¹û£º·µ»Ø±ßÊı¸öÊı
+// æ“ä½œç»“æœï¼šè¿”å›è¾¹æ•°ä¸ªæ•°
 {
 	return edgeNum;
-}		 
+}
 
 template <class ElemType>
 int AdjListDirGraph<ElemType>::FirstAdjVex(int v) const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µãvµÄµÚÒ»¸öÁÚ½Óµã			 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹vçš„ç¬¬ä¸€ä¸ªé‚»æ¥ç‚¹
 {
-	if (v < 0 || v >= vexNum) throw Error("v²»ºÏ·¨!");// Å×³öÒì³£
+	if (v < 0 || v >= vexNum)
+		throw Error("vä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
 
 	if (vexTable[v].adjLink == NULL)
-	{	// ¿ÕÁÚ½ÓÁ´±í£¬ÎŞÁÚ½Óµã
-		return -1; 
+	{ // ç©ºé‚»æ¥é“¾è¡¨ï¼Œæ— é‚»æ¥ç‚¹
+		return -1;
 	}
 	else
-	{	// ·Ç¿ÕÁÚ½ÓÁ´±í£¬´æÔÚÁÚ½Óµã
+	{ // éç©ºé‚»æ¥é“¾è¡¨ï¼Œå­˜åœ¨é‚»æ¥ç‚¹
 		int adjVex;
 		vexTable[v].adjLink->GetElem(1, adjVex);
 		return adjVex;
@@ -173,171 +175,186 @@ int AdjListDirGraph<ElemType>::FirstAdjVex(int v) const
 
 template <class ElemType>
 int AdjListDirGraph<ElemType>::IndexHelp(const LinkList<int> *la, int v) const
-// ²Ù×÷½á¹û£º¶¨Î»¶¥µãvÔÚÁÚ½ÓÁ´±íÖĞµÄÎ»ÖÃ
+// æ“ä½œç»“æœï¼šå®šä½é¡¶ç‚¹våœ¨é‚»æ¥é“¾è¡¨ä¸­çš„ä½ç½®
 {
 	int curPos, adjVex;
 	curPos = la->GetCurPosition();
 
-	la->GetElem(curPos, adjVex);					// È¡µÃÁÚ½ÓµãĞÅÏ¢
-	if (adjVex == v) return curPos;					// vÎªÏßĞÔÁ´±íµÄµ±Ç°Î»ÖÃ´¦ 
-	
+	la->GetElem(curPos, adjVex); // å–å¾—é‚»æ¥ç‚¹ä¿¡æ¯
+	if (adjVex == v)
+		return curPos; // vä¸ºçº¿æ€§é“¾è¡¨çš„å½“å‰ä½ç½®å¤„
+
 	curPos = 1;
 	for (curPos = 1; curPos <= la->Length(); curPos++)
-	{	// Ñ­»·¶¨¶¨
-		la->GetElem(curPos, adjVex);				// È¡µÃ±ßĞÅÏ¢
-		if (adjVex == v) break;						// ¶¨Î»³É¹¦
+	{								 // å¾ªç¯å®šå®š
+		la->GetElem(curPos, adjVex); // å–å¾—è¾¹ä¿¡æ¯
+		if (adjVex == v)
+			break; // å®šä½æˆåŠŸ
 	}
-	
-	return curPos;									// curPos = la.Length() + 1 ±íÊ¾¶¨Î»Ê§°Ü
+
+	return curPos; // curPos = la.Length() + 1 è¡¨ç¤ºå®šä½å¤±è´¥
 }
 
 template <class ElemType>
 int AdjListDirGraph<ElemType>::NextAdjVex(int v1, int v2) const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µãv1µÄÏà¶ÔÓÚv2µÄÏÂÒ»¸öÁÚ½Óµã			 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹v1çš„ç›¸å¯¹äºv2çš„ä¸‹ä¸€ä¸ªé‚»æ¥ç‚¹
 {
-	if (v1 < 0 || v1 >= vexNum) throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v2 < 0 || v2 >= vexNum) throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v1 == v2) throw Error("v1²»ÄÜµÈÓÚv2!");				// Å×³öÒì³£
-	
-	if (vexTable[v1].adjLink == NULL) return -1;			// ÁÚ½ÓÁ´±ívexTable[v1].adjListÎª¿Õ,·µ»Ø-1
+	if (v1 < 0 || v1 >= vexNum)
+		throw Error("v1ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v2 < 0 || v2 >= vexNum)
+		throw Error("v2ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v1 == v2)
+		throw Error("v1ä¸èƒ½ç­‰äºv2!"); // æŠ›å‡ºå¼‚å¸¸
 
-	int curPos = IndexHelp(vexTable[v1].adjLink, v2);	// È¡³öv2ÔÚÁÚ½ÓÁ´±íÖĞµÄÎ»ÖÃ
+	if (vexTable[v1].adjLink == NULL)
+		return -1; // é‚»æ¥é“¾è¡¨vexTable[v1].adjListä¸ºç©º,è¿”å›-1
+
+	int curPos = IndexHelp(vexTable[v1].adjLink, v2); // å–å‡ºv2åœ¨é‚»æ¥é“¾è¡¨ä¸­çš„ä½ç½®
 	if (curPos < vexTable[v1].adjLink->Length())
-	{	// ´æÔÚÏÂ1¸öÁÚ½Óµã
+	{ // å­˜åœ¨ä¸‹1ä¸ªé‚»æ¥ç‚¹
 		int adjVex;
-		vexTable[v1].adjLink->GetElem(curPos + 1, adjVex);// È¡³öºó¼Ì
+		vexTable[v1].adjLink->GetElem(curPos + 1, adjVex); // å–å‡ºåç»§
 		return adjVex;
 	}
 	else
-	{	// ²»´æÔÚÏÂÒ»¸öÁÚ½Óµã
+	{ // ä¸å­˜åœ¨ä¸‹ä¸€ä¸ªé‚»æ¥ç‚¹
 		return -1;
 	}
 }
 
 template <class ElemType>
 void AdjListDirGraph<ElemType>::InsertEdge(int v1, int v2)
-// ²Ù×÷½á¹û£º²åÈë¶¥µãÎªv1ºÍv2µÄ±ß			 
+// æ“ä½œç»“æœï¼šæ’å…¥é¡¶ç‚¹ä¸ºv1å’Œv2çš„è¾¹
 {
-	if (v1 < 0 || v1 >= vexNum) throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v2 < 0 || v2 >= vexNum) throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v1 == v2) throw Error("v1²»ÄÜµÈÓÚv2!");				// Å×³öÒì³£
+	if (v1 < 0 || v1 >= vexNum)
+		throw Error("v1ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v2 < 0 || v2 >= vexNum)
+		throw Error("v2ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v1 == v2)
+		throw Error("v1ä¸èƒ½ç­‰äºv2!"); // æŠ›å‡ºå¼‚å¸¸
 
 	if (vexTable[v1].adjLink == NULL)
-	{	// ¿ÕÁ´±í
+	{ // ç©ºé“¾è¡¨
 		vexTable[v1].adjLink = new LinkList<int>;
 	}
 
-	int curPos = IndexHelp(vexTable[v1].adjLink, v2);		// È¡³öv2ÔÚÁÚ½ÓÁ´±íÖĞµÄÎ»ÖÃ
+	int curPos = IndexHelp(vexTable[v1].adjLink, v2); // å–å‡ºv2åœ¨é‚»æ¥é“¾è¡¨ä¸­çš„ä½ç½®
 	if (curPos > vexTable[v1].adjLink->Length())
-	{	// ²»´æÔÚ±ß<v1, v2>
-		vexTable[v1].adjLink->Insert(curPos, v2);			// ²åÈë±ß<v1, v2>
-		edgeNum++;											// ±ßÊı×ÔÔö1
+	{											  // ä¸å­˜åœ¨è¾¹<v1, v2>
+		vexTable[v1].adjLink->Insert(curPos, v2); // æ’å…¥è¾¹<v1, v2>
+		edgeNum++;								  // è¾¹æ•°è‡ªå¢1
 	}
 }
 
 template <class ElemType>
 void AdjListDirGraph<ElemType>::DeleteEdge(int v1, int v2)
-// ²Ù×÷½á¹û£ºÉ¾³ı¶¥µãÎªv1ºÍv2µÄ±ß			 
+// æ“ä½œç»“æœï¼šåˆ é™¤é¡¶ç‚¹ä¸ºv1å’Œv2çš„è¾¹
 {
-	if (v1 < 0 || v1 >= vexNum) throw Error("v1²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v2 < 0 || v2 >= vexNum) throw Error("v2²»ºÏ·¨!");	// Å×³öÒì³£
-	if (v1 == v2) throw Error("v1²»ÄÜµÈÓÚv2!");				// Å×³öÒì³£
+	if (v1 < 0 || v1 >= vexNum)
+		throw Error("v1ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v2 < 0 || v2 >= vexNum)
+		throw Error("v2ä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
+	if (v1 == v2)
+		throw Error("v1ä¸èƒ½ç­‰äºv2!"); // æŠ›å‡ºå¼‚å¸¸
 
-	int curPos = IndexHelp(vexTable[v1].adjLink, v2);	// È¡³öv2ÔÚÁÚ½ÓÁ´±íÖĞµÄÎ»ÖÃ
+	int curPos = IndexHelp(vexTable[v1].adjLink, v2); // å–å‡ºv2åœ¨é‚»æ¥é“¾è¡¨ä¸­çš„ä½ç½®
 	if (curPos <= vexTable[v1].adjLink->Length())
-	{	// ´æÔÚ±ß<v1, v2>
-		vexTable[v1].adjLink->Delete(curPos, v2);		// É¾³ı<v1,v2>
- 		edgeNum--;										// ±ßÊı×Ô¼õ1
+	{											  // å­˜åœ¨è¾¹<v1, v2>
+		vexTable[v1].adjLink->Delete(curPos, v2); // åˆ é™¤<v1,v2>
+		edgeNum--;								  // è¾¹æ•°è‡ªå‡1
 	}
 }
 
 template <class ElemType>
 StatusCode AdjListDirGraph<ElemType>::GetTag(int v) const
-// ²Ù×÷½á¹û£º·µ»Ø¶¥µãvµÄ±êÖ¾		 
+// æ“ä½œç»“æœï¼šè¿”å›é¡¶ç‚¹vçš„æ ‡å¿—
 {
-	if (v < 0 || v >= vexNum) throw Error("v²»ºÏ·¨!");	// Å×³öÒì³£
+	if (v < 0 || v >= vexNum)
+		throw Error("vä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
 
 	return tag[v];
 }
 
 template <class ElemType>
 void AdjListDirGraph<ElemType>::SetTag(int v, StatusCode val) const
-// ²Ù×÷½á¹û£ºÉèÖÃ¶¥µãvµÄ±êÖ¾Îªval		 
+// æ“ä½œç»“æœï¼šè®¾ç½®é¡¶ç‚¹vçš„æ ‡å¿—ä¸ºval
 {
-	if (v < 0 || v >= vexNum) throw Error("v²»ºÏ·¨!");		// Å×³öÒì³£
+	if (v < 0 || v >= vexNum)
+		throw Error("vä¸åˆæ³•!"); // æŠ›å‡ºå¼‚å¸¸
 
 	tag[v] = val;
 }
 
 template <class ElemType>
 AdjListDirGraph<ElemType>::AdjListDirGraph(const AdjListDirGraph<ElemType> &copy)
-// ²Ù×÷½á¹û£ºÓÉÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕócopy¹¹ÔìĞÂÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕócopy¡ª¡ª¸´ÖÆ¹¹Ôìº¯ÊıÄ£°å
+// æ“ä½œç»“æœï¼šç”±æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µcopyæ„é€ æ–°æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µcopyâ€”â€”å¤åˆ¶æ„é€ å‡½æ•°æ¨¡æ¿
 {
-	int curPos;									// ÁÙÊ±±äÁ¿
-	vexNum = copy.vexNum;						// ¸´ÖÆ¶¥µãÊı
-	edgeNum = copy.edgeNum;						// ¸´ÖÆ±ßÊı
+	int curPos;				// ä¸´æ—¶å˜é‡
+	vexNum = copy.vexNum;	// å¤åˆ¶é¡¶ç‚¹æ•°
+	edgeNum = copy.edgeNum; // å¤åˆ¶è¾¹æ•°
 
-	tag = new StatusCode[vexNum];				// Éú³É±êÖ¾Êı×é
+	tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
 	for (curPos = 0; curPos < vexNum; curPos++)
-	{	// ¸´ÖÆ±êÖ¾Êı×é
+	{ // å¤åˆ¶æ ‡å¿—æ•°ç»„
 		tag[curPos] = copy.tag[curPos];
 	}
 
-	vexTable = new AdjListGraphVexNode<ElemType>[vexNum];// Éú³ÉÁÚ½Ó±í
+	vexTable = new AdjListGraphVexNode<ElemType>[vexNum]; // ç”Ÿæˆé‚»æ¥è¡¨
 	for (curPos = 0; curPos < vexNum; curPos++)
-	{	// ¸´ÖÆÁÚ½ÓÁ´±í
-		vexTable[curPos].data = copy.vexTable[curPos].data;	// ¸´ÖÆ¶¥µãÊı¾İ
-		vexTable[curPos].adjLink = new LinkList<int>(*copy.vexTable[curPos].adjLink);	
+	{														// å¤åˆ¶é‚»æ¥é“¾è¡¨
+		vexTable[curPos].data = copy.vexTable[curPos].data; // å¤åˆ¶é¡¶ç‚¹æ•°æ®
+		vexTable[curPos].adjLink = new LinkList<int>(*copy.vexTable[curPos].adjLink);
 	}
 }
 
 template <class ElemType>
-AdjListDirGraph<ElemType> &AdjListDirGraph<ElemType>::operator =(const AdjListDirGraph<ElemType> &copy)
-// ²Ù×÷½á¹û£º½«ÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕócopy¸³Öµ¸øµ±Ç°ÓĞÏòÍ¼µÄÁÚ½Ó¾ØÕó¡ª¡ªÖØÔØ¸³ÖµÔËËã·û
+AdjListDirGraph<ElemType> &AdjListDirGraph<ElemType>::operator=(const AdjListDirGraph<ElemType> &copy)
+// æ“ä½œç»“æœï¼šå°†æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µcopyèµ‹å€¼ç»™å½“å‰æœ‰å‘å›¾çš„é‚»æ¥çŸ©é˜µâ€”â€”é‡è½½èµ‹å€¼è¿ç®—ç¬¦
 {
 	if (&copy != this)
 	{
-		DestroyHelp();								// ÊÍ·Åµ±Ç°ÓĞÏòÍ¼Õ¼ÓÃ¿Õ¼ä
+		DestroyHelp(); // é‡Šæ”¾å½“å‰æœ‰å‘å›¾å ç”¨ç©ºé—´
 
-		int curPos;									// ÁÙÊ±±äÁ¿
-		vexNum = copy.vexNum;						// ¸´ÖÆ¶¥µãÊı
-		edgeNum = copy.edgeNum;						// ¸´ÖÆ±ßÊı
+		int curPos;				// ä¸´æ—¶å˜é‡
+		vexNum = copy.vexNum;	// å¤åˆ¶é¡¶ç‚¹æ•°
+		edgeNum = copy.edgeNum; // å¤åˆ¶è¾¹æ•°
 
-		tag = new StatusCode[vexNum];				// Éú³É±êÖ¾Êı×é
+		tag = new StatusCode[vexNum]; // ç”Ÿæˆæ ‡å¿—æ•°ç»„
 		for (curPos = 0; curPos < vexNum; curPos++)
-		{	// ¸´ÖÆ±êÖ¾Êı×é
+		{ // å¤åˆ¶æ ‡å¿—æ•°ç»„
 			tag[curPos] = copy.tag[curPos];
 		}
 
-		vexTable = new AdjListGraphVexNode<ElemType>[vexNum];// Éú³ÉÁÚ½Ó±í
+		vexTable = new AdjListGraphVexNode<ElemType>[vexNum]; // ç”Ÿæˆé‚»æ¥è¡¨
 		for (curPos = 0; curPos < vexNum; curPos++)
-		{	// ¸´ÖÆÁÚ½ÓÁ´±í
-			vexTable[curPos].data = copy.vexTable[curPos].data;	// ¸´ÖÆ¶¥µãÊı¾İ
-			vexTable[curPos].adjLink = new LinkList<int>(*copy.vexTable[curPos].adjLink);	
+		{														// å¤åˆ¶é‚»æ¥é“¾è¡¨
+			vexTable[curPos].data = copy.vexTable[curPos].data; // å¤åˆ¶é¡¶ç‚¹æ•°æ®
+			vexTable[curPos].adjLink = new LinkList<int>(*copy.vexTable[curPos].adjLink);
 		}
 	}
 	return *this;
 }
 
 template <class ElemType>
-void Display(const AdjListDirGraph<ElemType> &g, bool showVexElem = true)
-// ²Ù×÷½á¹û: ÏÔÊ¾ÁÚ½Ó¾ØÕóÓĞÏòÍ¼
+void Display(const AdjListDirGraph<ElemType> &g, bool showVexElem)
+// æ“ä½œç»“æœ: æ˜¾ç¤ºé‚»æ¥çŸ©é˜µæœ‰å‘å›¾
 {
 	for (int v = 0; v < g.GetVexNum(); v++)
-	{	// ÏÔÊ¾µÚv¸öÁÚ½ÓÁ´±í
-		cout << endl << v << "  ";							// ÏÔÊ¾¶¥µãºÅ
+	{ // æ˜¾ç¤ºç¬¬vä¸ªé‚»æ¥é“¾è¡¨
+		cout << endl
+			 << v << "  "; // æ˜¾ç¤ºé¡¶ç‚¹å·
 		if (showVexElem)
-		{	// ÏÔÊ¾¶¥µãÔªËØ
-			ElemType e;										// Êı¾İÔªËØ
-			g.GetElem(v, e);								// È¡³öÔªËØÖµ
-			cout << e << "  ";								// ÏÔÊ¾¶¥µãÔªËØ
+		{					   // æ˜¾ç¤ºé¡¶ç‚¹å…ƒç´ 
+			ElemType e;		   // æ•°æ®å…ƒç´ 
+			g.GetElem(v, e);   // å–å‡ºå…ƒç´ å€¼
+			cout << e << "  "; // æ˜¾ç¤ºé¡¶ç‚¹å…ƒç´ 
 		}
 
 		for (int u = g.FirstAdjVex(v); u != -1; u = g.NextAdjVex(v, u))
-		{	// ÏÔÊ¾µÚv¸öÁÚ½ÓÁ´±íµÄÒ»¸ö½áµã£¨±íÊ¾Ò»¸öÁÚ½Óµã£©
-			cout << "-->" << u; 
+		{ // æ˜¾ç¤ºç¬¬vä¸ªé‚»æ¥é“¾è¡¨çš„ä¸€ä¸ªç»“ç‚¹ï¼ˆè¡¨ç¤ºä¸€ä¸ªé‚»æ¥ç‚¹ï¼‰
+			cout << "-->" << u;
 		}
-		cout << endl; 
+		cout << endl;
 	}
 }
 

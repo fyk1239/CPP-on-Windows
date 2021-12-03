@@ -1,45 +1,43 @@
-#include "utility.h"					// ÊµÓÃ³ÌĞòÈí¼ş°ü
-#include "adj_list_dir_graph.h"			// ÁÚ½Ó±íÓĞÏòÍ¼
-#include "bfs.h"						// Í¼µÄ¹ã¶ÈÓÅÏÈ±éÀú
+#include "adj_list_dir_graph.h" // é‚»æ¥è¡¨æœ‰å‘å›¾
+#include "bfs.h"				// å›¾çš„å¹¿åº¦ä¼˜å…ˆéå†
 
-int main(void)
+int main()
 {
-    try									// ÓÃtry·â×°¿ÉÄÜ³öÏÖÒì³£µÄ´úÂë
+	try // ç”¨tryå°è£…å¯èƒ½å‡ºç°å¼‚å¸¸çš„ä»£ç 
 	{
 		char vexs[] = {'A', 'B', 'C', 'D'};
 		int m[4][4] = {
 			{0, 1, 0, 1},
 			{1, 0, 1, 1},
 			{0, 1, 0, 1},
-			{1, 1, 1, 0}
-		};
+			{1, 1, 1, 0}};
 		int n = 4;
 
 		AdjListDirGraph<char> g(vexs, n);
 
 		for (int u = 0; u < n; u++)
-		{	// Éú³ÉÁÚ½Ó¾ØÕóµÄĞĞ
+		{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µçš„è¡Œ
 			for (int v = 0; v < n; v++)
-			{	// Éú³ÉÁÚ½Ó¾ØÕóÔªËØµÄÖµ
-				if (m[u][v] == 1) g.InsertEdge(u, v);
+			{ // ç”Ÿæˆé‚»æ¥çŸ©é˜µå…ƒç´ çš„å€¼
+				if (m[u][v] == 1)
+					g.InsertEdge(u, v);
 			}
 		}
 
-		cout << "Ô­ÓĞÍ¼:" << endl;
-		Display(g);						// ÏÔÊ¾Í¼g
+		cout << "åŸæœ‰å›¾:" << endl;
+		Display(g); // æ˜¾ç¤ºå›¾g
 		cout << endl;
-		system("PAUSE");				// µ÷ÓÃ¿âº¯Êısystem()
+		system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
 
-		cout << "¹ã¶ÈÓÅÏÈ±éÀú:";
-		BFSTraverse<char>(g, Write);	// <char>ÓÃÓÚÈ·¶¨º¯ÊıÄ£°å²ÎÊı
+		cout << "å¹¿åº¦ä¼˜å…ˆéå†:";
+		BFSTraverse<char>(g, Write); // <char>ç”¨äºç¡®å®šå‡½æ•°æ¨¡æ¿å‚æ•°
 		cout << endl;
 	}
-	catch (Error err)					// ²¶×½²¢´¦ÀíÒì³£
+	catch (Error err) // æ•æ‰å¹¶å¤„ç†å¼‚å¸¸
 	{
-		err.Show();						// ÏÔÊ¾Òì³£ĞÅÏ¢
+		err.Show(); // æ˜¾ç¤ºå¼‚å¸¸ä¿¡æ¯
 	}
 
-	system("PAUSE");					// µ÷ÓÃ¿âº¯Êısystem()
-	return 0;							// ·µ»ØÖµ0, ·µ»Ø²Ù×÷ÏµÍ³
+	system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
+	return 0;		 // è¿”å›å€¼0, è¿”å›æ“ä½œç³»ç»Ÿ
 }
-
