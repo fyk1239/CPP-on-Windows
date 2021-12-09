@@ -1,4 +1,3 @@
-// 文件路径名:e5_2\main.cpp
 // 稀疏矩阵三元组顺序表快速转置算法
 #include "tri_sparse_matrix.h" // 稀疏矩阵的三元组顺序表
 #include "utility.h"		   // 实用程序软件包

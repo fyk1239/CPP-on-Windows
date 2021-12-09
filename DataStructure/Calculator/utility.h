@@ -113,30 +113,28 @@ static bool UserSaysYes()
 // 操作结果: 当用户肯定回答(yes)时, 返回true, 用户否定回答(no)时,返回false
 {
 	char ch;					 // 用户回答字符
-	bool initialResponse = true; // 初始回答
-
+	bool exit = false;           // 退出循环
 	do
-	{ // 循环直到用户输入恰当的回答为止
-		if (initialResponse)
-		{ // 初始回答
-			cout << "(y, n)?";
+	{
+		ch = GetChar();
+		while (ch == '\n' || ch == '\t' || ch == ' ')
+			ch = GetChar(); // 跳过空格,制表符及换行符获取一字符
+		if (ch == 'y' || ch == 'Y')
+		{
+			exit = true;
+			return true;
+		}
+		else if (ch == 'n' || ch == 'N')
+		{
+			exit = true;
+			return false;
 		}
 		else
-		{ // 非初始回答
-			cout << "用y或n回答:";
+		{
+			cout << endl
+				 << "用y或n回答";
 		}
-
-		while ((ch = GetChar()) == '\n')
-			; // 跳过空格,制表符及换行符获取一字符
-		initialResponse = false;
-	} while (ch != 'y' && ch != 'Y' && ch != 'n' && ch != 'N');
-	while (GetChar() != '\n')
-		; // 跳过当前行后面的字符
-
-	if (ch == 'y' || ch == 'Y')
-		return true;
-	else
-		return false;
+	} while (!exit);
 }
 
 // 定时器类Timer
@@ -159,25 +157,23 @@ public:
 	void Reset() { startTime = clock(); } // 重置开始时间
 };
 
-#define MAX_ERROR_MESSAGE_LEN 100
-
 // 通用异常类
 class Error
 {
 private:
 	// 数据成员
-	char message[MAX_ERROR_MESSAGE_LEN]; // 异常信息
+	string message; // 异常信息
 
 public:
 	//  方法声明
-	Error(char mes[] = "一般性异常!") // 构造函数
+	Error(string mes) // 构造函数
 	{
-		strcpy(message, mes); // 复制异常信息
+		message = mes; // 复制异常信息
 	}
-	~Error(void){};	  // 析构函数
-	void Show() const // 显示异常信息
+	~Error(){};	  // 析构函数
+	void Show() // 显示异常信息
 	{
-		cout << message << endl; // 显示异常信息
+		cout << message << endl; 
 	}
 };
 

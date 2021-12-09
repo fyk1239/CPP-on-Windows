@@ -2,17 +2,17 @@
 #ifndef __CALCULATOR_H__
 #define __CALCULATOR_H__
 
-#include "linstack.h" // 链栈类
+#include "linkstack.h" // 链栈类
 
 // 计算器类
 class Calculator
 {
 private:
 	// 辅助函数:
-	static bool IsOperator(char ch);												// 判断字符ch是否为操作符
-	static char Precede(char theta1, char theta2);									// 判断相继出现的操作符theta1和theta2的优先级
-	static double Operate(double left, char theta, double right);					// 执行运算left theta right
-	static void Get2Operands(LinkStack<double> &opnd, double &left, double &right); // 从栈opnd中退出两个操作数
+	static bool IsOperator(char ch);												  // 判断字符ch是否为操作符
+	static char Precede(char theta1, char theta2);									  // 判断相继出现的操作符theta1和theta2的优先级
+	static double Operate(double left, char theta, double right);					  // 执行运算left theta right
+	static void GetTwoOperands(LinkStack<double> &opnd, double &left, double &right); // 从栈opnd中退出两个操作数
 
 public:
 	// 接口方法声明:
@@ -30,111 +30,141 @@ bool Calculator::IsOperator(char ch)
 		return true;
 	else
 		return false;
-};
+}
 
 char Calculator::Precede(char theta1, char theta2)
 // 操作结果：判断相继出现的操作符theta1和theta2的优先级
 {
+	char result;
 	// 对各种可能theta1与theta2之值进行穷举
 	if (theta1 == '+' && theta2 == '+')
-		return '>';
+		result = '>';
 	else if (theta1 == '+' && theta2 == '-')
-		return '>';
+		result = '>';
 	else if (theta1 == '+' && theta2 == '*')
-		return '<';
+		result = '<';
 	else if (theta1 == '+' && theta2 == '/')
-		return '<';
+		result = '<';
 	else if (theta1 == '+' && theta2 == '(')
-		return '<';
+		result = '<';
 	else if (theta1 == '+' && theta2 == ')')
-		return '>';
+		result = '>';
 	else if (theta1 == '+' && theta2 == '=')
-		return '>';
+		result = '>';
 	else if (theta1 == '-' && theta2 == '+')
-		return '>';
+		result = '>';
 	else if (theta1 == '-' && theta2 == '-')
-		return '>';
+		result = '>';
 	else if (theta1 == '-' && theta2 == '*')
-		return '<';
+		result = '<';
 	else if (theta1 == '-' && theta2 == '/')
-		return '<';
+		result = '<';
 	else if (theta1 == '-' && theta2 == '(')
-		return '<';
+		result = '<';
 	else if (theta1 == '-' && theta2 == ')')
-		return '>';
+		result = '>';
 	else if (theta1 == '-' && theta2 == '=')
-		return '>';
+		result = '>';
 	else if (theta1 == '*' && theta2 == '+')
-		return '>';
+		result = '>';
 	else if (theta1 == '*' && theta2 == '-')
-		return '>';
+		result = '>';
 	else if (theta1 == '*' && theta2 == '*')
-		return '>';
+		result = '>';
 	else if (theta1 == '*' && theta2 == '/')
-		return '>';
+		result = '>';
 	else if (theta1 == '*' && theta2 == '(')
-		return '<';
+		result = '<';
 	else if (theta1 == '*' && theta2 == ')')
-		return '>';
+		result = '>';
 	else if (theta1 == '*' && theta2 == '=')
-		return '>';
+		result = '>';
 	else if (theta1 == '/' && theta2 == '+')
-		return '>';
+		result = '>';
 	else if (theta1 == '/' && theta2 == '-')
-		return '>';
+		result = '>';
 	else if (theta1 == '/' && theta2 == '*')
-		return '>';
+		result = '>';
 	else if (theta1 == '/' && theta2 == '/')
-		return '>';
+		result = '>';
 	else if (theta1 == '/' && theta2 == '(')
-		return '<';
+		result = '<';
 	else if (theta1 == '/' && theta2 == ')')
-		return '>';
+		result = '>';
 	else if (theta1 == '/' && theta2 == '=')
-		return '>';
+		result = '>';
+	else if (theta1 == '%' && theta2 == '+')
+		result = '>';
+	else if (theta1 == '%' && theta2 == '-')
+		result = '>';
+	else if (theta1 == '%' && theta2 == '*')
+		result = '>';
+	else if (theta1 == '%' && theta2 == '/')
+		result = '>';
+	else if (theta1 == '%' && theta2 == '(')
+		result = '<';
+	else if (theta1 == '%' && theta2 == ')')
+		result = '>';
+	else if (theta1 == '%' && theta2 == '=')
+		result = '>';
+	else if (theta1 == '^' && theta2 == '+')
+		result = '>';
+	else if (theta1 == '^' && theta2 == '-')
+		result = '>';
+	else if (theta1 == '^' && theta2 == '*')
+		result = '>';
+	else if (theta1 == '^' && theta2 == '/')
+		result = '>';
+	else if (theta1 == '^' && theta2 == '(')
+		result = '<';
+	else if (theta1 == '^' && theta2 == ')')
+		result = '>';
+	else if (theta1 == '^' && theta2 == '=')
+		result = '>';
 	else if (theta1 == '(' && theta2 == '+')
-		return '<';
+		result = '<';
 	else if (theta1 == '(' && theta2 == '-')
-		return '<';
+		result = '<';
 	else if (theta1 == '(' && theta2 == '*')
-		return '<';
+		result = '<';
 	else if (theta1 == '(' && theta2 == '/')
-		return '<';
+		result = '<';
 	else if (theta1 == '(' && theta2 == '(')
-		return '<';
+		result = '<';
 	else if (theta1 == '(' && theta2 == ')')
-		return '=';
+		result = '=';
 	else if (theta1 == '(' && theta2 == '=')
-		return 'e';
+		result = 'e';
 	else if (theta1 == ')' && theta2 == '+')
-		return '>';
+		result = '>';
 	else if (theta1 == ')' && theta2 == '-')
-		return '>';
+		result = '>';
 	else if (theta1 == ')' && theta2 == '*')
-		return '>';
+		result = '>';
 	else if (theta1 == ')' && theta2 == '/')
-		return '>';
+		result = '>';
 	else if (theta1 == ')' && theta2 == '(')
-		return 'e';
+		result = 'e';
 	else if (theta1 == ')' && theta2 == ')')
-		return '>';
+		result = '>';
 	else if (theta1 == ')' && theta2 == '=')
-		return '>';
+		result = '>';
 	else if (theta1 == '=' && theta2 == '+')
-		return '<';
+		result = '<';
 	else if (theta1 == '=' && theta2 == '-')
-		return '<';
+		result = '<';
 	else if (theta1 == '=' && theta2 == '*')
-		return '<';
+		result = '<';
 	else if (theta1 == '=' && theta2 == '/')
-		return '<';
+		result = '<';
 	else if (theta1 == '=' && theta2 == '(')
-		return '<';
+		result = '<';
 	else if (theta1 == '=' && theta2 == ')')
-		return 'e';
+		result = 'e';
 	else if (theta1 == '=' && theta2 == '=')
-		return '=';
-};
+		result = '=';
+	return result;
+}
 
 double Calculator::Operate(double left, char theta, double right)
 // 操作结果：执行运算left op right
@@ -147,19 +177,19 @@ double Calculator::Operate(double left, char theta, double right)
 	else if (theta == '*')
 		result = left * right; // 乘法运算
 	else if (theta == '/' && right == 0)
-		throw "除数为零!"; // 抛出异常
+		throw Error("除数为零!"); // 抛出异常
 	else if (theta == '/' && right != 0)
 		result = left / right; // 除法运算
 	else if (theta == '%' && (long)right == 0)
-		throw "除数为零!"; // 抛出异常
+		throw Error("除数为零!"); // 抛出异常
 	else if (theta == '%' && (long)right != 0)
-		result = (long)left % (long)right; // 整除运算
+		result = (long)left % (long)right; // 取模运算
 	else if (theta == '^')
 		result = pow(left, right); // 乘方运算
 	return result;				   // 返回result
 }
 
-void Calculator::Get2Operands(LinkStack<double> &opnd, double &left, double &right)
+void Calculator::GetTwoOperands(LinkStack<double> &opnd, double &left, double &right)
 // 操作结果：从栈opnd中退出两个操作数
 {
 	if (opnd.Pop(right) != SUCCESS)
@@ -175,7 +205,7 @@ void Calculator::Run()
 	LinkStack<char> optr;	// 操作符栈
 	optr.Push('=');			// 在optr栈中加入一个'='
 	char ch;				// 临时字符
-	char optrTop;			// 临optr栈的栈顶字符
+	char optrTop;			// optr栈的栈顶字符
 	double operand;			// 操作数
 	char theta;				// 操作符
 
@@ -206,13 +236,13 @@ void Calculator::Run()
 				break;
 			case '>':									// 栈顶操作符优先级高
 				double left, right;						// 操作数
-				Get2Operands(opnd, left, right);		//取出两个操作数
+				GetTwoOperands(opnd, left, right);		//取出两个操作数
 				optr.Pop(theta);						// 从optr栈退出theta
 				opnd.Push(Operate(left, theta, right)); // 运算结果进入opnd栈
 				break;
 			case 'e': // 操作符匹配错
 				cout << "操作符匹配错" << endl;
-				exit(2);
+				break;
 			}
 		}
 	}

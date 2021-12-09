@@ -13,28 +13,6 @@ int Akm(int m, int n)
 
 int main()
 {
-    int x, y, z;
-    cin >> x >> y >> z;
-    if (x < y){
-        if (z < x){
-            cout << z << " " << x << " " << y << endl;
-        }
-        else if (z < y){
-            cout << x << " " << z << " " << y << endl;
-        }
-        else{
-            cout << x << " " << y << " " << z << endl;
-        }
-    }
-    else{
-        if (z < y){
-            cout << z << " " << y << " " << x << endl;
-        }
-        else if (z < x){
-            cout << y << " " << z << " " << x << endl;
-        }
-        else{
-            cout << y << " " << x << " " << z << endl;
-        }
-    }
+    int a, b, min, x;
+    printf("请输入两个整数：") ；
 }
