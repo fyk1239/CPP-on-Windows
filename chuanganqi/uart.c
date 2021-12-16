@@ -1,162 +1,154 @@
 #include "STC15F2K60S2.H"
 
 /**************************
-Òý½Å±ðÃû¶¨ÒåÈçÏÂ£º
+å¼•è„šåˆ«åå®šä¹‰å¦‚ä¸‹ï¼š
 **************************/
 
-sbit UART_TXD=P3^1;
-
+sbit UART_TXD = P3 ^ 1;
 
 /**************************
-¶¨Òå±äÁ¿ÈçÏÂ£º
+å®šä¹‰å˜é‡å¦‚ä¸‹ï¼š
 **************************/
 #define uint unsigned int
 
-unsigned char timer1_interrupt_flag=0;
-unsigned char ADC_interrupt_flag=0;
-//·Ö±ðÉèÖÃ¹âµÄ±äÁ¿
-
-
+unsigned char timer1_interrupt_flag = 0;
+unsigned char ADC_interrupt_flag = 0;
+//åˆ†åˆ«è®¾ç½®å…‰çš„å˜é‡
 
 void InitADC_light();
 
-void delay_ms(uint x)//²»¾«È·ÑÓÊ±
+void delay_ms(uint x) //ä¸ç²¾ç¡®å»¶æ—¶
 {
 	uint i;
-	for(;x>0;x--)
-		for(i=0;i<500;i++)
+	for (; x > 0; x--)
+		for (i = 0; i < 500; i++)
 			;
 }
 
-//³õÊ¼»¯¹âADC
+//åˆå§‹åŒ–å…‰ADC
 void InitADC_light()
 {
-	P1ASF=0x10;	//Ê¹ÓÃµÚ4Í¨µÀ
-	ADC_RES=0;//½á¹û¼Ä´æÆ÷ÇåÁã
-	ADC_RESL=0;
-	ADC_CONTR=0X8C;	 //0x8C= 1000 1100b,´ò¿ªADC×ª»»µçÔ´£¬×ª»»ËÙ¶ÈÉèÖÃÎªÃ¿540¸öÖÜÆÚ×ª»»Ò»´Î
-					//Æô¶¯ADC×ª»»£¬	P1.4×÷ÎªADÊäÈëÀ´Ô´
-	CLK_DIV=0X20;
+	P1ASF = 0x10; //ä½¿ç”¨ç¬¬4é€šé“
+	ADC_RES = 0;  //ç»“æžœå¯„å­˜å™¨æ¸…é›¶
+	ADC_RESL = 0;
+	ADC_CONTR = 0X8C; //0x8C= 1000 1100b,æ‰“å¼€ADCè½¬æ¢ç”µæºï¼Œè½¬æ¢é€Ÿåº¦è®¾ç½®ä¸ºæ¯540ä¸ªå‘¨æœŸè½¬æ¢ä¸€æ¬¡
+		//å¯åŠ¨ADCè½¬æ¢ï¼Œ	P1.4ä½œä¸ºADè¾“å…¥æ¥æº
+	CLK_DIV = 0X20;
 }
 
-void BitDelay()	//ÓÃÓÚ´®¿ÚÍ¨ÐÅµÄ¾«È·ÑÓÊ±
+void BitDelay() //ç”¨äºŽä¸²å£é€šä¿¡çš„ç²¾ç¡®å»¶æ—¶
 {
-	
-	while(timer1_interrupt_flag==0);
-	timer1_interrupt_flag=0;
+
+	while (timer1_interrupt_flag == 0)
+		;
+	timer1_interrupt_flag = 0;
 }
 
 void UartSendByte(unsigned char Data)
 {
-     unsigned char i, temp;
-	 TR1=1;//Æô¶¯¶¨Ê±Æ÷
-	 UART_TXD=0; //UART_TXDÆðÊ¼Î»¿ªÊ¼
-	 BitDelay();
-	 temp=0x01;
-	 for(i=0;i<8;i++)//´®ÐÐµØ½«DataµÄÃ¿Î»·¢ËÍµ½UART_TXDÉÏ
-	 	{
-			if(Data&temp)
-				  UART_TXD=1;
-			else 
-				  UART_TXD=0;
-			temp=temp<<1;
-			BitDelay();	
-		}
-     UART_TXD=1; //UART_TXDÍ£Ö¹Î»¿ªÊ¼
-	 BitDelay();
-	 TH1=(65535-1666)/256;
-	 TL1=(65535-1666)%256;
-	 TR1=0;//¹Ø±Õ¶¨Ê±Æ÷
-
+	unsigned char i, temp;
+	TR1 = 1;	  //å¯åŠ¨å®šæ—¶å™¨
+	UART_TXD = 0; //UART_TXDèµ·å§‹ä½å¼€å§‹
+	BitDelay();
+	temp = 0x01;
+	for (i = 0; i < 8; i++) //ä¸²è¡Œåœ°å°†Dataçš„æ¯ä½å‘é€åˆ°UART_TXDä¸Š
+	{
+		if (Data & temp)
+			UART_TXD = 1;
+		else
+			UART_TXD = 0;
+		temp = temp << 1;
+		BitDelay();
+	}
+	UART_TXD = 1; //UART_TXDåœæ­¢ä½å¼€å§‹
+	BitDelay();
+	TH1 = (65535 - 1666) / 256;
+	TL1 = (65535 - 1666) % 256;
+	TR1 = 0; //å…³é—­å®šæ—¶å™¨
 }
 
 void main()
 {
 	int light;
-	P3M1=0x00; //P3M1 | 0x00;
-	P3M0=0x00; //P3M0 | 0x00;
+	P3M1 = 0x00; //P3M1 | 0x00;
+	P3M0 = 0x00; //P3M0 | 0x00;
 
-	UART_TXD=1;	//°´ÕÕUARTÊ±ÐòÍ¼£¬¿ÕÏÐÊ±TXD±£³Ö¸ßµçÆ½
+	UART_TXD = 1; //æŒ‰ç…§UARTæ—¶åºå›¾ï¼Œç©ºé—²æ—¶TXDä¿æŒé«˜ç”µå¹³
 
-	//Ê¹ÓÃ¶¨Ê±Æ÷T1
-	TMOD=0x10;
+	//ä½¿ç”¨å®šæ—¶å™¨T1
+	TMOD = 0x10;
 
-	IE=0xa8;	
- 	TH1=(65535-1666)/256;
-	TL1=(65535-1666)%256;//²¨ÌØÂÊÊÇ600bps£¬ÖÐ¶ÏÊ±¼äÓ¦¸ÃÊÇ1666£¬
+	IE = 0xa8;
+	TH1 = (65535 - 1666) / 256;
+	TL1 = (65535 - 1666) % 256; //æ³¢ç‰¹çŽ‡æ˜¯600bpsï¼Œä¸­æ–­æ—¶é—´åº”è¯¥æ˜¯1666ï¼Œ
 
-	timer1_interrupt_flag=0;
-	ADC_interrupt_flag=0;
+	timer1_interrupt_flag = 0;
+	ADC_interrupt_flag = 0;
 
-	while(1)
+	while (1)
 	{
-	   	delay_ms(200);	//ÑÓÊ±
-		InitADC_light(); //³õÊ¼»¯²¢Æô¶¯£Á£Ä£Ã
-		while(ADC_interrupt_flag==0);//µÈ´ý×ª»»Íê±Ï
-		 ADC_interrupt_flag=0; //ADCÖÐ¶Ï±êÖ¾ÇåÁã£¬ÎªÏÂ´ÎADC×ª»»×ö×¼±¸
-		 light=ADC_RES*256+ADC_RESL;
-		 UartSendByte('T');
-		 UartSendByte('h');
-		 UartSendByte('e');
-		 UartSendByte(' ');
-		 UartSendByte('C');
-		 UartSendByte('u');
-		 UartSendByte('r');
-		 UartSendByte('r');
-		 UartSendByte('e');
-		 UartSendByte('n');
-		 UartSendByte('t');
-		 UartSendByte(' ');
-		 UartSendByte('L');
-		 UartSendByte('i');
-		 UartSendByte('g');
-		 UartSendByte('h');
-		 UartSendByte('t');
-		 UartSendByte(' ');
-		 UartSendByte('i');
-		 UartSendByte('n');
-		 UartSendByte('t');
-		 UartSendByte('e');
-		 UartSendByte('n');
-		 UartSendByte('s');
-		 UartSendByte('i');
-		 UartSendByte('t');
-		 UartSendByte('y');
-		 UartSendByte(' ');
-		 UartSendByte('i');
-		 UartSendByte('s');
-		 UartSendByte(':');
-		 UartSendByte('0'+light/100);
-		 UartSendByte('0'+(light/10)%10);
-		 UartSendByte('0'+light%10);
-		 UartSendByte('\r');
-		 UartSendByte('\n');
-		 /*UartSendByte(ADC_RES);
-		 UartSendByte(ADC_RESL);//Í¨¹ý´®¿Ú·¢ËÍ½á¹ûµ½PC		 */
-		
+		delay_ms(200);	 //å»¶æ—¶
+		InitADC_light(); //åˆå§‹åŒ–å¹¶å¯åŠ¨ï¼¡ï¼¤ï¼£
+		while (ADC_interrupt_flag == 0)
+			;					//ç­‰å¾…è½¬æ¢å®Œæ¯•
+		ADC_interrupt_flag = 0; //ADCä¸­æ–­æ ‡å¿—æ¸…é›¶ï¼Œä¸ºä¸‹æ¬¡ADCè½¬æ¢åšå‡†å¤‡
+		light = ADC_RES * 256 + ADC_RESL;
+		UartSendByte('T');
+		UartSendByte('h');
+		UartSendByte('e');
+		UartSendByte(' ');
+		UartSendByte('C');
+		UartSendByte('u');
+		UartSendByte('r');
+		UartSendByte('r');
+		UartSendByte('e');
+		UartSendByte('n');
+		UartSendByte('t');
+		UartSendByte(' ');
+		UartSendByte('L');
+		UartSendByte('i');
+		UartSendByte('g');
+		UartSendByte('h');
+		UartSendByte('t');
+		UartSendByte(' ');
+		UartSendByte('i');
+		UartSendByte('n');
+		UartSendByte('t');
+		UartSendByte('e');
+		UartSendByte('n');
+		UartSendByte('s');
+		UartSendByte('i');
+		UartSendByte('t');
+		UartSendByte('y');
+		UartSendByte(' ');
+		UartSendByte('i');
+		UartSendByte('s');
+		UartSendByte(':');
+		UartSendByte('0' + light / 100);
+		UartSendByte('0' + (light / 10) % 10);
+		UartSendByte('0' + light % 10);
+		UartSendByte('\r');
+		UartSendByte('\n');
+		/*UartSendByte(ADC_RES);
+		 UartSendByte(ADC_RESL);//é€šè¿‡ä¸²å£å‘é€ç»“æžœåˆ°PC		 */
 	}
 }
 
-
-//¶¨Òå¶¨Ê±Æ÷1ÖÐ¶Ï
+//å®šä¹‰å®šæ—¶å™¨1ä¸­æ–­
 void Timer1_Routine() interrupt 3
 {
 
-	TH1=(65535-1666)/256;
-	TL1=(65535-1666)%256;
-	timer1_interrupt_flag=1;
-
+	TH1 = (65535 - 1666) / 256;
+	TL1 = (65535 - 1666) % 256;
+	timer1_interrupt_flag = 1;
 }
 
-//ADÖÐ¶Ï
+//ADä¸­æ–­
 void adc_isr() interrupt 5 using 1
 {
-	IE=0x00;
-	ADC_interrupt_flag=1;
-    //Íê³Éºó£¬ADC_FLAGÇåÁã
-	ADC_CONTR&=~0X10;
-	IE=0xa8;
+	IE = 0x00;
+	ADC_interrupt_flag = 1;
+	//å®ŒæˆåŽï¼ŒADC_FLAGæ¸…é›¶
+	ADC_CONTR &= ~0X10;
+	IE = 0xa8;
 }
-
-
-

@@ -3,13 +3,17 @@
 
 int main()
 {
-	int a[] = {8, 3, 6, 1, 68, 12};
-	int n = 6;
+	int a[11];
+	for (int i = 0; i < 11; i++)
+	{
+		cin >> a[i];
+	}
+	
 	cout << "排序前:";
-	Display(a, n);	 // 显示a
-	QuickSort(a, n); // 快速排序
+	Display(a, 11);	 // 显示a
+	QuickSort(a, 11); // 快速排序
 	cout << "排序后:";
-	Display(a, n); // 显示a
+	Display(a, 11); // 显示a
 
 	system("PAUSE"); // 调用库函数system()
 	return 0;		 // 返回值0, 返回操作系统
