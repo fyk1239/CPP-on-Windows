@@ -1,0 +1,5 @@
+﻿  quick_sort.cpp
+D:\my_cpp\DataStructure\Finished_Experiment7_sorting_algorithm\quick_sort.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\my_cpp\DataStructure\Finished_Experiment7_sorting_algorithm\quick_sort.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\my_cpp\DataStructure\Finished_Experiment7_sorting_algorithm\utility.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Experiment7_sorting_algorithm.vcxproj -> D:\my_cpp\DataStructure\Finished_Experiment7_sorting_algorithm\x64\Debug\Experiment7_sorting_algorithm.exe

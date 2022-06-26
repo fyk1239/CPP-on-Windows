@@ -1,5 +1,5 @@
-#include "quick_sort.h" // å¿«é€Ÿæ’åºç®—æ³•
-#include "utility.h"	// å®ç”¨ç¨‹åºè½¯ä»¶åŒ…
+#include "quick_sort.h" // ¿ìËÙÅÅĞòËã·¨
+#include "utility.h"	// ÊµÓÃ³ÌĞòÈí¼ş°ü
 
 int main()
 {
@@ -9,12 +9,12 @@ int main()
 		cin >> a[i];
 	}
 	
-	cout << "æ’åºå‰:";
-	Display(a, 11);	 // æ˜¾ç¤ºa
-	QuickSort(a, 11); // å¿«é€Ÿæ’åº
-	cout << "æ’åºå:";
-	Display(a, 11); // æ˜¾ç¤ºa
+	cout << "ÅÅĞòÇ°:";
+	Display(a, 11);	 // ÏÔÊ¾a
+	QuickSort(a, 11); // ¿ìËÙÅÅĞò
+	cout << "ÅÅĞòºó:";
+	Display(a, 11); // ÏÔÊ¾a
 
-	system("PAUSE"); // è°ƒç”¨åº“å‡½æ•°system()
-	return 0;		 // è¿”å›å€¼0, è¿”å›æ“ä½œç³»ç»Ÿ
+	system("PAUSE"); // µ÷ÓÃ¿âº¯Êısystem()
+	return 0;		 // ·µ»ØÖµ0, ·µ»Ø²Ù×÷ÏµÍ³
 }
